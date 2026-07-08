@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #fdf9ef;
+            background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
+            -webkit-font-smoothing: antialiased;
+        }
+        .manuscript-border {
+            border: 1px solid #4e0616;
+            outline: 1px solid #7e570d;
+            outline-offset: -4px;
+        }
+        .gold-ink {
+            background: linear-gradient(to right, #7e570d 0%, #f3bd6d 50%, #7e570d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .ghungroo-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawPath 3s ease-out forwards;
+        }
+        @keyframes drawPath {
+            to { stroke-dashoffset: 0; }
+        }
+        .wax-seal-glow {
+            box-shadow: 0 0 15px rgba(126, 87, 13, 0.3);
+        }
+        .ghungroo-bell {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ghungroo-bell:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fdf9ef",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f7f3e9",
+                        "primary-fixed-dim": "#ffb2b8",
+                        "surface-dim": "#dddad0",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e6e2d8",
+                        "surface-bright": "#fdf9ef",
+                        "secondary-fixed-dim": "#f3bd6d",
+                        "on-primary-fixed-variant": "#7c2b36",
+                        "inverse-on-surface": "#f4f0e7",
+                        "on-primary-container": "#ef858f",
+                        "primary-container": "#6b1e2a",
+                        "background": "#fdf9ef",
+                        "secondary-fixed": "#ffddb0",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#554243",
+                        "on-primary-fixed": "#40000e",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#614000",
+                        "on-error": "#ffffff",
+                        "surface-container": "#f1eee4",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#4f462d",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#31312a",
+                        "on-background": "#1c1c16",
+                        "outline-variant": "#dac0c1",
+                        "tertiary-fixed-dim": "#d4c5a5",
+                        "primary-fixed": "#ffdadb",
+                        "tertiary-container": "#423922",
+                        "secondary-container": "#ffc877",
+                        "on-secondary-fixed": "#281800",
+                        "outline": "#877273",
+                        "inverse-primary": "#ffb2b8",
+                        "tertiary": "#2b240e",
+                        "primary": "#4e0616",
+                        "secondary": "#7e570d",
+                        "surface-variant": "#e6e2d8",
+                        "surface-container-high": "#ece8de",
+                        "on-secondary-container": "#795207",
+                        "tertiary-fixed": "#f0e1c0",
+                        "surface-tint": "#9a424c",
+                        "on-tertiary-container": "#b0a384",
+                        "on-surface": "#1c1c16",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#221b06"
+                    },
+                    "fontFamily": {
+                        "label-md": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "body-lg": ["EB Garamond"],
+                        "headline-lg": ["EB Garamond"],
+                        "label-lg": ["EB Garamond"],
+                        "headline-md": ["EB Garamond"],
+                        "body-md": ["EB Garamond"]
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen text-on-surface flex flex-col items-center">
+<!-- Top Navigation Bar -->
+<header class="w-full bg-background border-b border-outline-variant flex justify-between items-center px-16 py-6 max-w-7xl mx-auto z-50">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-widest uppercase">Heritage Collection</div>
+<nav class="hidden md:flex gap-12">
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">The Archive</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Folios</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Artisans</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Philosophy</a>
+</nav>
+<div class="flex gap-6 items-center">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-95 transition-transform">shopping_bag</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-95 transition-transform">person</span>
+</div>
+</header>
+<!-- Main Content Frame -->
+<main class="flex-grow w-full max-w-6xl mx-auto my-12 manuscript-border p-12 relative overflow-hidden bg-surface-container-low shadow-2xl">
+<!-- Sacred Geometry Background Accent -->
+<div class="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
+<div class="w-[800px] h-[800px] border-4 border-primary rounded-full flex items-center justify-center">
+<div class="w-[600px] h-[600px] border-2 border-secondary rotate-45"></div>
+</div>
+</div>
+<!-- Hero Section: Lifetime Hours -->
+<section class="relative z-10 text-center mb-16">
+<p class="font-label-lg text-label-lg tracking-[0.2em] text-secondary mb-4 uppercase">Sacred Accumulation</p>
+<h1 class="font-display-lg text-[8rem] leading-none text-primary font-bold">1,248</h1>
+<p class="font-headline-md text-headline-md italic text-on-surface-variant -mt-4">Ghungroo Hours Manifested</p>
+<!-- Central Ghungroo Illustration -->
+<div class="mt-12 flex justify-center items-center gap-2">
+<!-- String of bells representing progress -->
+<div class="flex gap-4 items-center justify-center p-8">
+<!-- Bell 1: Filled (Active) -->
+<div class="ghungroo-bell relative">
+<span class="material-symbols-outlined text-5xl text-secondary" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<div class="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full animate-pulse"></div>
+</div>
+<!-- Connector line -->
+<div class="w-12 h-[2px] bg-secondary"></div>
+<!-- Bell 2: Filled -->
+<div class="ghungroo-bell">
+<span class="material-symbols-outlined text-5xl text-secondary" style="font-variation-settings: 'FILL' 1;">notifications</span>
+</div>
+<div class="w-12 h-[2px] bg-secondary"></div>
+<!-- Bell 3: Current -->
+<div class="ghungroo-bell">
+<span class="material-symbols-outlined text-6xl text-primary" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+</div>
+<div class="w-12 h-[2px] bg-outline-variant"></div>
+<!-- Bell 4: Empty (Future) -->
+<div class="ghungroo-bell opacity-30">
+<span class="material-symbols-outlined text-5xl text-outline-variant">notifications</span>
+</div>
+<div class="w-12 h-[2px] bg-outline-variant"></div>
+<!-- Bell 5: Empty -->
+<div class="ghungroo-bell opacity-30">
+<span class="material-symbols-outlined text-5xl text-outline-variant">notifications</span>
+</div>
+</div>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant max-w-md mx-auto mt-6">
+                Each bell resonates with the discipline of a thousand steps. Your journey continues toward the next sacred resonance.
+            </p>
+</section>
+<!-- Manuscript Break Divider -->
+<div class="w-full flex items-center justify-center my-20">
+<div class="h-[1px] flex-grow bg-gradient-to-r from-transparent via-outline-variant to-transparent"></div>
+<div class="mx-8 transform rotate-45 border-2 border-secondary p-1">
+<div class="w-2 h-2 bg-primary"></div>
+</div>
+<div class="h-[1px] flex-grow bg-gradient-to-r from-transparent via-outline-variant to-transparent"></div>
+</div>
+<!-- Milestone Ribbon Path -->
+<section class="relative px-8">
+<h2 class="font-headline-lg text-headline-lg text-center text-primary mb-16">The Path of Revered Milestones</h2>
+<div class="relative py-24 px-4 overflow-x-auto no-scrollbar">
+<!-- Ribbon Background -->
+<div class="absolute top-1/2 left-0 w-[1800px] h-24 bg-surface-container-highest -translate-y-1/2 rounded-full opacity-40 border border-outline-variant rotate-1 shadow-inner"></div>
+<!-- Gold Ink Line -->
+<div class="absolute top-1/2 left-10 w-[1700px] h-1 bg-gradient-to-r from-secondary via-secondary-fixed to-outline-variant -translate-y-1/2 z-0"></div>
+<div class="relative flex justify-between w-[1700px] z-10 px-10">
+<!-- Milestone 10h (Achieved) -->
+<div class="flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-surface border-2 border-secondary flex items-center justify-center relative mb-4 wax-seal-glow shadow-md hover:scale-105 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">verified</span>
+<div class="absolute -bottom-2 -right-2 bg-primary text-on-primary text-[10px] px-2 py-1 uppercase tracking-widest font-bold">10H</div>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">Novice Folio</p>
+</div>
+<!-- Milestone 50h (Achieved) -->
+<div class="flex flex-col items-center">
+<div class="w-28 h-28 rounded-full bg-surface border-2 border-secondary flex items-center justify-center relative mb-4 wax-seal-glow shadow-md hover:scale-105 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<div class="absolute -bottom-2 -right-2 bg-primary text-on-primary text-[10px] px-2 py-1 uppercase tracking-widest font-bold">50H</div>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">Steady Rhythm</p>
+</div>
+<!-- Milestone 100h (Achieved) -->
+<div class="flex flex-col items-center">
+<div class="w-32 h-32 rounded-full bg-surface border-2 border-secondary flex items-center justify-center relative mb-4 wax-seal-glow shadow-md hover:scale-105 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-primary text-6xl" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<div class="absolute -bottom-2 -right-2 bg-primary text-on-primary text-[10px] px-2 py-1 uppercase tracking-widest font-bold">100H</div>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">The Disciple</p>
+</div>
+<!-- Milestone 500h (Achieved) -->
+<div class="flex flex-col items-center">
+<div class="w-36 h-36 rounded-full bg-surface border-4 border-secondary-fixed flex items-center justify-center relative mb-4 wax-seal-glow shadow-md hover:scale-105 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-secondary text-7xl" style="font-variation-settings: 'FILL' 1;">stars</span>
+<div class="absolute -bottom-2 -right-2 bg-primary text-on-primary text-[10px] px-2 py-1 uppercase tracking-widest font-bold">500H</div>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-bold">Resonant Spirit</p>
+</div>
+<!-- Milestone 1000h (Current Goal) -->
+<div class="flex flex-col items-center">
+<div class="w-40 h-40 rounded-full bg-surface-container-highest border-2 border-dashed border-secondary flex items-center justify-center relative mb-4 shadow-sm group">
+<span class="material-symbols-outlined text-outline-variant text-7xl group-hover:text-secondary transition-colors">lock</span>
+<div class="absolute -bottom-2 -right-2 bg-on-surface-variant text-on-primary text-[10px] px-2 py-1 uppercase tracking-widest font-bold">1000H</div>
+<div class="absolute inset-0 rounded-full border-4 border-primary opacity-20 animate-ping"></div>
+</div>
+<p class="font-label-md text-label-md text-secondary">The Artisan</p>
+</div>
+<!-- Milestone 5000h -->
+<div class="flex flex-col items-center opacity-40">
+<div class="w-32 h-32 rounded-full bg-surface-dim border border-outline flex items-center justify-center relative mb-4">
+<span class="material-symbols-outlined text-outline text-5xl">lock</span>
+<div class="absolute -bottom-2 -right-2 bg-outline text-on-primary text-[10px] px-2 py-1 uppercase tracking-widest font-bold">5000H</div>
+</div>
+<p class="font-label-md text-label-md text-outline">Eternal Resonance</p>
+</div>
+<!-- Milestone 10000h -->
+<div class="flex flex-col items-center opacity-40">
+<div class="w-32 h-32 rounded-full bg-surface-dim border border-outline flex items-center justify-center relative mb-4">
+<span class="material-symbols-outlined text-outline text-5xl">lock</span>
+<div class="absolute -bottom-2 -right-2 bg-outline text-on-primary text-[10px] px-2 py-1 uppercase tracking-widest font-bold">10000H</div>
+</div>
+<p class="font-label-md text-label-md text-outline">The Grand Archivist</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Bento-ish Grid -->
+<section class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Daily Record -->
+<div class="p-8 border border-outline-variant bg-surface-container hover:bg-surface-container-high transition-colors">
+<p class="font-label-lg text-label-lg text-secondary tracking-widest mb-2 uppercase">Longest Vigil</p>
+<div class="font-headline-lg text-headline-lg text-primary">8.5 Hours</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 italic">May 14, 2024 - Vernal Solstice Practice</p>
+</div>
+<!-- Monthly Progress -->
+<div class="p-8 border border-outline-variant bg-surface-container-high col-span-1 md:col-span-2 flex items-center justify-between">
+<div>
+<p class="font-label-lg text-label-lg text-secondary tracking-widest mb-2 uppercase">Monthly Devotion</p>
+<div class="font-headline-lg text-headline-lg text-primary">142 Hours This Moon</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 italic">+12% from previous cycle</p>
+</div>
+<div class="h-24 w-48 flex items-end gap-1 px-4">
+<div class="flex-grow bg-primary h-[30%] opacity-20"></div>
+<div class="flex-grow bg-primary h-[45%] opacity-40"></div>
+<div class="flex-grow bg-primary h-[40%] opacity-30"></div>
+<div class="flex-grow bg-primary h-[60%] opacity-60"></div>
+<div class="flex-grow bg-primary h-[85%] opacity-100"></div>
+<div class="flex-grow bg-primary h-[70%] opacity-80"></div>
+<div class="flex-grow bg-primary h-[90%] opacity-100 animate-pulse"></div>
+</div>
+</div>
+</section>
+<!-- Bottom Action CTA -->
+<div class="mt-20 text-center">
+<button class="px-12 py-4 border border-primary bg-surface hover:bg-secondary-fixed transition-colors duration-300 font-label-lg text-label-lg text-primary tracking-[0.2em] uppercase">
+                Commence New Session
+            </button>
+<p class="font-body-md text-body-md italic text-on-surface-variant mt-6">"Let the bells speak the language of the ancestors."</p>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-background border-t border-outline-variant py-12 px-margin-page text-center mt-auto">
+<div class="font-headline-md text-headline-md text-primary mb-6">Heritage Collection</div>
+<div class="flex flex-wrap justify-center gap-stack-md mb-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Archives</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Artisan Fellowship</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact</a>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Heritage Collection. Sacred &amp; Revered.</p>
+</footer>
+<!-- Script for subtle micro-interactions -->
+<script>
+        document.querySelectorAll('.ghungroo-bell').forEach(bell => {
+            bell.addEventListener('click', () => {
+                const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-20.mp3'); // Fallback placeholder sound
+                audio.volume = 0.2;
+                audio.play().catch(e => console.log('Sound playback blocked'));
+                
+                bell.classList.add('scale-125');
+                setTimeout(() => bell.classList.remove('scale-125'), 300);
+            });
+        });
+
+        // Simple horizontal scrolling for milestone ribbon
+        const ribbon = document.querySelector('section.relative.py-24');
+        if (ribbon) {
+            ribbon.addEventListener('wheel', (evt) => {
+                evt.preventDefault();
+                ribbon.scrollLeft += evt.deltaY;
+            });
+        }
+    </script>
+</body></html>

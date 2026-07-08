@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heritage Collection | Product Showcase</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: EB Garamond for the manuscript feel -->
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#2b240e",
+                    "surface-container-high": "#ece8de",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#4e0616",
+                    "tertiary-fixed": "#f0e1c0",
+                    "on-surface": "#1c1c16",
+                    "on-secondary-container": "#795207",
+                    "background": "#fdf9ef",
+                    "inverse-surface": "#31312a",
+                    "tertiary-container": "#423922",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "surface": "#fdf9ef",
+                    "on-secondary-fixed-variant": "#614000",
+                    "on-surface-variant": "#554243",
+                    "outline": "#877273",
+                    "surface-variant": "#e6e2d8",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#7c2b36",
+                    "tertiary-fixed-dim": "#d4c5a5",
+                    "surface-dim": "#dddad0",
+                    "surface-tint": "#9a424c",
+                    "on-primary-container": "#ef858f",
+                    "primary-fixed-dim": "#ffb2b8",
+                    "on-primary-fixed": "#40000e",
+                    "secondary-fixed-dim": "#f3bd6d",
+                    "primary-fixed": "#ffdadb",
+                    "primary-container": "#6b1e2a",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#4f462d",
+                    "surface-container": "#f1eee4",
+                    "inverse-on-surface": "#f4f0e7",
+                    "surface-container-low": "#f7f3e9",
+                    "secondary-fixed": "#ffddb0",
+                    "on-secondary-fixed": "#281800",
+                    "surface-bright": "#fdf9ef",
+                    "on-tertiary-fixed": "#221b06",
+                    "inverse-primary": "#ffb2b8",
+                    "outline-variant": "#dac0c1",
+                    "on-background": "#1c1c16",
+                    "secondary-container": "#ffc877",
+                    "on-tertiary-container": "#b0a384",
+                    "on-error-container": "#93000a",
+                    "secondary": "#7e570d",
+                    "surface-container-highest": "#e6e2d8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "1.5rem",
+                    "section-gap": "6rem",
+                    "stack-md": "1.5rem",
+                    "margin-page": "4rem",
+                    "gutter": "2rem",
+                    "stack-sm": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline-lg": ["EB Garamond"],
+                    "display-lg-mobile": ["EB Garamond"],
+                    "label-lg": ["EB Garamond"],
+                    "label-md": ["EB Garamond"],
+                    "body-md": ["EB Garamond"],
+                    "body-lg": ["EB Garamond"],
+                    "display-lg": ["EB Garamond"],
+                    "headline-md": ["EB Garamond"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .parchment-bg {
+            background-image: radial-gradient(#e8d9b8 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            background-color: #fdf9ef;
+        }
+        .miniature-border {
+            border: 1px solid #7e570d;
+            padding: 4px;
+            position: relative;
+        }
+        .miniature-border::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border: 2px solid #4e0616;
+            pointer-events: none;
+        }
+        .manuscript-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .manuscript-divider::before, .manuscript-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #7e570d, transparent);
+        }
+        .manuscript-divider span {
+            margin: 0 16px;
+            color: #7e570d;
+            font-size: 18px;
+        }
+        .jali-pattern {
+            background-color: #fdf9ef;
+            opacity: 0.05;
+            background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #fdf9ef 10px ), repeating-linear-gradient( #7e570d55, #7e570d );
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface parchment-bg min-h-screen flex flex-col font-body-md">
+<!-- TopAppBar -->
+<header class="w-full bg-background border-b border-outline-variant z-50">
+<div class="flex justify-between items-center w-full px-margin-page py-6 max-w-7xl mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-widest uppercase">
+                Heritage Collection
+            </div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-lg text-label-lg text-primary border-b border-primary hover:text-primary transition-colors duration-300" href="#">The Archive</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Folios</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Artisans</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Philosophy</a>
+</nav>
+<div class="flex items-center gap-6">
+<button class="scale-95 transition-transform duration-200 text-primary">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+<button class="scale-95 transition-transform duration-200 text-primary">
+<span class="material-symbols-outlined">person</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow max-w-7xl mx-auto px-margin-page py-section-gap relative">
+<!-- Section Header -->
+<div class="text-center mb-16">
+<h1 class="font-display-lg text-display-lg text-primary mb-4">Imperial Gallery</h1>
+<div class="manuscript-divider mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_florist</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto italic">
+                A curated exhibition of sacred artifacts, hand-bound folios, and imperial crafts from the golden era of the 16th-century courts.
+            </p>
+</div>
+<!-- Filter Bar -->
+<div class="flex flex-wrap justify-center gap-gutter mb-12">
+<button class="px-6 py-2 border-b border-primary text-primary font-label-lg uppercase tracking-widest hover:text-secondary transition-colors">
+                All Works
+            </button>
+<button class="px-6 py-2 border-b border-transparent text-on-surface-variant font-label-lg uppercase tracking-widest hover:text-primary transition-colors">
+                Miniatures
+            </button>
+<button class="px-6 py-2 border-b border-transparent text-on-surface-variant font-label-lg uppercase tracking-widest hover:text-primary transition-colors">
+                Calligraphy
+            </button>
+<button class="px-6 py-2 border-b border-transparent text-on-surface-variant font-label-lg uppercase tracking-widest hover:text-primary transition-colors">
+                Textiles
+            </button>
+<button class="px-6 py-2 border-b border-transparent text-on-surface-variant font-label-lg uppercase tracking-widest hover:text-primary transition-colors">
+                Ornamentation
+            </button>
+</div>
+<!-- Bento Gallery Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Featured Large Item -->
+<div class="md:col-span-8 group cursor-pointer">
+<div class="miniature-border h-full bg-surface-container-low transition-all duration-500 hover:scale-[1.01]">
+<div class="relative overflow-hidden aspect-[16/10]">
+<img class="w-full h-full object-cover" data-alt="A grand Mughal miniature painting style product showcase of a royal velvet throne with intricate gold zardozi embroidery. The setting is a marble courtyard at twilight, illuminated by ornate lanterns. The image features a warm, sacred ivory and gold color palette with deep maroon accents in the fabric textures, shot in a high-detail traditional-tactile aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlYwZHOyebaouBNLgF_t2aKwBK4GKuLlWJImhoG8j7raT9GPDUUMVCUNrlX8pXzoUISx_rn_INchvOSuHXryCpa23gwTwh9Wqr6aSsykZbx4bL4n9h6CsUVqLbD7H06myiJ_eSa3pnihW8EqSCSFUKSxkyNzEkURctm3oUqPfNpb1Qom7veL7LhFztWVtNF4jNS6FaJAFut9pVvOtfy74m6Jy8ZNXpO_sWdwHYnKQ8TqHQXJFjFLbhqYFCHAijsbDn6ovl3QP8wgI"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+</div>
+<div class="p-8 text-center bg-surface">
+<span class="font-label-md text-label-md text-secondary mb-2 block uppercase tracking-[0.2em]">Masterpiece Folio</span>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-3">The Imperial Diwan of Ghalib</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 px-12 italic">Hand-bound in deep crimson leather with 24k gold leaf illumination on every vellum page.</p>
+<button class="px-10 py-3 border border-primary text-primary font-label-lg uppercase tracking-widest hover:bg-tertiary-fixed transition-colors">
+                            Enquire for Acquisition
+                        </button>
+</div>
+</div>
+</div>
+<!-- Side Small Item 1 -->
+<div class="md:col-span-4 group cursor-pointer">
+<div class="miniature-border h-full bg-surface-container-low transition-all duration-500 hover:scale-[1.01]">
+<div class="relative overflow-hidden aspect-square">
+<img class="w-full h-full object-cover" data-alt="Close-up of an antique calligraphy set featuring a carved reed pen and a porcelain ink pot with deep maroon ink. The background is a textured sandstone beige parchment with subtle floral motifs in gold ink. The lighting is soft and side-lit, emphasizing the handcrafted texture of the tools in a traditional Mughal art style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0dcLwRGMtJL6L0fu2hNf_5ODtT7B3G4Fr1k2YjMFwsYMM3pupZaqp0_XyWnLOzxSj5txyxWzfvnymgS1SmvArMypsvNrUelCR0dVSmCLW3592hydfELkCCXtfurqd3imCqFGfHVsypUfYlAPDcf4tCinIcbOz4YpYVBVCe8KnonaWIc2anxXiuv5AX2Ixn_sN9xvOHp6xIwSKb9NGHgHRwWvAIomOz2CAXa8O4Ko2r7qk6pF3Qo9ltjtYvHBE9FjclCchAMSYuSM"/>
+</div>
+<div class="p-6 text-center bg-surface">
+<span class="font-label-md text-label-md text-secondary mb-1 block uppercase tracking-[0.2em]">Sacred Tools</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Qalam &amp; Ink of Isfahan</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Hand-carved Bamboo &amp; Saffron Pigment</p>
+</div>
+</div>
+</div>
+<!-- Row 2 - Small Item -->
+<div class="md:col-span-4 group cursor-pointer">
+<div class="miniature-border h-full bg-surface-container-low transition-all duration-500 hover:scale-[1.01]">
+<div class="relative overflow-hidden aspect-[4/5]">
+<img class="w-full h-full object-cover" data-alt="A luxurious pashmina shawl draped over an antique wooden chest. The shawl features complex cypress tree motifs and floral vines in ivory, gold, and deep maroon. The lighting is low-key and dramatic, casting long shadows on a textured parchment background. The overall aesthetic is one of ancient luxury and revered craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7mS5quI4zyYMRT9S9gTWpVE2z9v3P4UhArECevnaV36u90Ne96o64cHb1SjHNPXOlZq4fe246U3PWopYIRDHjYgkCqLhGS8CN71BeSFoX98OPoOXepihR7VVERZ4qsElCydKjgXYoExyzPM-5Xu1ZbnouteO9AESSY5oc0lm9019QNX0FKAiz14LWcsXZwPpB4RjqboCm8tTCxse13j8IjnPPy_2T4k3tgDM7C49weqCwMv-uyJ2G88wf8EkfQxbuo4SDx2hmUho"/>
+</div>
+<div class="p-6 text-center bg-surface">
+<span class="font-label-md text-label-md text-secondary mb-1 block uppercase tracking-[0.2em]">Royal Garment</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Sultan's Pashmina</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Hand-loomed in the High Valleys</p>
+</div>
+</div>
+</div>
+<!-- Row 2 - Wide Item -->
+<div class="md:col-span-8 group cursor-pointer">
+<div class="miniature-border h-full bg-surface-container-low transition-all duration-500 hover:scale-[1.01]">
+<div class="relative overflow-hidden aspect-[21/9]">
+<img class="w-full h-full object-cover" data-alt="A wide-angle display of ceremonial sandalwood boxes with intricate latticework carvings. The boxes are arranged on an ivory marble plinth within a palace corridor. Warm gold lighting highlights the delicate textures of the wood and the maroon velvet lining visible in one open box. The atmosphere is reverent and timeless, like a sacred archive." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuMaoCJ9o_eRbiGgiejAAIzeljKYs3vnTifsiD-qH0P0am17_SKC-3BOKCPFX-FODARkohlaMYqABlQwaXhdsPovMuXtQeaTopcz63h-cTYXdjtGOOovi1nCMZNFjIhPpE5bhjLTWuR_s6WkHpbzTnM_28_utsKOKWkmiigWqJ-oJHji0J9aBtPCMZUHs3miiTN_I_ILnbr5XOv2Pc4ZNKtHJhpLWt0MKXrwK2F0Ahx7w34dyftitxDz-SKyNtjkOWe_X1ilc0WUw"/>
+</div>
+<div class="p-8 text-center bg-surface flex flex-col items-center justify-center">
+<span class="font-label-md text-label-md text-secondary mb-2 block uppercase tracking-[0.2em]">Treasury Box</span>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-3">The Jali Sandalwood Casket</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-lg italic">Intricate geometric latticework inspired by the screens of the Taj Mahal.</p>
+</div>
+</div>
+</div>
+<!-- Row 3 - Grid of Three -->
+<div class="md:col-span-4 group cursor-pointer">
+<div class="miniature-border h-full bg-surface-container-low transition-all duration-500 hover:scale-[1.01]">
+<div class="relative overflow-hidden aspect-square">
+<img class="w-full h-full object-cover" data-alt="Macro detail of a gold ghungroo-style jewelry piece with deep maroon gemstones. The piece is set against an aged vellum background with hand-drawn floral patterns in faint gold lines. The aesthetic is precious and ancient, with a soft focus on the background to emphasize the tactile quality of the jewelry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXvoITsS1HK2P9-QkEPYFE4BBfod6pRpxgwzPp1sj8tMPWH_mUX61ebycCtG_YHPdwQgzHsS05Cy6RWjZfuRMkFz581ZlDgonKDTfcx7OEayVpMNMlP4GGd9jJhzGf3PMysgE60jXx2uPxgfSgOslJFbsR3XzZ_CKKUOglKbWMoI995HNLVIH1UY29ppZGfcUJvTwCjbGfJyoJdmc_pc7VawGmRoJNRUj_cBH9hgs84xOiE3SM4clgS5G8FAR7SKfjtCkOp_aSwoU"/>
+</div>
+<div class="p-6 text-center bg-surface">
+<span class="font-label-md text-label-md text-secondary mb-1 block uppercase tracking-[0.2em]">Ornament</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Ghungroo Earrings</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Solid Gold with Garnet Inlay</p>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 group cursor-pointer">
+<div class="miniature-border h-full bg-surface-container-low transition-all duration-500 hover:scale-[1.01]">
+<div class="relative overflow-hidden aspect-square">
+<img class="w-full h-full object-cover" data-alt="A collection of handmade artisan incense holders made of polished brass and deep maroon lacquer. They are presented on a sandstone surface with scattered rose petals. The lighting is serene and ethereal, creating a sense of sacred ritual and traditional luxury in a light-mode color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOsCuFkdQOmNOQPu_DDHbwSXKwQ08NO92JU5c1Z8dg07WIIXGLAVF_7DuSxLOtU-nX9UPPWGUC1Yig_jJ7BOHWrMAtkw695NzoRXQM6IsiwCmfPedp3b_R7A8vRsltT65Vk7uA_nRZ4mH1uC6Mv1BWoHzzDzA_CZlWwHI3fPQNtI3GSLRSs8qi6WL9M2c_PXRLDfgffMcx1N9vL0tpqG_lt3fdsPTJJkb2L9cOVIAEkdpH3N2PduohZWVDcFa55GoDF6l33U3un_4"/>
+</div>
+<div class="p-6 text-center bg-surface">
+<span class="font-label-md text-label-md text-secondary mb-1 block uppercase tracking-[0.2em]">Fragrance</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Temple Incense Set</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Polished Brass &amp; Myrrh Resin</p>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 group cursor-pointer">
+<div class="miniature-border h-full bg-surface-container-low transition-all duration-500 hover:scale-[1.01]">
+<div class="relative overflow-hidden aspect-square">
+<img class="w-full h-full object-cover" data-alt="A detail shot of a leather-bound journal with a 1px gold antique border and ivory parchment pages. The cover is a rich deep maroon leather with a central gold embossed lotus flower. It sits on a table made of dark wood with ancient manuscripts in the background, creating a mood of reverence and scholarship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeu7md_eOw3u6qcT0Zk8_QLQ-ZbbT35Am1GsrZvAgnRQ2Qp6JTDRKPXkkAxnxnv5zhNnJzH3Y06oveNT_ajM_7oj3zOiqj9WKSdwuoYjiya2f8M-1DQwZUGUTN52bj-CbDVyIL1jhjYZBmdq61UGaesRBlY8eBA5F7KA5yfJHjZfN7MDuw6jLU8bWMAaoNYVABxhS2-sch6YkaSSWfeKp6IF00NTyDNuNOwpNyivU3u_Uo4Mma46z_vKwpMSK5WeH0SPdaI6_9wW0"/>
+</div>
+<div class="p-6 text-center bg-surface">
+<span class="font-label-md text-label-md text-secondary mb-1 block uppercase tracking-[0.2em]">Manuscript</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Artisan's Journal</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Hand-stitched Vegetable Tanned Leather</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination/Footer Navigator -->
+<div class="mt-section-gap text-center">
+<div class="manuscript-divider mb-8">
+<span class="material-symbols-outlined">star</span>
+</div>
+<button class="group inline-flex flex-col items-center gap-4 transition-all hover:translate-y-[-4px]">
+<span class="font-label-lg text-label-lg uppercase tracking-[0.3em] text-on-surface-variant">Next Gallery</span>
+<span class="font-headline-lg text-headline-lg text-primary">The Weaver's Fellowship</span>
+<span class="material-symbols-outlined text-secondary text-4xl animate-bounce">expand_more</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-background border-t border-outline-variant py-12 mt-24">
+<div class="w-full flex flex-col items-center justify-center gap-stack-md px-margin-page text-center">
+<div class="font-headline-md text-headline-md text-primary font-bold uppercase tracking-widest mb-4">
+                Heritage Collection
+            </div>
+<div class="flex flex-wrap justify-center gap-8 mb-6">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors uppercase tracking-widest" href="#">Archives</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors uppercase tracking-widest" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors uppercase tracking-widest" href="#">Artisan Fellowship</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors uppercase tracking-widest" href="#">Contact</a>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant italic mb-6">
+                © 2024 Heritage Collection. Sacred &amp; Revered.
+            </div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">stylus_note</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">castle</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">history_edu</span>
+</div>
+</div>
+</footer>
+<!-- Interactive script for subtle scroll effects -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.miniature-border');
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body></html>

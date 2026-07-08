@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heritage Collection | New Manuscript Entry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface": "#fdf9ef",
+                "error": "#ba1a1a",
+                "surface-container-low": "#f7f3e9",
+                "primary-fixed-dim": "#ffb2b8",
+                "surface-dim": "#dddad0",
+                "on-secondary": "#ffffff",
+                "surface-container-highest": "#e6e2d8",
+                "surface-bright": "#fdf9ef",
+                "secondary-fixed-dim": "#f3bd6d",
+                "on-primary-fixed-variant": "#7c2b36",
+                "inverse-on-surface": "#f4f0e7",
+                "on-primary-container": "#ef858f",
+                "primary-container": "#6b1e2a",
+                "background": "#fdf9ef",
+                "secondary-fixed": "#ffddb0",
+                "on-primary": "#ffffff",
+                "on-surface-variant": "#554243",
+                "on-primary-fixed": "#40000e",
+                "on-error-container": "#93000a",
+                "on-secondary-fixed-variant": "#614000",
+                "on-error": "#ffffff",
+                "surface-container": "#f1eee4",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed-variant": "#4f462d",
+                "on-tertiary": "#ffffff",
+                "inverse-surface": "#31312a",
+                "on-background": "#1c1c16",
+                "outline-variant": "#dac0c1",
+                "tertiary-fixed-dim": "#d4c5a5",
+                "primary-fixed": "#ffdadb",
+                "tertiary-container": "#423922",
+                "secondary-container": "#ffc877",
+                "on-secondary-fixed": "#281800",
+                "outline": "#877273",
+                "inverse-primary": "#ffb2b8",
+                "tertiary": "#2b240e",
+                "primary": "#4e0616",
+                "secondary": "#7e570d",
+                "surface-variant": "#e6e2d8",
+                "surface-container-high": "#ece8de",
+                "on-secondary-container": "#795207",
+                "tertiary-fixed": "#f0e1c0",
+                "surface-tint": "#9a424c",
+                "on-tertiary-container": "#b0a384",
+                "on-surface": "#1c1c16",
+                "surface-container-lowest": "#ffffff",
+                "on-tertiary-fixed": "#221b06"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "stack-sm": "0.75rem",
+                "margin-page": "4rem",
+                "margin-mobile": "1.5rem",
+                "section-gap": "6rem",
+                "stack-md": "1.5rem",
+                "gutter": "2rem"
+            },
+            "fontFamily": {
+                "label-md": ["EB Garamond"],
+                "display-lg": ["EB Garamond"],
+                "body-lg": ["EB Garamond"],
+                "headline-lg": ["EB Garamond"],
+                "display-lg-mobile": ["EB Garamond"],
+                "label-lg": ["EB Garamond"],
+                "headline-md": ["EB Garamond"],
+                "body-md": ["EB Garamond"]
+            },
+            "fontSize": {
+                "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #fdf9ef;
+            font-family: 'EB Garamond', serif;
+            color: #1c1c16;
+            margin: 0;
+            padding: 0;
+        }
+
+        .parchment-bg {
+            background-color: #fdf9ef;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(232, 217, 184, 0.15) 0%, transparent 80%),
+                url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+
+        .manuscript-frame {
+            border: 1px solid #7e570d; /* Antique Gold */
+            padding: 1px;
+            position: relative;
+        }
+
+        .manuscript-frame::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 1px solid #4e0616; /* Deep Maroon */
+            pointer-events: none;
+        }
+
+        .manuscript-break {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #7e570d 50%, transparent);
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .manuscript-break::after {
+            content: '❦';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: #fdf9ef;
+            padding: 0 1rem;
+            color: #7e570d;
+            font-size: 1.2rem;
+        }
+
+        .ghungroo-rating {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ghungroo-bell {
+            cursor: pointer;
+            color: #dac0c1;
+            transition: color 0.3s;
+        }
+
+        .ghungroo-bell.active {
+            color: #7e570d;
+        }
+
+        .custom-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #4e0616;
+            padding: 0.5rem 0;
+            width: 100%;
+            outline: none;
+            color: #4e0616;
+        }
+
+        .custom-input:focus {
+            border-bottom: 2px solid #4e0616;
+            box-shadow: none;
+        }
+
+        .custom-label {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            font-size: 0.875rem;
+            color: #4e0616;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .bols-area {
+            background: rgba(232, 217, 184, 0.1);
+            border: 1px dashed #7e570d;
+            font-family: 'EB Garamond', serif;
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
+
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .float-decoration {
+            animation: subtle-float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="parchment-bg">
+<!-- TopNavBar (Shared Component) -->
+<nav class="flex justify-between items-center w-full px-margin-page py-6 max-w-7xl mx-auto border-b border-outline-variant bg-background">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-widest">HERITAGE COLLECTION</div>
+<div class="hidden md:flex gap-8">
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">The Archive</a>
+<a class="font-label-lg text-label-lg text-primary border-b border-primary" href="#">Folios</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Artisans</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Philosophy</a>
+</div>
+<div class="flex gap-stack-md">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-95 transition-transform" data-icon="shopping_bag">shopping_bag</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-95 transition-transform" data-icon="person">person</span>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="max-w-4xl mx-auto px-margin-mobile md:px-margin-page py-section-gap">
+<!-- Header -->
+<header class="text-center mb-16 relative">
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-[120px] text-secondary" data-icon="auto_stories">auto_stories</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary mb-4">Add to your manuscript</h1>
+<p class="font-body-md text-body-md text-on-surface-variant italic">Chronicle the rhythms of your journey into the sacred scrolls.</p>
+</header>
+<!-- Form Section: The Manuscript Frame -->
+<div class="manuscript-frame bg-surface p-8 md:p-12 shadow-sm">
+<form class="space-y-12" id="manuscriptForm">
+<!-- Identity Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+<div>
+<label class="custom-label">Title of Composition</label>
+<input class="custom-input font-headline-md text-headline-md" placeholder="e.g. Shiva Vandana" type="text"/>
+</div>
+<div>
+<label class="custom-label">Composition Type</label>
+<select class="custom-input font-body-md text-body-md bg-transparent">
+<option>Vandana</option>
+<option>Amad</option>
+<option>Tora</option>
+<option>Tukra</option>
+<option>Paran</option>
+</select>
+</div>
+<div>
+<label class="custom-label">Date Learned</label>
+<input class="custom-input font-body-md text-body-md" type="date"/>
+</div>
+<div>
+<label class="custom-label">Guru Name</label>
+<input class="custom-input font-body-md text-body-md" placeholder="The master who passed this down..." type="text"/>
+</div>
+<div>
+<label class="custom-label">Gharana</label>
+<select class="custom-input font-body-md text-body-md bg-transparent">
+<option>Lucknow Gharana</option>
+<option>Jaipur Gharana</option>
+<option>Banaras Gharana</option>
+<option>Raigarh Gharana</option>
+</select>
+</div>
+<div>
+<label class="custom-label">Difficulty (Technical Depth)</label>
+<div class="ghungroo-rating mt-2" id="ghungrooRating">
+<span class="material-symbols-outlined ghungroo-bell text-2xl" data-icon="notifications" onclick="rate(1)">notifications</span>
+<span class="material-symbols-outlined ghungroo-bell text-2xl" data-icon="notifications" onclick="rate(2)">notifications</span>
+<span class="material-symbols-outlined ghungroo-bell text-2xl" data-icon="notifications" onclick="rate(3)">notifications</span>
+<span class="material-symbols-outlined ghungroo-bell text-2xl" data-icon="notifications" onclick="rate(4)">notifications</span>
+<span class="material-symbols-outlined ghungroo-bell text-2xl" data-icon="notifications" onclick="rate(5)">notifications</span>
+</div>
+</div>
+</div>
+<div class="manuscript-break"></div>
+<!-- Bols Section -->
+<div>
+<label class="custom-label mb-4">The Bols (Rhythmic Syllables)</label>
+<textarea class="bols-area w-full p-6 text-xl md:text-2xl text-center italic placeholder:text-outline-variant focus:outline-none focus:border-secondary" placeholder="Dha Ta ka Thun ga..." rows="6"></textarea>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
+<!-- Meaning -->
+<div>
+<label class="custom-label">Meaning &amp; Poetry</label>
+<textarea class="custom-input font-body-md text-body-md h-32 border border-outline-variant p-3 focus:border-primary" placeholder="The spiritual significance behind each movement..." rows="4"></textarea>
+</div>
+<!-- Performance Instructions -->
+<div>
+<label class="custom-label">Performance Instructions</label>
+<textarea class="custom-input font-body-md text-body-md h-32 border border-outline-variant p-3 focus:border-primary" placeholder="Specific focus on footwork weight or hand placement..." rows="4"></textarea>
+</div>
+</div>
+<!-- Guru's Corrections -->
+<div class="bg-surface-container-low p-6 border-l-4 border-secondary italic">
+<label class="custom-label mb-2">Corrections from Guru</label>
+<textarea class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md" placeholder="Words of wisdom to refine the practice..." rows="3"></textarea>
+</div>
+<!-- Media Upload Zone -->
+<div class="mt-12">
+<label class="custom-label mb-4">Media Archives</label>
+<div class="border-2 border-dashed border-outline-variant rounded-none p-12 text-center hover:border-secondary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-secondary mb-2" data-icon="upload_file">upload_file</span>
+<p class="font-label-lg text-label-lg text-on-surface-variant group-hover:text-primary">Attach video demonstration or vocal recording</p>
+<p class="text-[10px] uppercase tracking-widest mt-2 text-outline">Max 50MB per file</p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col md:flex-row justify-center items-center gap-6 pt-12">
+<button class="px-12 py-3 border border-primary text-on-primary bg-primary font-label-lg text-label-lg tracking-[0.2em] uppercase hover:bg-primary-container transition-all" type="button">
+                        Save Composition
+                    </button>
+<button class="px-12 py-3 border border-outline text-primary font-label-lg text-label-lg tracking-[0.2em] uppercase hover:bg-surface-container-high transition-all" type="button">
+                        Cancel
+                    </button>
+</div>
+</form>
+</div>
+</main>
+<!-- Visual Accents -->
+<div class="fixed top-1/4 -left-12 opacity-5 pointer-events-none float-decoration">
+<span class="material-symbols-outlined text-[300px] text-primary" data-icon="spa">spa</span>
+</div>
+<div class="fixed bottom-1/4 -right-12 opacity-5 pointer-events-none float-decoration" style="animation-delay: -3s;">
+<span class="material-symbols-outlined text-[300px] text-primary" data-icon="grid_goldenratio">grid_goldenratio</span>
+</div>
+<!-- Footer (Shared Component) -->
+<footer class="w-full flex flex-col items-center justify-center gap-stack-md px-margin-page text-center border-t border-outline-variant py-12 bg-background mt-section-gap">
+<div class="font-headline-md text-headline-md text-primary">Heritage Collection</div>
+<div class="flex gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Archives</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Artisan Fellowship</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact</a>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4">© 2024 Heritage Collection. Sacred &amp; Revered.</p>
+</footer>
+<script>
+        function rate(stars) {
+            const bells = document.querySelectorAll('.ghungroo-bell');
+            bells.forEach((bell, index) => {
+                if (index < stars) {
+                    bell.classList.add('active');
+                    bell.style.fontVariationSettings = "'FILL' 1";
+                } else {
+                    bell.classList.remove('active');
+                    bell.style.fontVariationSettings = "'FILL' 0";
+                }
+            });
+        }
+
+        // Micro-interactions for form focus
+        const inputs = document.querySelectorAll('.custom-input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('.custom-label').style.color = '#7e570d';
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('.custom-label').style.color = '#4e0616';
+            });
+        });
+    </script>
+</body></html>

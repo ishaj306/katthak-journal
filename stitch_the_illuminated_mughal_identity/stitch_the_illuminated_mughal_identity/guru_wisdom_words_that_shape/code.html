@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Guru Wisdom | Kathak Digital Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#fdf9ef",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f7f3e9",
+                    "primary-fixed-dim": "#ffb2b8",
+                    "surface-dim": "#dddad0",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e6e2d8",
+                    "surface-bright": "#fdf9ef",
+                    "secondary-fixed-dim": "#f3bd6d",
+                    "on-primary-fixed-variant": "#7c2b36",
+                    "inverse-on-surface": "#f4f0e7",
+                    "on-primary-container": "#ef858f",
+                    "primary-container": "#6b1e2a",
+                    "background": "#fdf9ef",
+                    "secondary-fixed": "#ffddb0",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#554243",
+                    "on-primary-fixed": "#40000e",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#614000",
+                    "on-error": "#ffffff",
+                    "surface-container": "#f1eee4",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#4f462d",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#31312a",
+                    "on-background": "#1c1c16",
+                    "outline-variant": "#dac0c1",
+                    "tertiary-fixed-dim": "#d4c5a5",
+                    "primary-fixed": "#ffdadb",
+                    "tertiary-container": "#423922",
+                    "secondary-container": "#ffc877",
+                    "on-secondary-fixed": "#281800",
+                    "outline": "#877273",
+                    "inverse-primary": "#ffb2b8",
+                    "tertiary": "#2b240e",
+                    "primary": "#4e0616",
+                    "secondary": "#7e570d",
+                    "surface-variant": "#e6e2d8",
+                    "surface-container-high": "#ece8de",
+                    "on-secondary-container": "#795207",
+                    "tertiary-fixed": "#f0e1c0",
+                    "surface-tint": "#9a424c",
+                    "on-tertiary-container": "#b0a384",
+                    "on-surface": "#1c1c16",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#221b06"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "0.75rem",
+                    "margin-page": "4rem",
+                    "margin-mobile": "1.5rem",
+                    "section-gap": "6rem",
+                    "stack-md": "1.5rem",
+                    "gutter": "2rem"
+            },
+            "fontFamily": {
+                    "label-md": ["EB Garamond"],
+                    "display-lg": ["EB Garamond"],
+                    "body-lg": ["EB Garamond"],
+                    "headline-lg": ["EB Garamond"],
+                    "display-lg-mobile": ["EB Garamond"],
+                    "label-lg": ["EB Garamond"],
+                    "headline-md": ["EB Garamond"],
+                    "body-md": ["EB Garamond"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fdf9ef;
+            background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
+            scroll-behavior: smooth;
+        }
+
+        .manuscript-border {
+            border: 1px solid #4e0616;
+            position: relative;
+        }
+
+        .manuscript-border::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border: 1px solid #7e570d;
+            pointer-events: none;
+        }
+
+        .parchment-card {
+            background-color: #fdf9ef;
+            position: relative;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            clip-path: polygon(0% 2%, 98% 0%, 100% 98%, 2% 100%, 0% 50%);
+        }
+
+        .parchment-card:hover {
+            transform: translateY(-4px) rotate(0.5deg);
+            box-shadow: 5px 15px 25px rgba(78, 6, 22, 0.1);
+        }
+
+        .manuscript-break {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #7e570d 50%, transparent 100%);
+            width: 80%;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .manuscript-break::after {
+            content: '⬥';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fdf9ef;
+            padding: 0 10px;
+            color: #7e570d;
+            font-size: 14px;
+        }
+
+        .search-underline {
+            border-bottom: 1px solid #4e0616;
+        }
+
+        .feather-shadow {
+            filter: drop-shadow(0 4px 6px rgba(78, 6, 22, 0.2));
+        }
+        
+        .jali-pattern {
+            opacity: 0.05;
+            background-image: radial-gradient(#4e0616 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface selection:bg-secondary-fixed-dim selection:text-on-secondary-fixed">
+<!-- Top Navigation -->
+<nav class="bg-surface border-b border-primary/20 flex justify-between items-center px-margin-page py-stack-sm w-full sticky top-0 z-50">
+<div class="font-headline-lg text-headline-lg text-primary uppercase tracking-widest">
+            Kathak Archive
+        </div>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="font-headline-md text-headline-md tracking-tight text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">The Lineage</a>
+<a class="font-headline-md text-headline-md tracking-tight text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Daily Riyaz</a>
+<a class="font-headline-md text-headline-md tracking-tight text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Rhythm Folio</a>
+<a class="font-headline-md text-headline-md tracking-tight text-primary font-bold border-b-2 border-primary pb-1" href="#">Archives</a>
+</div>
+<button class="manuscript-border px-6 py-2 bg-surface text-primary uppercase tracking-widest text-label-lg font-label-lg cursor-pointer transition-all active:scale-95 hover:bg-secondary-fixed/10">
+            New Entry
+        </button>
+</nav>
+<div class="flex">
+<!-- Sidebar -->
+<aside class="hidden lg:flex flex-col w-80 h-[calc(100vh-80px)] sticky top-20 bg-surface-container-low border-r-2 border-double border-primary z-40">
+<div class="p-stack-md flex flex-col gap-2">
+<h2 class="font-headline-md text-headline-md text-primary">The Archivist</h2>
+<p class="font-label-md text-label-md text-on-surface-variant italic">Court of Lucknow</p>
+</div>
+<nav class="flex-1 mt-stack-md">
+<a class="flex items-center gap-4 text-on-surface-variant px-margin-mobile py-3 hover:bg-secondary-fixed/10 hover:text-primary transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined text-secondary">menu_book</span> Imperial Index
+                </a>
+<a class="flex items-center gap-4 text-primary bg-secondary-fixed/20 font-bold border-l-4 border-primary px-margin-mobile py-3 transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">history_edu</span> Gharana Records
+                </a>
+<a class="flex items-center gap-4 text-on-surface-variant px-margin-mobile py-3 hover:bg-secondary-fixed/10 hover:text-primary transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined text-secondary">music_note</span> Notation Vault
+                </a>
+<a class="flex items-center gap-4 text-on-surface-variant px-margin-mobile py-3 hover:bg-secondary-fixed/10 hover:text-primary transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined text-secondary">self_improvement</span> Sacred Practice
+                </a>
+<a class="flex items-center gap-4 text-on-surface-variant px-margin-mobile py-3 hover:bg-secondary-fixed/10 hover:text-primary transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined text-secondary">auto_stories</span> Mudra Glossary
+                </a>
+</nav>
+<div class="p-stack-md border-t border-primary/10">
+<button class="w-full manuscript-border py-4 text-primary font-bold uppercase tracking-widest text-label-lg bg-surface hover:bg-secondary-fixed/10 transition-colors">
+                    Contribute to Vellum
+                </button>
+</div>
+<div class="p-stack-md flex flex-col gap-4">
+<a class="flex items-center gap-4 text-on-surface-variant font-label-lg text-label-lg hover:text-primary" href="#">
+<span class="material-symbols-outlined text-secondary">settings</span> Settings
+                </a>
+<a class="flex items-center gap-4 text-on-surface-variant font-label-lg text-label-lg hover:text-primary" href="#">
+<span class="material-symbols-outlined text-secondary">help</span> Support
+                </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 min-h-screen p-margin-mobile md:p-margin-page relative">
+<div class="jali-pattern absolute inset-0 pointer-events-none"></div>
+<header class="max-w-4xl mx-auto text-center mb-section-gap relative">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-2">Guru Wisdom</h1>
+<p class="font-body-lg text-body-lg italic text-secondary mb-stack-md">Whispers of the ancients, preserved for the modern seeker.</p>
+<div class="max-w-xl mx-auto mt-stack-md relative group">
+<span class="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-secondary">search</span>
+<input class="w-full bg-transparent search-underline border-none focus:ring-0 pl-10 pr-4 py-3 font-body-md text-on-surface placeholder:italic placeholder:text-on-surface-variant/50 transition-all focus:border-b-2" placeholder="Seek guidance in the archives..." type="text"/>
+</div>
+</header>
+<!-- Wisdom Card Feed - Asymmetric Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter max-w-7xl mx-auto">
+<!-- Card 1 -->
+<article class="parchment-card p-stack-md md:p-stack-lg border border-primary/10 rotate-1">
+<div class="flex justify-between items-start mb-stack-md">
+<span class="italic text-label-md text-on-surface-variant">Pandit Birju Maharaj, 1984</span>
+<span class="material-symbols-outlined text-secondary/30 scale-75">push_pin</span>
+</div>
+<blockquote class="font-headline-md text-headline-md text-center italic text-primary leading-snug px-4 py-8">
+                        "The rhythm is not in the feet, it is in the soul's tremor before the beat begins."
+                    </blockquote>
+<div class="manuscript-break opacity-30 my-4"></div>
+<div class="flex flex-wrap gap-2 justify-center">
+<span class="bg-secondary-fixed/30 text-primary px-3 py-1 text-label-md font-label-md uppercase tracking-wider">Laya</span>
+<span class="bg-secondary-fixed/30 text-primary px-3 py-1 text-label-md font-label-md uppercase tracking-wider">Soul</span>
+</div>
+</article>
+<!-- Card 2 (Large Spanning) -->
+<article class="parchment-card p-stack-md md:p-stack-lg border border-primary/10 -rotate-1 md:col-span-2">
+<div class="flex justify-between items-start mb-stack-md">
+<span class="italic text-label-md text-on-surface-variant">Shambhu Maharaj, Lucknow Gharana</span>
+<span class="material-symbols-outlined text-secondary/30 scale-75">push_pin</span>
+</div>
+<blockquote class="font-display-lg text-display-lg-mobile md:text-headline-lg text-center italic text-primary leading-tight px-8 py-12">
+                        "A dancer must be like the cypress tree: rooted deeply in tradition, yet flexible enough to bend with the wind of inspiration without breaking."
+                    </blockquote>
+<div class="manuscript-break opacity-30 my-6"></div>
+<div class="flex flex-wrap gap-2 justify-center">
+<span class="bg-secondary-fixed/30 text-primary px-3 py-1 text-label-md font-label-md uppercase tracking-wider">Tradition</span>
+<span class="bg-secondary-fixed/30 text-primary px-3 py-1 text-label-md font-label-md uppercase tracking-wider">Growth</span>
+<span class="bg-secondary-fixed/30 text-primary px-3 py-1 text-label-md font-label-md uppercase tracking-wider">Mudra</span>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="parchment-card p-stack-md md:p-stack-lg border border-primary/10 rotate-2">
+<div class="flex justify-between items-start mb-stack-md">
+<span class="italic text-label-md text-on-surface-variant">Oral Tradition, Jaipur School</span>
+<span class="material-symbols-outlined text-secondary/30 scale-75">push_pin</span>
+</div>
+<blockquote class="font-headline-md text-headline-md text-center italic text-primary leading-snug px-4 py-8">
+                        "Silence between the bols is where the God of dance resides."
+                    </blockquote>
+<div class="manuscript-break opacity-30 my-4"></div>
+<div class="flex flex-wrap gap-2 justify-center">
+<span class="bg-secondary-fixed/30 text-primary px-3 py-1 text-label-md font-label-md uppercase tracking-wider">Silence</span>
+<span class="bg-secondary-fixed/30 text-primary px-3 py-1 text-label-md font-label-md uppercase tracking-wider">Devotion</span>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="parchment-card p-stack-md md:p-stack-lg border border-primary/10 -rotate-2">
+<div class="flex justify-between items-start mb-stack-md">
+<span class="italic text-label-md text-on-surface-variant">Siddheshwari Devi, Banaras</span>
+<span class="material-symbols-outlined text-secondary/30 scale-75">push_pin</span>
+</div>
+<blockquote class="font-headline-md text-headline-md text-center italic text-primary leading-snug px-4 py-8">
+                        "Abhinaya is not acting; it is the truth of the heart disguised as a story."
+                    </blockquote>
+<div class="manuscript-break opacity-30 my-4"></div>
+<div class="flex flex-wrap gap-2 justify-center">
+<span class="bg-secondary-fixed/30 text-primary px-3 py-1 text-label-md font-label-md uppercase tracking-wider">Abhinaya</span>
+<span class="bg-secondary-fixed/30 text-primary px-3 py-1 text-label-md font-label-md uppercase tracking-wider">Truth</span>
+</div>
+</article>
+<!-- Card 5 (Image + Text) -->
+<article class="parchment-card border border-primary/10 md:row-span-2 flex flex-col">
+<div class="h-64 overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale brightness-90" data-alt="A vintage, sepia-toned photograph of a venerable Kathak Guru in a 16th-century Mughal-style courtyard, captured with soft, ethereal morning light filtering through stone latticework. The guru wears traditional muslin attire and holds a contemplative pose, surrounded by the warm, earthy tones of ivory and deep maroon, embodying a sense of sacred history and timeless grace. The overall aesthetic is that of a hand-restored imperial manuscript illustration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCopf1rl3AixuN5C2GhGLO7tllG5BDHXy6dx-SY9iZH2rx49avzaP5lpf8SWL8md9O90q5R4WCxr-fo6OtgMO_hWJW3ARlU3zrDxUzNom47I7tTWYxlUUmZC7SHrDhbQ5VSzOwG_frO-VGv5oNtj6ixaLlgsX0FqX-RhNhwj-PnonqEbfQHl92DB-_qHwWQPYrFtT03NrbadjZMZdVVHvRzrnhg_ugXzobsL7Z7nPgHkptCroFuPuhtIdd-ZnZ1STtRlfwlbrgsvlc"/>
+<div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
+</div>
+<div class="p-stack-md">
+<div class="flex justify-between items-start mb-stack-md">
+<span class="italic text-label-md text-on-surface-variant">The Unspoken Rule</span>
+<span class="material-symbols-outlined text-secondary/30 scale-75">push_pin</span>
+</div>
+<blockquote class="font-headline-md text-headline-md text-center italic text-primary leading-snug px-4 py-4">
+                            "Watch the hands, but follow the eyes."
+                        </blockquote>
+<div class="manuscript-break opacity-30 my-2"></div>
+<p class="text-center italic text-label-md text-on-surface-variant">Oral teaching passed from master to disciple.</p>
+</div>
+</article>
+<!-- Card 6 -->
+<article class="parchment-card p-stack-md md:p-stack-lg border border-primary/10 rotate-1">
+<div class="flex justify-between items-start mb-stack-md">
+<span class="italic text-label-md text-on-surface-variant">Kumudini Lakhia, 2012</span>
+<span class="material-symbols-outlined text-secondary/30 scale-75">push_pin</span>
+</div>
+<blockquote class="font-headline-md text-headline-md text-center italic text-primary leading-snug px-4 py-8">
+                        "Space is the second dancer. Negotiate with it, do not merely occupy it."
+                    </blockquote>
+<div class="manuscript-break opacity-30 my-4"></div>
+<div class="flex flex-wrap gap-2 justify-center">
+<span class="bg-secondary-fixed/30 text-primary px-3 py-1 text-label-md font-label-md uppercase tracking-wider">Space</span>
+<span class="bg-secondary-fixed/30 text-primary px-3 py-1 text-label-md font-label-md uppercase tracking-wider">Modernity</span>
+</div>
+</article>
+</div>
+<div class="my-section-gap manuscript-break"></div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-stack-md px-margin-page flex flex-col items-center gap-stack-sm border-t-4 border-double border-secondary-fixed bg-surface">
+<div class="font-headline-sm text-headline-sm text-primary uppercase tracking-[0.2em]">Kathak Digital Archive</div>
+<div class="flex gap-gutter my-4">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-opacity" href="#">Terms of Use</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-opacity" href="#">Royal Decrees</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-opacity" href="#">Privacy Folio</a>
+</div>
+<p class="font-label-md text-label-md text-secondary">© 2024 Kathak Digital Archive. Preserving the Sacred Lineage.</p>
+</footer>
+<!-- Floating Action Button -->
+<button class="fixed bottom-10 right-10 flex items-center gap-4 bg-primary text-surface px-8 py-4 manuscript-border shadow-2xl feather-shadow group hover:scale-105 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<span class="font-label-lg text-label-lg uppercase tracking-widest">+ Capture Wisdom</span>
+</button>
+<script>
+        // Subtle micro-interaction for parchment hover
+        document.querySelectorAll('.parchment-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Riyaz Tracker | Heritage Collection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #fdf9ef; /* surface */
+            background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
+            background-attachment: fixed;
+        }
+
+        .manuscript-frame {
+            border: 1px solid #7e570d; /* Antique Gold approach */
+            position: relative;
+            padding: 2px;
+        }
+
+        .manuscript-frame::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border: 1px solid #4e0616; /* Deep Maroon */
+            pointer-events: none;
+        }
+
+        .manuscript-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #4e0616 50%, transparent 100%);
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .manuscript-divider::after {
+            content: '◆';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: #7e570d;
+            background: #fdf9ef;
+            padding: 0 10px;
+            font-size: 12px;
+        }
+
+        .ghungroo-bell {
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .ghungroo-bell:hover {
+            transform: translateY(-4px) rotate(15deg);
+        }
+
+        .parchment-glow {
+            box-shadow: inset 0 0 40px rgba(126, 87, 13, 0.05);
+        }
+
+        /* Custom scrollbar for manuscript feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #fdf9ef; }
+        ::-webkit-scrollbar-thumb { background: #dac0c1; border-radius: 10px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fdf9ef",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f7f3e9",
+                        "primary-fixed-dim": "#ffb2b8",
+                        "surface-dim": "#dddad0",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e6e2d8",
+                        "surface-bright": "#fdf9ef",
+                        "secondary-fixed-dim": "#f3bd6d",
+                        "on-primary-fixed-variant": "#7c2b36",
+                        "inverse-on-surface": "#f4f0e7",
+                        "on-primary-container": "#ef858f",
+                        "primary-container": "#6b1e2a",
+                        "background": "#fdf9ef",
+                        "secondary-fixed": "#ffddb0",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#554243",
+                        "on-primary-fixed": "#40000e",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#614000",
+                        "on-error": "#ffffff",
+                        "surface-container": "#f1eee4",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#4f462d",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#31312a",
+                        "on-background": "#1c1c16",
+                        "outline-variant": "#dac0c1",
+                        "tertiary-fixed-dim": "#d4c5a5",
+                        "primary-fixed": "#ffdadb",
+                        "tertiary-container": "#423922",
+                        "secondary-container": "#ffc877",
+                        "on-secondary-fixed": "#281800",
+                        "outline": "#877273",
+                        "inverse-primary": "#ffb2b8",
+                        "tertiary": "#2b240e",
+                        "primary": "#4e0616",
+                        "secondary": "#7e570d",
+                        "surface-variant": "#e6e2d8",
+                        "surface-container-high": "#ece8de",
+                        "on-secondary-container": "#795207",
+                        "tertiary-fixed": "#f0e1c0",
+                        "surface-tint": "#9a424c",
+                        "on-tertiary-container": "#b0a384",
+                        "on-surface": "#1c1c16",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#221b06"
+                    },
+                    "fontFamily": {
+                        "label-md": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "body-lg": ["EB Garamond"],
+                        "headline-lg": ["EB Garamond"],
+                        "label-lg": ["EB Garamond"],
+                        "headline-md": ["EB Garamond"],
+                        "body-md": ["EB Garamond"]
+                    },
+                    "spacing": {
+                        "stack-sm": "0.75rem",
+                        "margin-page": "4rem",
+                        "margin-mobile": "1.5rem",
+                        "section-gap": "6rem",
+                        "stack-md": "1.5rem",
+                        "gutter": "2rem"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-body-md text-on-surface overflow-x-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Top Navigation Shell -->
+<header class="bg-background border-b border-outline-variant flex justify-between items-center w-full px-margin-page py-6 max-w-7xl mx-auto sticky top-0 z-50">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-widest">Heritage Collection</div>
+<nav class="hidden md:flex gap-8">
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">The Archive</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Folios</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Artisans</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Philosophy</a>
+</nav>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-95 transition-transform" data-icon="shopping_bag">shopping_bag</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-95 transition-transform" data-icon="person">person</span>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-margin-page py-12">
+<!-- Page Heading -->
+<div class="text-center mb-16">
+<h1 class="font-display-lg text-display-lg text-primary mb-2">Riyaz - The discipline of devotion</h1>
+<p class="font-body-lg text-on-surface-variant italic">Refining the soul through the constancy of practice.</p>
+</div>
+<!-- Main Workspace: Today's Practice & Streak -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Today's Practice Card (Parchment) -->
+<section class="lg:col-span-8 manuscript-frame bg-surface-container-low parchment-glow p-12">
+<div class="flex justify-between items-start mb-12">
+<div>
+<h2 class="font-label-lg text-label-lg text-secondary uppercase tracking-[0.2em] mb-4">Current Session</h2>
+<div class="font-display-lg text-8xl text-primary tracking-tight tabular-nums" id="timer">00:00:00</div>
+</div>
+<div class="text-right">
+<span class="material-symbols-outlined text-secondary text-5xl opacity-50" data-icon="history_edu">history_edu</span>
+</div>
+</div>
+<div class="flex flex-col gap-8">
+<div>
+<label class="font-label-md text-label-md italic text-primary block mb-2">Reflections &amp; Notes</label>
+<textarea class="w-full bg-transparent border-0 border-b border-outline text-body-md font-body-md py-4 focus:ring-0 focus:border-primary placeholder:text-on-surface-variant/30 resize-none min-h-[120px]" placeholder="Write your observations on the raga, the breath, or the movement..."></textarea>
+</div>
+<div class="flex gap-4 items-center">
+<button class="bg-surface border border-primary text-primary font-label-lg text-label-lg px-12 py-4 uppercase tracking-widest hover:bg-primary-fixed transition-all active:scale-95" id="startStopBtn">
+                            Begin Practice
+                        </button>
+<button class="bg-transparent border border-outline-variant text-on-surface-variant font-label-lg text-label-lg px-8 py-4 uppercase tracking-widest hover:bg-surface-container-high transition-all">
+                            Reset
+                        </button>
+</div>
+</div>
+</section>
+<!-- Streak & Consistency (Right Column) -->
+<aside class="lg:col-span-4 flex flex-col gap-8">
+<!-- Ghungroo Streak -->
+<div class="manuscript-frame bg-surface p-8">
+<h3 class="font-label-lg text-label-lg text-secondary uppercase tracking-widest mb-6 text-center">Devotion Streak</h3>
+<div class="flex justify-center flex-wrap gap-4 px-4">
+<!-- Ghungroo Bells for Streak -->
+<div class="ghungroo-bell flex flex-col items-center">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="notifications" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<span class="font-label-md text-[10px] mt-1 opacity-60 uppercase">Mon</span>
+</div>
+<div class="ghungroo-bell flex flex-col items-center">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="notifications" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<span class="font-label-md text-[10px] mt-1 opacity-60 uppercase">Tue</span>
+</div>
+<div class="ghungroo-bell flex flex-col items-center">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="notifications" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<span class="font-label-md text-[10px] mt-1 opacity-60 uppercase">Wed</span>
+</div>
+<div class="ghungroo-bell flex flex-col items-center opacity-30">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="notifications" style="font-variation-settings: 'FILL' 0;">notifications</span>
+<span class="font-label-md text-[10px] mt-1 uppercase">Thu</span>
+</div>
+<div class="ghungroo-bell flex flex-col items-center opacity-30">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="notifications" style="font-variation-settings: 'FILL' 0;">notifications</span>
+<span class="font-label-md text-[10px] mt-1 uppercase">Fri</span>
+</div>
+</div>
+<div class="text-center mt-8">
+<span class="font-display-lg text-5xl text-primary">12</span>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-tighter">Consecutive Sunrises</p>
+</div>
+</div>
+<!-- Stats Manuscript Cards -->
+<div class="grid grid-cols-2 gap-4">
+<div class="manuscript-frame bg-surface p-6 text-center">
+<p class="font-label-md text-label-md text-secondary uppercase opacity-70">This Week</p>
+<p class="font-headline-md text-headline-md text-primary mt-1">14.2h</p>
+</div>
+<div class="manuscript-frame bg-surface p-6 text-center">
+<p class="font-label-md text-label-md text-secondary uppercase opacity-70">This Month</p>
+<p class="font-headline-md text-headline-md text-primary mt-1">58.5h</p>
+</div>
+<div class="manuscript-frame bg-surface p-6 text-center">
+<p class="font-label-md text-label-md text-secondary uppercase opacity-70">Annual</p>
+<p class="font-headline-md text-headline-md text-primary mt-1">412h</p>
+</div>
+<div class="manuscript-frame bg-surface p-6 text-center">
+<p class="font-label-md text-label-md text-secondary uppercase opacity-70">Lifetime</p>
+<p class="font-headline-md text-headline-md text-primary mt-1">1.2k h</p>
+</div>
+</div>
+</aside>
+</div>
+<div class="manuscript-divider"></div>
+<!-- Heatmap Section -->
+<section class="mb-section-gap">
+<h2 class="font-label-lg text-label-lg text-secondary uppercase tracking-[0.3em] mb-8 text-center">The Arc of Constancy</h2>
+<div class="manuscript-frame bg-surface-container-low p-8 overflow-x-auto">
+<div class="min-w-[800px]">
+<div class="grid grid-cols-[repeat(53,1fr)] gap-1">
+<!-- Heatmap Grid (Simulated for one year) -->
+<script>
+                            const gridContainer = document.currentScript.parentElement;
+                            for (let i = 0; i < 371; i++) {
+                                const opacity = Math.random() > 0.3 ? (Math.random() * 0.8 + 0.2) : 0.05;
+                                const colorClass = opacity > 0.5 ? 'bg-primary' : (opacity > 0.2 ? 'bg-secondary' : 'bg-outline-variant opacity-20');
+                                const cell = document.createElement('div');
+                                cell.className = `w-full aspect-square ${colorClass}`;
+                                cell.title = `Day ${i + 1}`;
+                                gridContainer.appendChild(cell);
+                            }
+                        </script>
+</div>
+<div class="flex justify-between mt-4 font-label-md text-[10px] text-on-surface-variant/60 uppercase">
+<span>Spring Equinox</span>
+<span>Summer Solstice</span>
+<span>Autumn Equinox</span>
+<span>Winter Solstice</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Consistency Graph -->
+<section class="mb-section-gap">
+<h2 class="font-label-lg text-label-lg text-secondary uppercase tracking-[0.3em] mb-8 text-center">Vibrational Intensity</h2>
+<div class="manuscript-frame bg-surface p-12 h-64 relative flex items-end">
+<!-- Maroon Ink Line (Simplified SVG) -->
+<svg class="w-full h-full stroke-primary fill-none stroke-2" viewbox="0 0 1000 200">
+<path d="M0,180 Q100,160 200,100 T400,140 T600,60 T800,120 T1000,40" stroke-width="1.5"></path>
+<!-- Faded shadow line -->
+<path d="M0,185 Q100,165 200,105 T400,145 T600,65 T800,125 T1000,45" stroke="#4e0616" stroke-opacity="0.1" stroke-width="1"></path>
+</svg>
+<div class="absolute inset-0 p-12 flex justify-between items-end pointer-events-none opacity-40 font-label-md text-[10px] uppercase">
+<span>Jan</span>
+<span>Feb</span>
+<span>Mar</span>
+<span>Apr</span>
+<span>May</span>
+<span>Jun</span>
+<span>Jul</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full flex flex-col items-center justify-center gap-stack-md px-margin-page text-center py-12 border-t border-outline-variant">
+<div class="font-headline-md text-headline-md text-primary">Heritage Collection</div>
+<div class="flex gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Archives</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Artisan Fellowship</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact</a>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4">© 2024 Heritage Collection. Sacred &amp; Revered.</p>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+        let timerInterval;
+        let seconds = 0;
+        let isRunning = false;
+
+        const timerDisplay = document.getElementById('timer');
+        const startStopBtn = document.getElementById('startStopBtn');
+
+        function formatTime(s) {
+            const h = Math.floor(s / 3600);
+            const m = Math.floor((s % 3600) / 60);
+            const sec = s % 60;
+            return [h, m, sec].map(v => v < 10 ? '0' + v : v).join(':');
+        }
+
+        startStopBtn.addEventListener('click', () => {
+            if (isRunning) {
+                clearInterval(timerInterval);
+                startStopBtn.textContent = 'Continue Practice';
+                startStopBtn.classList.replace('bg-primary-container', 'bg-surface');
+                startStopBtn.classList.replace('text-on-primary-container', 'text-primary');
+            } else {
+                timerInterval = setInterval(() => {
+                    seconds++;
+                    timerDisplay.textContent = formatTime(seconds);
+                }, 1000);
+                startStopBtn.textContent = 'Cease Riyaz';
+                startStopBtn.classList.add('bg-primary-container', 'text-on-primary-container');
+                startStopBtn.classList.remove('bg-surface', 'text-primary');
+            }
+            isRunning = !isRunning;
+        });
+
+        // Add subtle parchment texture noise overlay via JS for performance
+        const body = document.body;
+        const noise = document.createElement('div');
+        noise.style.position = 'fixed';
+        noise.style.top = '0';
+        noise.style.left = '0';
+        noise.style.width = '100%';
+        noise.style.height = '100%';
+        noise.style.pointerEvents = 'none';
+        noise.style.opacity = '0.03';
+        noise.style.zIndex = '9999';
+        noise.style.backgroundImage = 'url("https://www.transparenttextures.com/patterns/handmade-paper.png")';
+        body.appendChild(noise);
+    </script>
+</body></html>

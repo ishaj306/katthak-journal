@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heritage Story | Imperial Archives</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @layer base {
+            body {
+                background-color: #fdf9ef; /* background */
+                color: #1c1c16; /* on-background */
+                overflow-x: hidden;
+            }
+        }
+
+        /* Parchment Texture Overlay */
+        .parchment-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.05;
+            background-image: url("https://www.transparenttextures.com/patterns/p6.png");
+        }
+
+        /* Drop Cap Styling */
+        .drop-cap::first-letter {
+            float: left;
+            font-size: 5.5rem;
+            line-height: 0.8;
+            padding-top: 0.2rem;
+            padding-right: 0.8rem;
+            padding-left: 0.1rem;
+            font-family: 'EB Garamond', serif;
+            font-weight: 700;
+            color: #4e0616; /* primary */
+        }
+
+        /* Manuscript Break Divider */
+        .manuscript-break {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #7e570d 50%, transparent); /* secondary/gold */
+            position: relative;
+            margin: 3rem 0;
+            opacity: 0.6;
+        }
+        .manuscript-break::after {
+            content: '⬥';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #7e570d;
+            background: #fdf9ef;
+            padding: 0 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Mughal Floral Corners */
+        .mughal-corner {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            background-repeat: no-repeat;
+            background-size: contain;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .corner-tl { top: 20px; left: 20px; transform: rotate(0deg); }
+        .corner-tr { top: 20px; right: 20px; transform: rotate(90deg); }
+        .corner-bl { bottom: 20px; left: 20px; transform: rotate(270deg); }
+        .corner-br { bottom: 20px; right: 20px; transform: rotate(180deg); }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#2b240e",
+                        "surface-container-high": "#ece8de",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#4e0616",
+                        "tertiary-fixed": "#f0e1c0",
+                        "on-surface": "#1c1c16",
+                        "on-secondary-container": "#795207",
+                        "background": "#fdf9ef",
+                        "inverse-surface": "#31312a",
+                        "tertiary-container": "#423922",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "surface": "#fdf9ef",
+                        "on-secondary-fixed-variant": "#614000",
+                        "on-surface-variant": "#554243",
+                        "outline": "#877273",
+                        "surface-variant": "#e6e2d8",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#7c2b36",
+                        "tertiary-fixed-dim": "#d4c5a5",
+                        "surface-dim": "#dddad0",
+                        "surface-tint": "#9a424c",
+                        "on-primary-container": "#ef858f",
+                        "primary-fixed-dim": "#ffb2b8",
+                        "on-primary-fixed": "#40000e",
+                        "secondary-fixed-dim": "#f3bd6d",
+                        "primary-fixed": "#ffdadb",
+                        "primary-container": "#6b1e2a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#4f462d",
+                        "surface-container": "#f1eee4",
+                        "inverse-on-surface": "#f4f0e7",
+                        "surface-container-low": "#f7f3e9",
+                        "secondary-fixed": "#ffddb0",
+                        "on-secondary-fixed": "#281800",
+                        "surface-bright": "#fdf9ef",
+                        "on-tertiary-fixed": "#221b06",
+                        "inverse-primary": "#ffb2b8",
+                        "outline-variant": "#dac0c1",
+                        "on-background": "#1c1c16",
+                        "secondary-container": "#ffc877",
+                        "on-tertiary-container": "#b0a384",
+                        "on-error-container": "#93000a",
+                        "secondary": "#7e570d",
+                        "surface-container-highest": "#e6e2d8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "1.5rem",
+                        "section-gap": "6rem",
+                        "stack-md": "1.5rem",
+                        "margin-page": "4rem",
+                        "gutter": "2rem",
+                        "stack-sm": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["EB Garamond"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "label-lg": ["EB Garamond"],
+                        "label-md": ["EB Garamond"],
+                        "body-md": ["EB Garamond"],
+                        "body-lg": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "headline-md": ["EB Garamond"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-body-md text-body-md selection:bg-secondary-container">
+<div class="parchment-texture"></div>
+<!-- SideNavBar (Predicted & Required) -->
+<nav class="fixed left-0 top-0 h-full z-40 flex flex-col p-stack-md bg-surface-container-low dark:bg-tertiary-container border-r border-outline-variant dark:border-outline w-64 hidden md:flex">
+<div class="mb-10 flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-primary-container mb-4 overflow-hidden border border-secondary">
+<img class="w-full h-full object-cover" data-alt="A macro photograph of an ancient imperial wax seal made of deep red cinnabar, featuring intricate Arabic calligraphy and a floral border. The lighting is soft and golden, accentuating the tactile cracks and textures of the aged wax. The style is museum-quality, evoking a sense of sacred historical significance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsBxFhnNCcsVbDqD7uN6GLNz4ZtoJEUM1djIbc6VKnY0HS4AUuLI-mcongu3r-kIySbyVS4irj9S0R_s9GQOfrjKQ5BY_vGXNaELoi--su6ZFzOMm6IFaAvmWqkjCDk5eOxe2mOFTsFzO1PYfMy3DH3zLvMeAAAWhgR4WEecCDah2UN0wWdWF8wsKy-NHSYOvfvZQVsKwiWRFX9scLYbm8CEqSgPQqy6TxkVyY6TfcbTtjwzQZ6_LY48PGi95xYEszhl1lxmY2K3k"/>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-on-primary-container text-center">Imperial Archives</h1>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-1">Sacred Heritage</p>
+</div>
+<ul class="flex flex-col gap-4">
+<li class="group">
+<a class="flex items-center gap-4 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home_app_logo">home_app_logo</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+</li>
+<li class="group">
+<a class="flex items-center gap-4 px-4 py-3 rounded text-primary dark:text-primary-fixed font-bold border-l-2 border-primary bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-label-md text-label-md">Collections</span>
+</a>
+</li>
+<li class="group">
+<a class="flex items-center gap-4 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+<span class="font-label-md text-label-md">Exhibitions</span>
+</a>
+</li>
+<li class="group">
+<a class="flex items-center gap-4 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="font-label-md text-label-md">Our Story</span>
+</a>
+</li>
+<li class="group">
+<a class="flex items-center gap-4 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-md text-label-md">Account</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto pt-10 px-4">
+<div class="p-4 border border-outline-variant bg-surface-container text-center italic text-on-surface-variant opacity-70">
+                "The ink of a scholar is holier than the blood of a martyr."
+            </div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 relative min-h-screen z-10">
+<!-- Background Decor -->
+<div class="mughal-corner corner-tl" style="background-image: url('https://www.transparenttextures.com/patterns/vintage-speckles.png'); mask-image: url('https://www.svgrepo.com/show/513511/floral-ornament.svg'); -webkit-mask-image: url('https://www.svgrepo.com/show/513511/floral-ornament.svg'); background-color: #7e570d;"></div>
+<div class="mughal-corner corner-tr" style="background-image: url('https://www.transparenttextures.com/patterns/vintage-speckles.png'); mask-image: url('https://www.svgrepo.com/show/513511/floral-ornament.svg'); -webkit-mask-image: url('https://www.svgrepo.com/show/513511/floral-ornament.svg'); background-color: #7e570d;"></div>
+<!-- Frame Wrapper -->
+<div class="max-w-4xl mx-auto px-margin-mobile md:px-margin-page py-20">
+<article class="relative bg-surface p-8 md:p-16 border border-secondary shadow-sm">
+<!-- Inner Decorative Frame -->
+<div class="absolute inset-2 border border-primary opacity-20 pointer-events-none"></div>
+<!-- Header -->
+<header class="text-center mb-16 relative">
+<span class="font-label-lg text-label-lg text-secondary tracking-[0.3em] uppercase mb-4 block">The Ancestral Ledger</span>
+<h2 class="font-display-lg text-display-lg text-primary leading-tight mb-6">The Chronicles of the Weaver's Guild</h2>
+<div class="flex items-center justify-center gap-4 text-on-surface-variant italic">
+<span>Dated the Year of our Forefathers, 1584</span>
+<span class="w-1.5 h-1.5 bg-secondary rounded-full"></span>
+<span>Lahore Imperial Court</span>
+</div>
+</header>
+<!-- Hero Image -->
+<figure class="mb-16">
+<div class="aspect-[16/9] overflow-hidden border-2 border-secondary p-1">
+<img class="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700" data-alt="A lush, detailed Mughal miniature painting style illustration showing an imperial weaving workshop in the 16th century. Master artisans are working on a massive crimson and gold carpet, surrounded by ornate pillars and geometric archways. The scene is illuminated by soft, natural light filtered through marble lattices, creating an atmosphere of dedicated craftsmanship and royal splendor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLF0ZTYsjVlDHCJ1KQw2uRNyhrEWiOew1JmmiK2pBsUD-9mTlMbFBB1DvN-sVAyhbGw-2P4rCdyKOKL8dtkWYQVw8aR1czRqzV__GvSlD98NRiOLbPL38eyPlNKmuOMiz7Ud9lhhRD8d0qfZQ-VFYgpFm5f0wZluKK-hQr8ckBTGgXH_TtWLIeplh4dZpJdl_LQA5OqyyVPHsbYxbrIhYPj11NOiP6NTmbpvdner9Nu03475CEGwswpOngx1XtSDAgRBEKucfy2yI"/>
+</div>
+<figcaption class="text-center mt-4 font-label-md text-label-md text-on-surface-variant italic">Fig. I: The Grand Loom of the Third Dynasty</figcaption>
+</figure>
+<!-- Story Text -->
+<section class="space-y-8 text-on-surface leading-relaxed max-w-2xl mx-auto">
+<p class="drop-cap font-body-lg text-body-lg first-letter:font-headline-lg">
+                        In the heart of the sprawling bazaar, where the scent of cardamom and sun-drenched silk hangs heavy in the air, the legend of my great-grandfather began. It is said that he did not simply weave threads; he wove the very whispers of the wind into patterns that defied the earthly gaze. His workshop, a modest sanctuary of polished cedar and copper basins, was the birthplace of the 'Ethereal Knot'—a stitch so fine it was rumored to be visible only to those of noble spirit.
+                    </p>
+<div class="manuscript-break"></div>
+<p class="font-body-lg text-body-lg">
+                        History tells us that when the Emperor first laid eyes upon the tapestry commissioned for the Summer Pavilion, he fell into a silence that lasted three days. The silk shimmered with a life of its own, changing colors as the sun marched across the sky—from the deep, bruised violets of dawn to the searing saffrons of high noon. This was not merely craft; it was a sacred dialogue between the artisan and the divine, a testament to the patience that only a life dedicated to heritage can yield.
+                    </p>
+<div class="manuscript-break"></div>
+<p class="font-body-lg text-body-lg">
+                        Today, as I trace the weathered edges of the same ledger that held his ink, I feel the resonance of those centuries-old choices. Every thread, every dye extracted from crushed lapis and wild indigo, carries the weight of an identity that refused to be forgotten. We do not just preserve these stories; we inhabit them, ensuring that the 'Ethereal Knot' remains unbroken, a golden line connecting the shadows of the past to the light of our future.
+                    </p>
+</section>
+<!-- Signature/Seal Section -->
+<footer class="mt-20 flex flex-col items-center">
+<div class="w-24 h-24 opacity-80 mb-6">
+<img class="w-full h-full object-contain" data-alt="A hand-drawn, intricate golden lotus flower emblem inspired by 16th-century Mughal manuscripts. The lines are delicate and slightly irregular, giving it a hand-crafted tactile quality. The emblem is centered on a light parchment background, glowing softly as if gilded with real gold leaf. The aesthetic is sacred and reverent." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfkTSb1JgUR7TX78eVqLvIpWfHBEF6CTsLx9KMDOMMN6LCWCMR8ivLs3TV4JU73FcvOCeKlYQ73ZCQ7ms0EvbE1zqaPXHrzcUlo3n9DB7Q1BciSOojRz2Cx1qaD2z4vNphi3C8Z7zQBcXQdC5wn72sl7av3NJXBZMIos45Zd3SBQAnGdT-o0tEXHneEzHNHB3OVVS2yILsdS6uX3jRum1eCGUoCkFzQ_NeTkG4jpxaP87d_Ei6cF-mLLDX8KjSriAKqt-hWE3q2sg"/>
+</div>
+<p class="font-label-lg text-label-lg text-primary tracking-widest">TRANSCRIBED BY THE ARCHIVIST</p>
+<div class="h-px w-20 bg-secondary mt-4"></div>
+</footer>
+</article>
+<!-- Bottom Action -->
+<div class="mt-12 flex justify-center">
+<button class="border border-primary px-10 py-4 bg-background hover:bg-tertiary-fixed transition-colors duration-300 font-label-lg text-label-lg uppercase tracking-widest flex items-center gap-3 group">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+                    Enter Your Own Narrative
+                    <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform duration-300" data-icon="arrow_right_alt">arrow_right_alt</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Footer Component (Shared) -->
+<footer class="md:ml-64 w-full flex flex-col items-center justify-center gap-stack-md px-margin-page text-center border-t border-outline-variant dark:border-outline py-12 bg-background dark:bg-background relative z-10">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed tracking-widest mb-4">HERITAGE COLLECTION</div>
+<div class="flex flex-wrap justify-center gap-8 mb-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Archives</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Artisan Fellowship</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Contact</a>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant opacity-60">
+            © 2024 Heritage Collection. Sacred &amp; Revered.
+        </div>
+</footer>
+<!-- Interactive Layer: Scroll Reveal -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section, figure, header').forEach(el => {
+                el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+                observer.observe(el);
+            });
+        });
+    </script>
+</body></html>

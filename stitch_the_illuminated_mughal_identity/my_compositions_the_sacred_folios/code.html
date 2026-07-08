@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kathak Journal | My Compositions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f4f0e7",
+                    "on-primary-fixed-variant": "#7c2b36",
+                    "surface-container": "#f1eee4",
+                    "background": "#fdf9ef",
+                    "surface-bright": "#fdf9ef",
+                    "tertiary": "#2b240e",
+                    "tertiary-fixed": "#f0e1c0",
+                    "surface-container-low": "#f7f3e9",
+                    "on-secondary-fixed": "#281800",
+                    "on-secondary-container": "#795207",
+                    "surface-container-high": "#ece8de",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#dac0c1",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#dddad0",
+                    "inverse-surface": "#31312a",
+                    "on-tertiary-fixed": "#221b06",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1c1c16",
+                    "surface": "#fdf9ef",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#9a424c",
+                    "outline": "#877273",
+                    "on-surface-variant": "#554243",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#ffdadb",
+                    "on-tertiary-fixed-variant": "#4f462d",
+                    "tertiary-container": "#423922",
+                    "primary": "#4e0616",
+                    "error": "#ba1a1a",
+                    "secondary": "#7e570d",
+                    "secondary-fixed-dim": "#f3bd6d",
+                    "on-tertiary-container": "#b0a384",
+                    "on-surface": "#1c1c16",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#ffb2b8",
+                    "on-primary-container": "#ef858f",
+                    "secondary-fixed": "#ffddb0",
+                    "surface-variant": "#e6e2d8",
+                    "primary-fixed-dim": "#ffb2b8",
+                    "surface-container-highest": "#e6e2d8",
+                    "on-primary-fixed": "#40000e",
+                    "secondary-container": "#ffc877",
+                    "primary-container": "#6b1e2a",
+                    "tertiary-fixed-dim": "#d4c5a5",
+                    "on-secondary-fixed-variant": "#614000"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "2rem",
+                    "margin-page": "4rem",
+                    "stack-sm": "0.75rem",
+                    "section-gap": "6rem",
+                    "stack-md": "1.5rem",
+                    "margin-mobile": "1.5rem"
+            },
+            "fontFamily": {
+                    "headline-md": ["EB Garamond"],
+                    "display-lg": ["EB Garamond"],
+                    "label-lg": ["EB Garamond"],
+                    "display-lg-mobile": ["EB Garamond"],
+                    "label-md": ["EB Garamond"],
+                    "headline-lg": ["EB Garamond"],
+                    "body-md": ["EB Garamond"],
+                    "body-lg": ["EB Garamond"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .parchment-texture {
+            background-color: #FAF6EC;
+            background-image: url("https://www.transparenttextures.com/patterns/p6.png");
+            background-attachment: fixed;
+        }
+
+        .gold-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .gold-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #B8893E, transparent);
+            border-radius: 50%;
+        }
+
+        .manuscript-card {
+            border: 1px solid #B8893E;
+            box-shadow: inset 0 0 40px rgba(184, 137, 62, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .manuscript-card:hover {
+            transform: translateY(-4px);
+            box-shadow: inset 0 0 60px rgba(184, 137, 62, 0.1), 0 10px 20px rgba(78, 6, 22, 0.05);
+        }
+
+        .manuscript-break {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #dac0c1, transparent);
+            position: relative;
+            margin: 2rem 0;
+        }
+        .manuscript-break::after {
+            content: '⬥';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #B8893E;
+            background: #FAF6EC;
+            padding: 0 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1eee4;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #B8893E;
+            border-radius: 2px;
+        }
+
+        .handwritten {
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+    </style>
+</head>
+<body class="parchment-texture text-on-surface font-body-md min-h-screen pb-24">
+<!-- Top AppBar (from JSON) -->
+<header class="bg-surface dark:bg-background border-b border-outline-variant dark:border-primary-container flex justify-between items-center w-full px-margin-page py-4 sticky top-0 z-40">
+<div class="font-headline-lg text-headline-lg text-primary dark:text-on-primary-container tracking-widest uppercase">
+            Kathak Journal
+        </div>
+<div class="flex items-center gap-6">
+<button class="text-primary hover:bg-surface-container-high transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined">history_edu</span>
+</button>
+<button class="text-primary hover:bg-surface-container-high transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-margin-mobile md:px-margin-page pt-12">
+<!-- Page Header -->
+<div class="text-center mb-16">
+<h1 class="font-display-lg text-display-lg text-primary mb-4 gold-underline">My Compositions</h1>
+<p class="font-body-lg text-on-surface-variant italic mt-6 opacity-80">The archival record of your movement lineage.</p>
+</div>
+<!-- Search & Filter Bar -->
+<div class="space-y-8 mb-12">
+<div class="flex flex-col md:flex-row gap-6 items-end justify-between border-b border-outline-variant pb-4">
+<div class="w-full md:w-1/2 relative">
+<span class="material-symbols-outlined absolute left-0 bottom-2 text-secondary">search</span>
+<input class="w-full bg-transparent border-none border-b border-primary focus:ring-0 pl-8 pb-2 font-headline-md italic placeholder:text-outline-variant text-primary" placeholder="Search the archives..." type="text"/>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<label class="font-label-md text-on-surface-variant uppercase tracking-widest">Sort By:</label>
+<select class="bg-transparent border-none text-primary font-body-md focus:ring-0 cursor-pointer">
+<option>Recently Added</option>
+<option>Date Learned</option>
+<option>Guru</option>
+<option>Difficulty</option>
+</select>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex overflow-x-auto gap-3 pb-4 custom-scrollbar">
+<button class="px-6 py-1 bg-primary text-white text-label-md rounded-none uppercase tracking-widest transition-all">All</button>
+<button class="px-6 py-1 bg-surface-container border border-outline-variant text-on-surface-variant text-label-md rounded-none uppercase tracking-widest hover:border-secondary transition-all">Vandana</button>
+<button class="px-6 py-1 bg-surface-container border border-outline-variant text-on-surface-variant text-label-md rounded-none uppercase tracking-widest hover:border-secondary transition-all">Amad</button>
+<button class="px-6 py-1 bg-surface-container border border-outline-variant text-on-surface-variant text-label-md rounded-none uppercase tracking-widest hover:border-secondary transition-all">Tukda</button>
+<button class="px-6 py-1 bg-surface-container border border-outline-variant text-on-surface-variant text-label-md rounded-none uppercase tracking-widest hover:border-secondary transition-all">Toda</button>
+<button class="px-6 py-1 bg-surface-container border border-outline-variant text-on-surface-variant text-label-md rounded-none uppercase tracking-widest hover:border-secondary transition-all">Paran</button>
+<button class="px-6 py-1 bg-surface-container border border-outline-variant text-on-surface-variant text-label-md rounded-none uppercase tracking-widest hover:border-secondary transition-all">Chakradar</button>
+<button class="px-6 py-1 bg-surface-container border border-outline-variant text-on-surface-variant text-label-md rounded-none uppercase tracking-widest hover:border-secondary transition-all">Tihai</button>
+<button class="px-6 py-1 bg-surface-container border border-outline-variant text-on-surface-variant text-label-md rounded-none uppercase tracking-widest hover:border-secondary transition-all">Gat Nikas</button>
+<button class="px-6 py-1 bg-surface-container border border-outline-variant text-on-surface-variant text-label-md rounded-none uppercase tracking-widest hover:border-secondary transition-all">Gat Bhav</button>
+<button class="px-6 py-1 bg-surface-container border border-outline-variant text-on-surface-variant text-label-md rounded-none uppercase tracking-widest hover:border-secondary transition-all">Kavitt</button>
+<button class="px-6 py-1 bg-surface-container border border-outline-variant text-on-surface-variant text-label-md rounded-none uppercase tracking-widest hover:border-secondary transition-all">Thaat</button>
+</div>
+</div>
+<!-- Grid of Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="manuscript-card bg-surface-container-lowest p-8 flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[64px]" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<div class="flex justify-between items-start mb-6">
+<span class="px-3 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-label-md uppercase tracking-wider">Tukda</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-secondary text-lg" title="Audio available">hearing</span>
+<span class="material-symbols-outlined text-secondary text-lg" title="Notes available">description</span>
+</div>
+</div>
+<h3 class="font-headline-md text-primary mb-4">Vilambit Laya Tukda I</h3>
+<div class="flex-grow">
+<p class="handwritten text-body-lg leading-relaxed text-on-surface-variant border-l-2 border-outline-variant pl-4 py-2">
+                        Dha Ta Ka Thunga, Trak Dhun Ta...<br/>
+                        Kite Taka Thunga, Ta Thai Thai Tat...
+                    </p>
+</div>
+<div class="manuscript-break my-4 opacity-30"></div>
+<footer class="italic text-on-surface-variant opacity-80 font-body-md">
+                    Guru Pt. Birju Maharaj • Lucknow Gharana
+                </footer>
+</div>
+<!-- Card 2 -->
+<div class="manuscript-card bg-surface-container-lowest p-8 flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 opacity-5 pointer-events-none text-secondary">
+<span class="material-symbols-outlined text-[64px]" style="font-variation-settings: 'FILL' 1;">grid_guides</span>
+</div>
+<div class="flex justify-between items-start mb-6">
+<span class="px-3 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-label-md uppercase tracking-wider">Amad</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-secondary text-lg">movie</span>
+<span class="material-symbols-outlined text-secondary text-lg">description</span>
+</div>
+</div>
+<h3 class="font-headline-md text-primary mb-4">Shakti Amad - Teental</h3>
+<div class="flex-grow">
+<p class="handwritten text-body-lg leading-relaxed text-on-surface-variant border-l-2 border-outline-variant pl-4 py-2">
+                        Ta Thai Thai Tat, Aa Thai Thai Tat...<br/>
+                        Dha Dig Dig Thai, Tat Thai Thai Tat...
+                    </p>
+</div>
+<div class="manuscript-break my-4 opacity-30"></div>
+<footer class="italic text-on-surface-variant opacity-80 font-body-md">
+                    Guru Shovana Narayan • Lucknow Gharana
+                </footer>
+</div>
+<!-- Card 3 -->
+<div class="manuscript-card bg-surface-container-lowest p-8 flex flex-col h-full relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="px-3 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-label-md uppercase tracking-wider">Chakradar</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-secondary text-lg">hearing</span>
+<span class="material-symbols-outlined text-secondary text-lg">movie</span>
+<span class="material-symbols-outlined text-secondary text-lg">description</span>
+</div>
+</div>
+<h3 class="font-headline-md text-primary mb-4">Teental Chakradar Toda</h3>
+<div class="flex-grow">
+<p class="handwritten text-body-lg leading-relaxed text-on-surface-variant border-l-2 border-outline-variant pl-4 py-2">
+                        Tigda Dig Dig, Tigda Dig Dig...<br/>
+                        Thai - - , Tigda Dig Dig, Thai...
+                    </p>
+</div>
+<div class="manuscript-break my-4 opacity-30"></div>
+<footer class="italic text-on-surface-variant opacity-80 font-body-md">
+                    Guru Pt. Rajendra Gangani • Jaipur Gharana
+                </footer>
+</div>
+<!-- Card 4 -->
+<div class="manuscript-card bg-surface-container-lowest p-8 flex flex-col h-full relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="px-3 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-label-md uppercase tracking-wider">Kavitt</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-secondary text-lg">description</span>
+</div>
+</div>
+<h3 class="font-headline-md text-primary mb-4">Murli Manohar Kavitt</h3>
+<div class="flex-grow">
+<p class="handwritten text-body-lg leading-relaxed text-on-surface-variant border-l-2 border-outline-variant pl-4 py-2">
+                        Chalat Mukut Dhari, Jamuna Tat Kari...<br/>
+                        Taka Thunga Dha, Thai Thai Tat...
+                    </p>
+</div>
+<div class="manuscript-break my-4 opacity-30"></div>
+<footer class="italic text-on-surface-variant opacity-80 font-body-md">
+                    Traditional • Lucknow Gharana
+                </footer>
+</div>
+<!-- Card 5 -->
+<div class="manuscript-card bg-surface-container-lowest p-8 flex flex-col h-full relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="px-3 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-label-md uppercase tracking-wider">Tihai</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-secondary text-lg">hearing</span>
+</div>
+</div>
+<h3 class="font-headline-md text-primary mb-4">Bedam Tihai - Jhaptaal</h3>
+<div class="flex-grow">
+<p class="handwritten text-body-lg leading-relaxed text-on-surface-variant border-l-2 border-outline-variant pl-4 py-2">
+                        Dha Tit, Dha Tit, Dha Tit Dha...<br/>
+                        Kat Tit, Kat Tit, Kat Tit Dha...
+                    </p>
+</div>
+<div class="manuscript-break my-4 opacity-30"></div>
+<footer class="italic text-on-surface-variant opacity-80 font-body-md">
+                    Self-Composition • Experimental
+                </footer>
+</div>
+<!-- Card 6 -->
+<div class="manuscript-card bg-surface-container-lowest p-8 flex flex-col h-full relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="px-3 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-label-md uppercase tracking-wider">Gat Nikas</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-secondary text-lg">movie</span>
+</div>
+</div>
+<h3 class="font-headline-md text-primary mb-4">Ghunghat Gat Nikas</h3>
+<div class="flex-grow">
+<p class="handwritten text-body-lg leading-relaxed text-on-surface-variant border-l-2 border-outline-variant pl-4 py-2">
+                        Slow grace, wrist rotations...<br/>
+                        Eye movement leading the hand...
+                    </p>
+</div>
+<div class="manuscript-break my-4 opacity-30"></div>
+<footer class="italic text-on-surface-variant opacity-80 font-body-md">
+                    Guru Kumudini Lakhia • Kadamb
+                </footer>
+</div>
+</div>
+<!-- Pagination or Load More -->
+<div class="mt-20 flex justify-center pb-24">
+<button class="group flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-primary text-4xl group-hover:scale-110 transition-transform">expand_more</span>
+<span class="font-label-md uppercase tracking-[0.2em] text-on-surface-variant">Unroll more folios</span>
+</button>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-24 right-8 md:bottom-12 md:right-12 bg-primary text-white flex items-center gap-3 px-6 py-4 shadow-2xl hover:scale-105 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+<span class="font-label-lg uppercase tracking-widest">New Composition</span>
+</button>
+<!-- Bottom Navigation Bar (from JSON) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe bg-surface border-t border-outline-variant dark:border-primary-container h-16">
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">book_2</span>
+<span class="font-label-md text-label-md">Journal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-on-primary-container border-t-2 border-primary pt-1 hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">library_books</span>
+<span class="font-label-md text-label-md">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-md text-label-md">Lineage</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<!-- Floating Decorative Background Elements -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none opacity-[0.03] z-[-1] overflow-hidden">
+<div class="absolute -top-24 -left-24 w-96 h-96 border border-primary rounded-full"></div>
+<div class="absolute top-1/2 -right-48 w-[600px] h-[600px] border border-secondary rounded-full opacity-50"></div>
+</div>
+<script>
+        // Micro-interactions for chip filtering
+        const chips = document.querySelectorAll('.flex.overflow-x-auto button');
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                chips.forEach(c => {
+                    c.classList.remove('bg-primary', 'text-white');
+                    c.classList.add('bg-surface-container', 'text-on-surface-variant');
+                });
+                chip.classList.remove('bg-surface-container', 'text-on-surface-variant');
+                chip.classList.add('bg-primary', 'text-white');
+            });
+        });
+
+        // Floating FAB animation
+        const fab = document.querySelector('button.fixed.bottom-24');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                fab.style.opacity = '1';
+                fab.style.transform = 'translateY(0)';
+            } else {
+                // Keep visible but subtle
+            }
+        });
+    </script>
+</body></html>

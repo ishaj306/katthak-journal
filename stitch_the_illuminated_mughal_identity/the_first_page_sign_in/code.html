@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign In | Kathak Journal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f1eee4",
+                        "inverse-on-surface": "#f4f0e7",
+                        "surface-container-low": "#f7f3e9",
+                        "secondary-fixed": "#ffddb0",
+                        "primary-container": "#6b1e2a",
+                        "primary-fixed": "#ffdadb",
+                        "on-tertiary-fixed-variant": "#4f462d",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1c1c16",
+                        "surface-container-highest": "#e6e2d8",
+                        "secondary": "#7e570d",
+                        "secondary-container": "#ffc877",
+                        "on-tertiary-container": "#b0a384",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#281800",
+                        "surface-bright": "#fdf9ef",
+                        "on-tertiary-fixed": "#221b06",
+                        "outline-variant": "#dac0c1",
+                        "inverse-primary": "#ffb2b8",
+                        "tertiary-container": "#423922",
+                        "inverse-surface": "#31312a",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#614000",
+                        "surface": "#fdf9ef",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#ece8de",
+                        "tertiary": "#2b240e",
+                        "tertiary-fixed": "#f0e1c0",
+                        "on-surface": "#1c1c16",
+                        "on-secondary-container": "#795207",
+                        "background": "#fdf9ef",
+                        "primary": "#4e0616",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#9a424c",
+                        "surface-dim": "#dddad0",
+                        "primary-fixed-dim": "#ffb2b8",
+                        "on-primary-container": "#ef858f",
+                        "tertiary-fixed-dim": "#d4c5a5",
+                        "secondary-fixed-dim": "#f3bd6d",
+                        "on-primary-fixed": "#40000e",
+                        "on-surface-variant": "#554243",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#7c2b36",
+                        "outline": "#877273",
+                        "surface-variant": "#e6e2d8",
+                        "on-secondary": "#ffffff",
+                        "antique-gold": "#B8893E"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "2rem",
+                        "stack-sm": "0.75rem",
+                        "stack-md": "1.5rem",
+                        "margin-page": "4rem",
+                        "section-gap": "6rem",
+                        "margin-mobile": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Cormorant Garamond", "serif"],
+                        "display-lg": ["Cormorant Garamond", "serif"],
+                        "body-md": ["EB Garamond", "serif"],
+                        "body-lg": ["EB Garamond", "serif"],
+                        "label-md": ["EB Garamond", "serif"],
+                        "label-lg": ["EB Garamond", "serif"],
+                        "display-lg-mobile": ["Cormorant Garamond", "serif"],
+                        "headline-lg": ["Cormorant Garamond", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fdf9ef;
+            font-family: 'EB Garamond', serif;
+            color: #1c1c16;
+            overflow-x: hidden;
+        }
+
+        .parchment-texture {
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            opacity: 0.15;
+        }
+
+        .mughal-border {
+            border: 1px solid #B8893E;
+            position: relative;
+        }
+
+        .mughal-border::before {
+            content: "";
+            position: absolute;
+            top: 4px; left: 4px; right: 4px; bottom: 4px;
+            border: 0.5px solid #B8893E;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .ghungroo-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        .ghungroo-divider::before, .ghungroo-divider::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: linear-gradient(to right, transparent, #B8893E, transparent);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4e0616;
+        }
+
+        .fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+<!-- Top Nav Shell (Filtered for Transactional Page) -->
+<!-- As per instructions, TopNavBar is suppressed on Transactional screens like Login. -->
+<main class="w-full max-w-7xl h-[90vh] md:h-[800px] flex flex-col md:flex-row bg-surface rounded-sm shadow-2xl overflow-hidden border border-antique-gold/20">
+<!-- Left Side: Visual Panel -->
+<section class="hidden md:flex w-1/2 relative bg-[#FAF6EC] p-12 items-center justify-center overflow-hidden">
+<div class="absolute inset-0 parchment-texture pointer-events-none"></div>
+<!-- Frame for Illustration -->
+<div class="mughal-border w-full h-full flex items-center justify-center bg-white/10 backdrop-blur-[1px] relative z-10">
+<div class="w-4/5 h-4/5 flex flex-col items-center justify-center">
+<img alt="Kathak Dancer" class="w-full h-full object-contain mix-blend-multiply opacity-90 scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNpIGnrdF4PhR_MiW5Bdurccd2_6MFPOmyX6IGYc5FfRZBvYjg26ijL6ZT9BwSjA3f3RyaSUuiq66undik1-crfH8Z2aXcl8hYNMi1NCtEieOOeVPwCUaF0tZGn0ZsoPGM2-kjixMWJqdgdXnzT2O2YaHQY_iU1re4vT0mUBW1fZBJQ8XaQHKSgT-EhGMSbL-GZ3_kBGrNr0J_i2hleoIYrldbtDM2F-w5-o5IhK0lq1UPRLUG9wfKlgI6z7tf1rcGrxciVnP7Z-w"/>
+<!-- Decorative Corner Motifs (Simple CSS shapes for Mughal feel) -->
+<div class="absolute top-2 left-2 text-antique-gold opacity-60">
+<span class="material-symbols-outlined text-[32px]">filter_vintage</span>
+</div>
+<div class="absolute top-2 right-2 text-antique-gold opacity-60">
+<span class="material-symbols-outlined text-[32px]">filter_vintage</span>
+</div>
+<div class="absolute bottom-2 left-2 text-antique-gold opacity-60">
+<span class="material-symbols-outlined text-[32px]">filter_vintage</span>
+</div>
+<div class="absolute bottom-2 right-2 text-antique-gold opacity-60">
+<span class="material-symbols-outlined text-[32px]">filter_vintage</span>
+</div>
+</div>
+</div>
+<!-- Floating Label in Mughal Style -->
+<div class="absolute top-8 left-1/2 -translate-x-1/2 z-20">
+<span class="font-label-lg text-label-lg uppercase tracking-[0.3em] text-antique-gold bg-[#FAF6EC] px-4">Parampara</span>
+</div>
+</section>
+<!-- Right Side: Authentication Panel -->
+<section class="w-full md:w-1/2 bg-[#fdf9ef] flex flex-col items-center justify-center p-8 md:p-16 relative">
+<div class="absolute inset-0 parchment-texture pointer-events-none opacity-5"></div>
+<div class="w-full max-w-md space-y-12 z-10 fade-in">
+<!-- Brand Anchor in Mobile (Hidden on Desktop split) -->
+<div class="md:hidden text-center mb-8">
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary tracking-tighter">Kathak Journal</h1>
+</div>
+<!-- Header -->
+<div class="space-y-4 text-center md:text-left">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Welcome back, dancer</h2>
+<p class="font-body-lg text-body-lg italic text-on-surface-variant opacity-80">Your manuscript awaits</p>
+</div>
+<!-- Auth Form -->
+<form action="#" class="space-y-10" method="POST">
+<!-- Email Field -->
+<div class="relative">
+<label class="block font-label-md text-label-md uppercase tracking-widest text-antique-gold mb-1" for="email">Electronic Mail</label>
+<input class="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b border-antique-gold/40 py-3 px-0 font-body-md text-body-md text-on-surface focus:ring-0 focus:border-primary transition-all duration-300 placeholder:text-on-surface-variant/30" id="email" name="email" placeholder="e.g. sitara.devi@lineage.org" required="" type="email"/>
+</div>
+<!-- Password Field -->
+<div class="relative">
+<label class="block font-label-md text-label-md uppercase tracking-widest text-antique-gold mb-1" for="password">Secret Key</label>
+<input class="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b border-antique-gold/40 py-3 px-0 font-body-md text-body-md text-on-surface focus:ring-0 focus:border-primary transition-all duration-300" id="password" name="password" required="" type="password"/>
+<div class="flex justify-end mt-2">
+<a class="font-label-md text-label-md italic text-on-surface-variant hover:text-primary transition-colors" href="#">Forgotten your rhythm?</a>
+</div>
+</div>
+<!-- Divider -->
+<div class="ghungroo-divider">
+<span class="material-symbols-outlined text-antique-gold" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+</div>
+<!-- Primary Action -->
+<div class="space-y-6">
+<button class="w-full bg-primary-container text-antique-gold font-label-lg text-label-lg uppercase tracking-[0.2em] py-5 px-8 hover:bg-primary transition-all duration-500 flex items-center justify-center gap-4 group" type="submit">
+<span>Sign In</span>
+<span class="material-symbols-outlined text-[20px] group-hover:translate-x-2 transition-transform duration-300">keyboard_double_arrow_right</span>
+</button>
+<div class="text-center">
+<a class="font-body-md text-body-md text-primary border-b border-primary/20 hover:border-primary transition-all pb-1" href="#">
+                                Create your journal
+                            </a>
+</div>
+</div>
+</form>
+</div>
+<!-- Quote at bottom -->
+<div class="mt-16 md:mt-0 md:absolute md:bottom-12 left-0 right-0 px-8 text-center opacity-60">
+<blockquote class="font-body-md text-body-md italic max-w-sm mx-auto leading-relaxed">
+                    "The rhythm is not in the feet, but in the soul that moves them."
+                    <footer class="mt-2 block not-italic font-label-md text-label-md uppercase tracking-widest text-antique-gold">— Guru Shambhu Maharaj</footer>
+</blockquote>
+</div>
+</section>
+</main>
+<!-- Global Footer (As defined in JSON, adapted for transactional page minimal state) -->
+<footer class="mt-8 text-center opacity-40">
+<p class="font-body-md text-[12px] italic uppercase tracking-widest">
+            © MMXXIV KATHAK JOURNAL. PRESERVING THE SACRED RHYTHM.
+        </p>
+</footer>
+<script>
+        // Subtle micro-interaction for input focus states
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.previousElementSibling.style.letterSpacing = '0.3em';
+                input.previousElementSibling.style.transition = 'letter-spacing 0.5s ease';
+            });
+            input.addEventListener('blur', () => {
+                input.previousElementSibling.style.letterSpacing = '0.05em';
+            });
+        });
+
+        // Background parallax effect for the visual panel
+        document.addEventListener('mousemove', (e) => {
+            const visual = document.querySelector('.mughal-border img');
+            if (!visual) return;
+            const x = (window.innerWidth - e.pageX * 2) / 100;
+            const y = (window.innerHeight - e.pageY * 2) / 100;
+            visual.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
+        });
+    </script>
+</body></html>

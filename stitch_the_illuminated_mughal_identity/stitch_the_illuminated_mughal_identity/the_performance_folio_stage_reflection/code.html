@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Performance Entry | Kathak Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#fdf9ef",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f7f3e9",
+                    "primary-fixed-dim": "#ffb2b8",
+                    "surface-dim": "#dddad0",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e6e2d8",
+                    "surface-bright": "#fdf9ef",
+                    "secondary-fixed-dim": "#f3bd6d",
+                    "on-primary-fixed-variant": "#7c2b36",
+                    "inverse-on-surface": "#f4f0e7",
+                    "on-primary-container": "#ef858f",
+                    "primary-container": "#6b1e2a",
+                    "background": "#fdf9ef",
+                    "secondary-fixed": "#ffddb0",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#554243",
+                    "on-primary-fixed": "#40000e",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#614000",
+                    "on-error": "#ffffff",
+                    "surface-container": "#f1eee4",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#4f462d",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#31312a",
+                    "on-background": "#1c1c16",
+                    "outline-variant": "#dac0c1",
+                    "tertiary-fixed-dim": "#d4c5a5",
+                    "primary-fixed": "#ffdadb",
+                    "tertiary-container": "#423922",
+                    "secondary-container": "#ffc877",
+                    "on-secondary-fixed": "#281800",
+                    "outline": "#877273",
+                    "inverse-primary": "#ffb2b8",
+                    "tertiary": "#2b240e",
+                    "primary": "#4e0616",
+                    "secondary": "#7e570d",
+                    "surface-variant": "#e6e2d8",
+                    "surface-container-high": "#ece8de",
+                    "on-secondary-container": "#795207",
+                    "tertiary-fixed": "#f0e1c0",
+                    "surface-tint": "#9a424c",
+                    "on-tertiary-container": "#b0a384",
+                    "on-surface": "#1c1c16",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#221b06"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "0.75rem",
+                    "margin-page": "4rem",
+                    "margin-mobile": "1.5rem",
+                    "section-gap": "6rem",
+                    "stack-md": "1.5rem",
+                    "gutter": "2rem"
+            },
+            "fontFamily": {
+                    "label-md": ["EB Garamond"],
+                    "display-lg": ["EB Garamond"],
+                    "body-lg": ["EB Garamond"],
+                    "headline-lg": ["EB Garamond"],
+                    "display-lg-mobile": ["EB Garamond"],
+                    "label-lg": ["EB Garamond"],
+                    "headline-md": ["EB Garamond"],
+                    "body-md": ["EB Garamond"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fdf9ef;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            -webkit-font-smoothing: antialiased;
+        }
+        .manuscript-border {
+            border: 1px solid #7e570d; /* Antique Gold */
+            padding: 8px;
+            position: relative;
+        }
+        .manuscript-border::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 0.5px solid #4e0616; /* Deep Maroon */
+            pointer-events: none;
+        }
+        .gold-pill {
+            background-color: rgba(255, 221, 176, 0.3);
+            border: 1px solid #7e570d;
+            padding: 2px 16px;
+            border-radius: 9999px;
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #7e570d, transparent);
+            position: relative;
+            margin: 4rem 0;
+        }
+        .section-divider::after {
+            content: '❦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fdf9ef;
+            padding: 0 1rem;
+            color: #7e570d;
+            font-size: 1.2rem;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            color: #7e570d;
+        }
+        .reflection-box {
+            border-bottom: 1px solid #4e0616;
+            background: transparent;
+            min-height: 120px;
+            padding: 1rem 0;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-surface border-b border-primary/20 flex justify-between items-center px-margin-page py-stack-sm w-full">
+<div class="font-headline-lg text-headline-lg text-primary uppercase tracking-widest">Kathak Archive</div>
+<nav class="hidden md:flex gap-gutter">
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-secondary transition-colors duration-300" href="#">The Lineage</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-secondary transition-colors duration-300" href="#">Daily Riyaz</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-secondary transition-colors duration-300" href="#">Rhythm Folio</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-lg text-label-lg" href="#">Archives</a>
+</nav>
+<button class="bg-surface border border-primary text-primary px-6 py-2 uppercase tracking-widest font-label-lg text-label-lg cursor-pointer transition-all active:scale-95 hover:bg-secondary-fixed/10">
+            New Entry
+        </button>
+</header>
+<main class="max-w-7xl mx-auto px-margin-mobile md:px-margin-page py-section-gap">
+<!-- Hero Section -->
+<section class="flex flex-col items-center text-center space-y-stack-md">
+<div class="w-full max-w-5xl manuscript-border aspect-[16/9] overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-detail wide shot of a Kathak dancer mid-spin on a historic sandstone stage in a Mughal courtyard at dusk. The lighting is warm and ethereal, highlighting the movement of a deep maroon silk anarkali costume with heavy gold embroidery. The atmosphere is reverent and classical, capturing the dust motes dancing in shafts of golden light. 16th-century architectural details frame the scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjIhovlv64s0AGfeA75ClArA2L7Ol6MWGf4R9bHA_sypuEKafFdgD_Jtnhpis5x3lOzWS0CuqNAq-Rx9G-yUODn4MO7XbCmJy0HsI5YgJ-rUs3aFEQmlPMDvl33vTnKkT-_e9FSXTz1NXck5JeJn6qtxTmlIR64XI4kI6TjoKH0JFJk079lpN42wHiGxbkBo8RBDTPo0pu5Mmhy0WC5aKiGBP42qdW-cpGjGhAgMb0PR94eIMzaDcD9bnFzP5FdTdOPEJiZJCsneY"/>
+</div>
+<div class="pt-stack-md">
+<h1 class="font-display-lg text-display-lg md:text-display-lg text-primary italic">Vasant Utsav: The Spring Recital</h1>
+<div class="flex flex-wrap justify-center gap-4 mt-stack-sm">
+<span class="gold-pill font-label-md text-label-md text-secondary">Lucknow Bhavan</span>
+<span class="gold-pill font-label-md text-label-md text-secondary">March 14, 2024</span>
+<span class="gold-pill font-label-md text-label-md text-secondary">Classical Solo</span>
+</div>
+</div>
+</section>
+<div class="section-divider"></div>
+<!-- Gallery Section -->
+<section>
+<h2 class="font-headline-lg text-headline-lg text-primary text-center mb-stack-md italic">Performance Folio</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="manuscript-border aspect-square overflow-hidden md:col-span-2 md:row-span-2">
+<img class="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500" data-alt="Close up of a Kathak dancer's feet adorned with hundreds of heavy brass ghungroos tied with thick red twine. The feet are positioned in a traditional stance on a textured stone floor. The lighting is soft and focused, emphasizing the craftsmanship of the bells and the delicate application of Alta on the heels and toes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgOfPwVql9_gD-kUTis6-AlqTgog5Ch6ZAYUgn4ySfeU_ULNf5h85dCcQpq2ds5uEI9y7b-6p_QfPMW797F5myDDVl8vudq7ftx-NsfWOmodWVrQoW3VCFl9WbZMQoICDuQBYiKsREtFLvrPbbB6WWL631qcIm0iGCrnuUNgsZgvi0nnM7xh_F9HktMGshcnd2uKOLx47u_EMiYBF-iSiqSz0L-z9p6j5_oK3zMLh4FPZsn6x9vOxxq_5YqUiahjMWZwEkDsBH2OI"/>
+</div>
+<div class="manuscript-border aspect-square overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A medium shot of a dancer's hands in a Mudra, specifically the Pataka position, held against a backdrop of deep maroon silk. The hands are finely decorated with intricate henna patterns and silver jewelry. The lighting is dramatic, casting soft shadows that emphasize the graceful curves of the fingers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvF_xYhVo3JOQbfwMBX2KJh2ZwuBTOCOKXj32p_ezuNunysJMSjeFysoSfCfzn9n55fL2dZHr8FHXO43Z2EauTzDmTAW1Ho5A3EDDyVoWlF-GCHqIkMIQ25EAlEBEyzj5d_xbDZi6Em5cnFSsqFvC9TeSRouHb4O4Jm4dsE3w3bgTyFZI6tEo15NMDJTNVvYiz-ZzvI4D9udcm50_Q2CbFo1J1XW-tJjTjW3Y3cL8XYd3yru7Zzf7X2viyGbYlOnFyJCDJtTh2kfI"/>
+</div>
+<div class="manuscript-border aspect-square overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="An atmospheric shot of the musician's ensemble during the performance. A set of hand-carved tablas and a wooden harmonium are visible in the foreground, bathed in warm, low-key lighting. The background is blurred, showing the silhouette of a musician in traditional attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOXTPjwVIZk_FB3fc6YEYgPvCn8JIqPbSeTopx4xx1GewjwNtVxbn-WKG-qB5AOaytwiueThi3WZtqy1Vjxdnp_gmGe1-ghVimYBql0XOrT9gsBm9xYo2bSXOK9wcJ1ZcZ0Xz69J3tpzMrOSnUna8trCZ90IIh6pGPVL3t8PfR1Xc8-BmaryDYA9JtqZTm_JdhVj-P1z4u8ds4qWGzJSyD8ANCdvuxk_19l93NAlBdNwhZOipakkKk4TlafSSokBWynUTFxFaKmpI"/>
+</div>
+<div class="manuscript-border aspect-video overflow-hidden md:col-span-2">
+<img class="w-full h-full object-cover" data-alt="A wide, sweeping shot of the audience seated in a semi-circle on traditional white floor mattresses, their faces illuminated by the soft glow of oil lamps. The architecture of the venue features high arched ceilings and intricate jali screens, creating an intimate and historic atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ93Dc5nCNPePpwRlD4XdiYGo1BMaPvpJYGDLim-rWk9x5yraUQzpUu_My0IWGwd3Ssmf_sX-aS9KcoP4lh3V1X76Jk8SRMHYu2fQR51BFScbgpOxDXNWG8p_cdk6nv3baitTc4nldCEfyXoLgZtW__JbGlyUHyUjlf_VGpw38P7xAh_7MuYn-nMMx1by1LOEi0Kc5dSpaZITpjwSjXmBYY4W4mY77blGAmFaPmmwm-vxqs8Z0XGSmfR41UUpIwGMWI74UFc0qL2Y"/>
+</div>
+</div>
+</section>
+<div class="section-divider"></div>
+<!-- Costume & Makeup Reference -->
+<section>
+<div class="flex flex-col md:flex-row gap-section-gap items-center">
+<div class="w-full md:w-1/2 space-y-stack-md">
+<h2 class="font-headline-lg text-headline-lg text-primary italic">Costume & Shringar</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        For this spring recital, the ensemble was inspired by the flora of the royal gardens. The Angarkha was crafted from hand-loomed Banarasi silk in a shade of dried pomegranate, paired with a sheer dupatta featuring 'Mukaish' silver-dot work. The makeup focused on the 'Nayika' aesthetic—defined kohl eyes and a deep vermillion bindi.
+                    </p>
+<div class="flex gap-4">
+<div class="p-4 bg-surface-container-low border border-outline-variant flex flex-col items-center">
+<span class="material-symbols-outlined text-4xl mb-2">checkroom</span>
+<span class="font-label-md text-label-md uppercase tracking-widest text-primary">Banarasi Silk</span>
+</div>
+<div class="p-4 bg-surface-container-low border border-outline-variant flex flex-col items-center">
+<span class="material-symbols-outlined text-4xl mb-2">brush</span>
+<span class="font-label-md text-label-md uppercase tracking-widest text-primary">Kohl Heavy</span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-1/2 grid grid-cols-2 gap-4">
+<div class="manuscript-border aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Macro photography of a Kathak costume fabric. The texture is a rich pomegranate-red silk with woven gold Zari motifs shaped like blooming lotuses. The light catches the metallic threads, showing the incredible detail of the weave and the organic imperfections of the hand-loomed fabric." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVWoTpjEcW-aQdn461jKlRlM2XCq8fxSHJKLH5xeh64Wa-ZVnd8yWQSNJGK9Kx_PjenQ44s6bpvFcCez3PdySSWOv_vusfeSqtr3cyoz-e4H7C5xLFT9miXFi8eBaJRvEAh8jM62WysPdseTNFUx4q14dV6IO-rmvGAedfpDfXfSdZZENBn4cpqChqvgQuKI4bseQs0dG7F891vQAjzM_XBYqudUIkLQ0WPev6cUpri70r9F8liRC9admCWYEoXIqqhRaB2WlT7n4"/>
+</div>
+<div class="manuscript-border aspect-[3/4] overflow-hidden mt-8">
+<img class="w-full h-full object-cover" data-alt="A detailed portrait focusing on the traditional Shringar of a dancer. The jewelry consists of an antique gold Maang Tikka and Jhumar, encrusted with pearls and rubies. The eyes are lined with thick traditional Kajal, and the expression is one of serene focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAeNxUCTijSv7u5Da7dRXx58-TZGgHKLo2c7iLqYWxG4N1d47fkoVc2RGa-ty4OIusLN2M5EJAEpzwD0YKxIKot2H444RrywWKnWyiLNzghj62Qv_9t6yOE0yLwnupq5Kz-FlRzuIjg8Sh-OuUHcDCavFrw1V7UBnJ3NUSF8YJYqiNKdvjstkrcIVGfzOeAvrtzA5nIINAPu9ZPbW27foI7FXu7fm8Rk1_fguJLgFWRHuTgkn1_ezzI5QaBv_CfD072vSXCvwpsyM"/>
+</div>
+</div>
+</div>
+</section>
+<div class="section-divider"></div>
+<!-- Reflections Section -->
+<section class="max-w-4xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg text-primary text-center mb-section-gap italic">Post-Performance Reflections</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-gutter gap-y-stack-md">
+<div class="space-y-2">
+<label class="font-label-lg text-label-lg text-secondary italic block">What went well?</label>
+<div class="reflection-box font-body-md text-body-md text-on-surface">
+                        The 'Tatkar' in Drut laya felt exceptionally grounded today. The connection with the Tabla player was intuitive; we found the 'Sam' perfectly during the complex Tihayis.
+                    </div>
+</div>
+<div class="space-y-2">
+<label class="font-label-lg text-label-lg text-secondary italic block">Mistakes & Slips</label>
+<div class="reflection-box font-body-md text-body-md text-on-surface">
+                        Lost balance briefly during the third 'Chakkar' of the Gat Nikas. I suspect the floor surface was slightly more polished than the rehearsal space.
+                    </div>
+</div>
+<div class="space-y-2">
+<label class="font-label-lg text-label-lg text-secondary italic block">Learnings</label>
+<div class="reflection-box font-body-md text-body-md text-on-surface">
+                        The 'Abhinaya' segment for the Thumri requires more subtle eye movements. I felt I was over-empathizing with the face rather than let the internal emotion guide the sight.
+                    </div>
+</div>
+<div class="space-y-2">
+<label class="font-label-lg text-label-lg text-secondary italic block">Next Steps</label>
+<div class="reflection-box font-body-md text-body-md text-on-surface">
+                        Practice 108 Chakkars daily to stabilize the core. Begin memorizing the new 'Kavitt' from the Raigarh manuscript for the next season.
+                    </div>
+</div>
+</div>
+</section>
+<!-- Actions -->
+<section class="flex flex-col md:flex-row justify-center items-center gap-gutter mt-section-gap">
+<button class="w-full md:w-auto px-12 py-3 bg-primary text-on-primary uppercase tracking-[0.2em] font-label-lg text-label-lg hover:bg-primary-container hover:text-on-primary-container transition-all">
+                Save Folio
+            </button>
+<button class="w-full md:w-auto px-12 py-3 border border-secondary text-secondary uppercase tracking-[0.2em] font-label-lg text-label-lg hover:bg-secondary-fixed/10 transition-all">
+                Edit Entry
+            </button>
+<button class="w-full md:w-auto px-12 py-3 text-error uppercase tracking-[0.2em] font-label-lg text-label-lg hover:bg-error-container/20 transition-all">
+                Delete
+            </button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-md px-margin-page flex flex-col items-center gap-stack-sm border-t-4 border-double border-secondary-fixed bg-surface">
+<div class="font-headline-sm text-headline-sm text-primary">Kathak Digital Archive</div>
+<div class="flex gap-gutter">
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-opacity hover:opacity-80" href="#">Terms of Use</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-opacity hover:opacity-80" href="#">Royal Decrees</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-opacity hover:opacity-80" href="#">Privacy Folio</a>
+</div>
+<p class="text-secondary font-label-md text-label-md mt-4">© 2024 Kathak Digital Archive. Preserving the Sacred Lineage.</p>
+</footer>
+<script>
+        // Simple micro-interaction for the reflection boxes
+        document.querySelectorAll('.reflection-box').forEach(box => {
+            box.addEventListener('click', function() {
+                this.style.backgroundColor = 'rgba(255, 221, 176, 0.1)';
+                setTimeout(() => {
+                    this.style.backgroundColor = 'transparent';
+                }, 300);
+            });
+        });
+
+        // Interactive gold border shimmer effect on hover
+        document.querySelectorAll('.manuscript-border').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.borderColor = '#ffddb0';
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'all 0.4s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.borderColor = '#7e570d';
+                card.style.transform = 'translateY(0px)';
+            });
+        });
+    </script>
+</body></html>

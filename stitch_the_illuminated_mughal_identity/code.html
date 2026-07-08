@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KATHAK ARCHIVE | Vilambit Laya Tukda I</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --parchment-texture: radial-gradient(circle at 50% 50%, rgba(250, 246, 236, 0) 0%, rgba(232, 217, 184, 0.1) 100%);
+    }
+    body {
+      background-color: #fdf9ef;
+      background-image: var(--parchment-texture);
+      color: #1c1c16;
+      font-family: 'EB Garamond', serif;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .manuscript-frame {
+      border: 1px solid #B8893E;
+      position: relative;
+    }
+    .manuscript-frame::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border: 1px solid #6B1E2A;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+    .bols-container {
+      background-color: #f1eee4;
+      border-left: 3px solid #B8893E;
+      position: relative;
+    }
+    .divider-motif {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin: 2rem 0;
+    }
+    .divider-motif::before, .divider-motif::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #B8893E, transparent);
+    }
+    .ghungroo-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 400;
+      color: #B8893E;
+      font-size: 1.2rem;
+    }
+    .jali-pattern {
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l20 20-20 20L0 20z' fill='%236b1e2a' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+    .manuscript-break {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, #B8893E 50%, transparent 100%);
+      margin: 2rem 0;
+      position: relative;
+    }
+    .manuscript-break::after {
+      content: '◈';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: #fdf9ef;
+      padding: 0 10px;
+      color: #B8893E;
+      font-size: 12px;
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f7f3e9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #B8893E; }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary-fixed": "#ffddb0",
+            "surface-container-low": "#f7f3e9",
+            "surface-container": "#f1eee4",
+            "inverse-on-surface": "#f4f0e7",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#ffdadb",
+            "primary-container": "#6b1e2a",
+            "secondary-container": "#ffc877",
+            "on-tertiary-container": "#b0a384",
+            "surface-container-highest": "#e6e2d8",
+            "secondary": "#7e570d",
+            "on-background": "#1c1c16",
+            "primary": "#4e0616",
+            "background": "#fdf9ef",
+            "surface": "#fdf9ef",
+            "on-surface": "#1c1c16",
+            "on-surface-variant": "#554243"
+          },
+          fontFamily: {
+            "label-md": ["EB Garamond"],
+            "label-lg": ["EB Garamond"],
+            "headline-lg": ["EB Garamond"],
+            "headline-md": ["EB Garamond"],
+            "display-lg": ["EB Garamond"],
+            "body-md": ["EB Garamond"],
+            "body-lg": ["EB Garamond"]
+          },
+          spacing: {
+            "gutter": "2rem",
+            "margin-page": "4rem",
+            "section-gap": "6rem"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="selection:bg-secondary-fixed/30 selection:text-primary">
+<!-- Top Navigation Bar (Shared Component) -->
+<header class="bg-surface border-b border-secondary-fixed/50 sticky top-0 z-50">
+<div class="flex justify-between items-center px-margin-page py-6 w-full max-w-screen-2xl mx-auto">
+<h1 class="font-headline-lg text-headline-lg text-primary uppercase tracking-widest">KATHAK ARCHIVE</h1>
+<nav class="hidden md:flex items-center gap-12">
+<a class="text-on-surface-variant hover:bg-secondary-fixed/20 transition-colors px-3 py-1 font-body-md text-body-md" href="#">Archive</a>
+<a class="text-on-surface-variant hover:bg-secondary-fixed/20 transition-colors px-3 py-1 font-body-md text-body-md" href="#">Lineages</a>
+<a class="text-secondary border-b border-secondary font-body-md text-body-md" href="#">Journal</a>
+</nav>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex border-b border-secondary-fixed text-primary px-2 py-1">
+<span class="material-symbols-outlined text-sm">search</span>
+<input class="bg-transparent border-none outline-none text-body-md ml-2 focus:ring-0 placeholder:text-on-surface-variant/50" placeholder="Search archive..." type="text"/>
+</div>
+<span class="material-symbols-outlined text-primary cursor-pointer text-3xl">account_circle</span>
+</div>
+</div>
+</header>
+<main class="max-w-screen-2xl mx-auto px-6 md:px-margin-page py-12 md:py-16">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20">
+<!-- Left Column: Main Manuscript -->
+<section class="lg:col-span-8 space-y-12">
+<!-- Header Section -->
+<div class="space-y-6">
+<div class="flex flex-wrap items-center gap-4">
+<span class="bg-surface-container-low px-4 py-1 text-secondary font-label-lg text-label-lg tracking-widest border border-secondary/20">TUKDA</span>
+<div class="flex gap-1">
+<span class="material-symbols-outlined ghungroo-icon">pentagon</span>
+<span class="material-symbols-outlined ghungroo-icon">pentagon</span>
+<span class="material-symbols-outlined ghungroo-icon">pentagon</span>
+<span class="material-symbols-outlined ghungroo-icon">pentagon</span>
+<span class="material-symbols-outlined ghungroo-icon">pentagon</span>
+</div>
+</div>
+<h2 class="font-display-lg text-[48px] md:text-[64px] text-primary leading-tight tracking-tight italic">
+            Vilambit Laya Tukda I
+          </h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 py-6 border-y border-secondary-fixed/30">
+<div class="space-y-1">
+<p class="text-on-surface-variant font-label-md text-label-md uppercase opacity-60">Date Recorded</p>
+<p class="font-body-md text-body-md font-medium text-secondary">14 Dec 2024</p>
+</div>
+<div class="space-y-1">
+<p class="text-on-surface-variant font-label-md text-label-md uppercase opacity-60">Guru</p>
+<p class="font-body-md text-body-md font-medium text-secondary">Pt. Birju Maharaj</p>
+</div>
+<div class="space-y-1">
+<p class="text-on-surface-variant font-label-md text-label-md uppercase opacity-60">Gharana</p>
+<p class="font-body-md text-body-md font-medium text-secondary">Lucknow</p>
+</div>
+<div class="space-y-1">
+<p class="text-on-surface-variant font-label-md text-label-md uppercase opacity-60">Taal</p>
+<p class="font-body-md text-body-md font-medium text-secondary">Teental (16 Beats)</p>
+</div>
+</div>
+</div>
+<!-- Bols Section -->
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<h3 class="font-headline-md text-headline-md text-primary tracking-wide">Bols</h3>
+<div class="flex-grow h-[1px] bg-secondary-fixed/50"></div>
+</div>
+<div class="bols-container p-8 md:p-12 manuscript-frame jali-pattern">
+<p class="font-body-lg text-body-lg text-on-surface italic leading-relaxed text-center md:text-left">
+              Dha Kita Taka Dhum Kita Taka<br/>
+              Tage Tita Kita Taka Gadigana<br/>
+              Dha - Kita Taka - Dha -<br/>
+              Tage Tita Kita Taka - Dha<br/>
+<span class="block mt-4 text-primary font-bold">Thei Thei Tat, Aat Thei Thei Tat, Ta-Thei-Thei-Tat!</span>
+</p>
+</div>
+</div>
+<!-- Details Section -->
+<div class="space-y-12">
+<div class="space-y-4">
+<h4 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">auto_stories</span>
+              Meaning &amp; Interpretation
+            </h4>
+<div class="manuscript-break"></div>
+<p class="font-body-md text-body-md text-on-surface leading-loose">
+              This Tukda, composed in the graceful Vilambit Laya (slow tempo), embodies the essential fluid movements of the Lucknow Gharana. The initial 'Dha Kita Taka' sequence mimics the resonant strikes of the Tabla, while the concluding 'Thei' emphasizes the vertical poise of the dancer. It is interpreted as a conversation between the feet and the floor, where every strike is a syllable of devotion.
+            </p>
+</div>
+<div class="space-y-4">
+<h4 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">directions_run</span>
+              Performance Instructions
+            </h4>
+<ul class="list-none space-y-4 font-body-md text-body-md text-on-surface">
+<li class="flex gap-4">
+<span class="text-secondary font-bold">01.</span>
+<span>The first 'Dha' must be executed with a soft knee-bend, eyes following the right hand's trajectory.</span>
+</li>
+<li class="flex gap-4">
+<span class="text-secondary font-bold">02.</span>
+<span>Maintain a 1-second pause during the 'Kita' to emphasize the rhythmic complexity.</span>
+</li>
+<li class="flex gap-4">
+<span class="text-secondary font-bold">03.</span>
+<span>The final Chakkar (spin) should conclude exactly on the Sam, with the arms held in a 'Lotus' mudra.</span>
+</li>
+</ul>
+</div>
+<!-- Guru Quote Box -->
+<div class="border-2 border-primary-container/20 p-8 bg-surface-container-low/50 relative overflow-hidden">
+<span class="material-symbols-outlined absolute -top-4 -left-4 text-8xl text-primary/5 opacity-10">format_quote</span>
+<h4 class="font-label-lg text-label-lg uppercase tracking-widest text-primary mb-4 flex items-center gap-2">
+<span class="w-8 h-[1px] bg-primary"></span>
+              Corrections from Guru
+            </h4>
+<p class="font-body-lg text-body-lg italic text-on-surface-variant border-l-2 border-primary pl-6 py-2">
+              "Focus not on the speed, but on the space between the notes. Let the breath dictate the movement, not the clock. Your ghungroos should whisper before they shout."
+            </p>
+<p class="text-right mt-4 font-label-md text-label-md uppercase text-secondary">— Pt. Birju Maharaj, Workshop Notes</p>
+</div>
+</div>
+</section>
+<!-- Right Column: Sidebar Media -->
+<aside class="lg:col-span-4 space-y-12">
+<div class="sticky top-32 space-y-12">
+<!-- Audio Section -->
+<div class="space-y-6">
+<h4 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">audiotrack</span>
+              Attached Media
+            </h4>
+<div class="space-y-4">
+<!-- Audio Row -->
+<div class="bg-surface-container flex items-center gap-4 p-4 hover:bg-surface-container-high transition-colors group cursor-pointer border border-transparent hover:border-secondary-fixed/50">
+<div class="w-12 h-12 flex items-center justify-center bg-primary-container rounded-full text-secondary-fixed group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined fill-1">play_arrow</span>
+</div>
+<div class="flex-grow">
+<p class="font-label-lg text-label-lg text-on-surface">Practice Beat - 60 BPM</p>
+<div class="w-full h-4 flex items-center gap-1 opacity-50">
+<div class="flex-grow h-[2px] bg-secondary-fixed"></div>
+<div class="w-1/4 h-2 bg-secondary rounded-full"></div>
+<div class="flex-grow h-[2px] bg-secondary-fixed"></div>
+</div>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md italic">03:45</span>
+</div>
+<!-- Video Thumbnail -->
+<div class="relative group cursor-pointer overflow-hidden manuscript-frame">
+<div class="aspect-video bg-surface-dim relative">
+<img class="w-full h-full object-cover grayscale-[0.3] group-hover:scale-105 transition-transform duration-700" data-alt="A vintage, slightly sepia-toned high-quality video still showing a Kathak dancer in mid-movement against a minimalist parchment-colored background. The lighting is soft and focused, highlighting the golden embroidery on the dancer's maroon costume. The mood is artistic and archival, reflecting the luxury of traditional Indian classical arts." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGEjsRFm0NvX8JzVHsVYP2qemAU_5H5IzM_CuwdxrNfZkNvkVEAriM0b9Z6ttAsnOVGQcKvr4QIX6V98CG6gRxob5jAkXogk0lN4iSSD24-_oUkPdO_szs5-7lpLjt2nz0Y-NTlrS-gg7WxhscFDxIlYxDdmcBxu3q09hXTls8RwVdZTluBFGbYoaFljrOgcgywt4QRJdc5ispk2C0053jjcjxTXSJWQ7uOeivrhyvqLpuQvJ1iZoe5gnrFNBrsDetN54uB4qvXF0"/>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-16 h-16 rounded-full bg-background/90 flex items-center justify-center text-primary shadow-xl">
+<span class="material-symbols-outlined text-4xl">play_circle</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface text-center">
+<p class="font-label-lg text-label-lg uppercase tracking-widest text-primary">Demonstration Video</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Reference Gallery -->
+<div class="space-y-6">
+<h4 class="font-headline-md text-headline-md text-primary">Visual Reference</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="aspect-square bg-surface-container-low manuscript-frame overflow-hidden cursor-pointer group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A macro photography shot of traditional silver and gold dancing bells, ghungroos, tied with a thick red rope on an aged ivory silk cloth. The focus is sharp on the intricate textures of the bells, while the background is softly blurred. The color palette is warm gold, silver, and deep maroon, evoking a sense of ancient craftsmanship and reverence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIErA9ObvhupKETXm1KtkOzahHzQG0wbD8elvub4kzR0qGc0daCzOgORuUhsCOzbIa1U0lw5B4b7p-XkKjtBlAcD8jFKvAiWaQmvnOSye8cgT4GgkKApwa05jSHJpkv6rKuUnTB2RcabL-IH3hhgRCYkx7cEzavds8euOgRWU5UnOsjM4baPzwoKWQOuiEr8oMMRoh_ZHmnN1xyxvviR-B2X4WJQ-ceFpbBv7VELN7PHQv4jp8ZBNkpeM7dLCnq36FfPa8YnvkFfQ"/>
+</div>
+<div class="aspect-square bg-surface-container-low manuscript-frame overflow-hidden cursor-pointer group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A hand-drawn calligraphic sketch of a Kathak mudra, specifically the Pataka hand gesture, executed in dark brown ink on textured parchment paper. Delicate gold leaf accents highlight the fingertips. The style is reminiscent of 16th-century Mughal manuscript illustrations, with elegant, thin lines and wide, breathable margins." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSINF1U4ebk0iaOPEsp71P8b2IfEO13V-mirDZdd3xr1laLwUk4atv358-JdgLjuyLNtbYS6OTxIfvTLBpQArbIbhTliYnVq-dhSmp--7tMQN9_wDXYiiMRMkRmktNucaLmuLDsmjj-Q4r_vegUK239VDcQEBnSVwCE0VEtHY2X6COdoJcDCN5Ia9yXI9F8n6zHuKUOsTr7ixb1R7WT2tOmjoiFLPXiWHjDJ0Db35ayXBi-UmxAroAkn1OIPlR3dpJ3s2KSle5z5c"/>
+</div>
+</div>
+</div>
+<!-- Related Links -->
+<div class="p-6 bg-surface-container border-l-2 border-secondary">
+<p class="font-label-md text-label-md uppercase text-on-surface-variant mb-4">Related Folios</p>
+<ul class="space-y-3 font-body-md text-body-md text-secondary italic">
+<li><a class="hover:text-primary transition-colors underline decoration-secondary-fixed/50 underline-offset-4" href="#">Basic Tatkar Sequences →</a></li>
+<li><a class="hover:text-primary transition-colors underline decoration-secondary-fixed/50 underline-offset-4" href="#">Lucknow Gharana History →</a></li>
+</ul>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-low border-t border-secondary-fixed mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-page py-12 w-full max-w-screen-2xl mx-auto text-center md:text-left gap-8">
+<div class="space-y-4">
+<h4 class="font-label-lg text-label-lg text-primary uppercase tracking-[0.2em]">Sacred Traditions Preservation Society</h4>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-70">© 2024 Kathak Archive. All Rights Reserved.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Preservation Statement</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Digital Ethics</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Archive Standards</a>
+</div>
+</div>
+</footer>
+<!-- Floating Edit Button -->
+<button class="fixed bottom-10 right-10 w-16 h-16 bg-primary text-secondary-fixed rounded-full shadow-2xl flex items-center justify-center group hover:scale-110 transition-all duration-300 z-[100]">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform">edit</span>
+<span class="absolute right-20 bg-primary text-secondary-fixed px-4 py-2 font-label-lg text-label-lg uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-secondary-fixed/30">Edit Folio</span>
+</button>
+<script>
+    // Micro-interaction for smooth scrolling and simple reveal
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = {
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            entry.target.classList.remove('opacity-0', 'translate-y-8');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('section > div, aside > div').forEach(el => {
+        el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-8');
+        observer.observe(el);
+      });
+    });
+  </script>
+</body></html>

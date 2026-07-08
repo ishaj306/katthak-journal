@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Memory Vault | Heritage Collection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fdf9ef",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f7f3e9",
+                        "primary-fixed-dim": "#ffb2b8",
+                        "surface-dim": "#dddad0",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e6e2d8",
+                        "surface-bright": "#fdf9ef",
+                        "secondary-fixed-dim": "#f3bd6d",
+                        "on-primary-fixed-variant": "#7c2b36",
+                        "inverse-on-surface": "#f4f0e7",
+                        "on-primary-container": "#ef858f",
+                        "primary-container": "#6b1e2a",
+                        "background": "#fdf9ef",
+                        "secondary-fixed": "#ffddb0",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#554243",
+                        "on-primary-fixed": "#40000e",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#614000",
+                        "on-error": "#ffffff",
+                        "surface-container": "#f1eee4",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#4f462d",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#31312a",
+                        "on-background": "#1c1c16",
+                        "outline-variant": "#dac0c1",
+                        "tertiary-fixed-dim": "#d4c5a5",
+                        "primary-fixed": "#ffdadb",
+                        "tertiary-container": "#423922",
+                        "secondary-container": "#ffc877",
+                        "on-secondary-fixed": "#281800",
+                        "outline": "#877273",
+                        "inverse-primary": "#ffb2b8",
+                        "tertiary": "#2b240e",
+                        "primary": "#4e0616",
+                        "secondary": "#7e570d",
+                        "surface-variant": "#e6e2d8",
+                        "surface-container-high": "#ece8de",
+                        "on-secondary-container": "#795207",
+                        "tertiary-fixed": "#f0e1c0",
+                        "surface-tint": "#9a424c",
+                        "on-tertiary-container": "#b0a384",
+                        "on-surface": "#1c1c16",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#221b06"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.75rem",
+                        "margin-page": "4rem",
+                        "margin-mobile": "1.5rem",
+                        "section-gap": "6rem",
+                        "stack-md": "1.5rem",
+                        "gutter": "2rem"
+                    },
+                    "fontFamily": {
+                        "label-md": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "body-lg": ["EB Garamond"],
+                        "headline-lg": ["EB Garamond"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "label-lg": ["EB Garamond"],
+                        "headline-md": ["EB Garamond"],
+                        "body-md": ["EB Garamond"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fdf9ef;
+            background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
+            background-attachment: fixed;
+        }
+        .manuscript-frame {
+            border: 1px solid #7e570d; /* Gold */
+            padding: 8px;
+            position: relative;
+        }
+        .manuscript-frame::before {
+            content: '';
+            position: absolute;
+            top: 4px; left: 4px; right: 4px; bottom: 4px;
+            border: 2px solid #4e0616; /* Maroon */
+            pointer-events: none;
+        }
+        .manuscript-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #4e0616 50%, transparent);
+            position: relative;
+            margin: 2rem 0;
+        }
+        .manuscript-divider::after {
+            content: '⬥';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: #7e570d;
+            background: #fdf9ef;
+            padding: 0 10px;
+            font-size: 1.2rem;
+        }
+        .waveform-bar {
+            width: 3px;
+            margin: 0 1px;
+            background-color: #4e0616;
+            transition: height 0.3s ease;
+        }
+        .play-button-hover:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(126, 87, 13, 0.4);
+        }
+        .perspective-text {
+            perspective: 1000px;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- Top Navigation -->
+<nav class="bg-background border-b border-outline-variant flex justify-between items-center w-full px-margin-page py-6 max-w-7xl mx-auto sticky top-0 z-50">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-widest">Heritage Collection</div>
+<div class="hidden md:flex gap-8">
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">The Archive</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Folios</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Artisans</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Philosophy</a>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-95 transition-transform" data-icon="shopping_bag">shopping_bag</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-95 transition-transform" data-icon="person">person</span>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-margin-page py-12">
+<!-- Header Section -->
+<header class="text-center mb-16">
+<h1 class="font-display-lg text-display-lg text-primary mb-2">Memory Vault</h1>
+<p class="font-body-lg italic text-secondary italic">A sacred repository of imperial echoes and timeless compositions.</p>
+<div class="manuscript-divider"></div>
+</header>
+<!-- Search & Filter Controls -->
+<div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-8">
+<!-- Tabs -->
+<div class="flex gap-8 border-b border-outline-variant pb-2">
+<button class="font-label-lg text-label-lg text-primary border-b-2 border-primary pb-2">All</button>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-all pb-2">Audio</button>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-all pb-2">Video</button>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-all pb-2">By Composition</button>
+</div>
+<!-- Filter Pills -->
+<div class="flex flex-wrap gap-2 justify-center">
+<span class="px-4 py-1 bg-surface-container text-on-surface-variant border border-outline-variant font-label-md text-label-md cursor-pointer hover:bg-secondary-container transition-colors">Guru demos</span>
+<span class="px-4 py-1 bg-primary text-on-primary font-label-md text-label-md cursor-pointer">Riyaz</span>
+<span class="px-4 py-1 bg-surface-container text-on-surface-variant border border-outline-variant font-label-md text-label-md cursor-pointer hover:bg-secondary-container transition-colors">Stage</span>
+<span class="px-4 py-1 bg-surface-container text-on-surface-variant border border-outline-variant font-label-md text-label-md cursor-pointer hover:bg-secondary-container transition-colors">Classroom</span>
+<span class="px-4 py-1 bg-surface-container text-on-surface-variant border border-outline-variant font-label-md text-label-md cursor-pointer hover:bg-secondary-container transition-colors">Voice notes</span>
+</div>
+</div>
+<!-- Audio Section -->
+<section class="mb-section-gap">
+<h2 class="font-headline-md text-headline-md text-primary mb-8 tracking-wide">Audio Chronicles</h2>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-md">
+<!-- Audio Card 1 -->
+<div class="manuscript-frame bg-surface-container-low group">
+<div class="p-6 flex items-center gap-6">
+<button class="w-14 h-14 rounded-full bg-secondary text-surface flex items-center justify-center play-button-hover transition-all flex-shrink-0">
+<span class="material-symbols-outlined text-3xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<div class="flex-grow">
+<h3 class="font-headline-md text-label-lg text-primary truncate">Morning_Bhairavi_Riyaz_1602.mp3</h3>
+<p class="font-label-md text-secondary italic">Raag Bhairavi - Vilambit Gat</p>
+<div class="flex items-end h-8 mt-3 gap-[2px]">
+<div class="waveform-bar h-2 bg-primary"></div>
+<div class="waveform-bar h-4 bg-primary"></div>
+<div class="waveform-bar h-6 bg-secondary"></div>
+<div class="waveform-bar h-3 bg-primary"></div>
+<div class="waveform-bar h-5 bg-primary"></div>
+<div class="waveform-bar h-8 bg-secondary"></div>
+<div class="waveform-bar h-4 bg-primary"></div>
+<div class="waveform-bar h-6 bg-primary"></div>
+<div class="waveform-bar h-2 bg-secondary"></div>
+<div class="waveform-bar h-5 bg-primary"></div>
+<div class="waveform-bar h-7 bg-primary"></div>
+<div class="waveform-bar h-3 bg-secondary"></div>
+<div class="waveform-bar h-8 bg-primary"></div>
+<div class="waveform-bar h-5 bg-primary"></div>
+<div class="waveform-bar h-4 bg-secondary"></div>
+</div>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="font-label-md text-on-surface-variant block">12:45</span>
+<span class="material-symbols-outlined text-secondary" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+</div>
+<!-- Audio Card 2 -->
+<div class="manuscript-frame bg-surface-container-low group">
+<div class="p-6 flex items-center gap-6">
+<button class="w-14 h-14 rounded-full bg-secondary text-surface flex items-center justify-center play-button-hover transition-all flex-shrink-0">
+<span class="material-symbols-outlined text-3xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<div class="flex-grow">
+<h3 class="font-headline-md text-label-lg text-primary truncate">Guru_Taan_Mastery_Session.wav</h3>
+<p class="font-label-md text-secondary italic">Technique: Sapat Taan in Teentaal</p>
+<div class="flex items-end h-8 mt-3 gap-[2px]">
+<div class="waveform-bar h-5 bg-primary"></div>
+<div class="waveform-bar h-3 bg-primary"></div>
+<div class="waveform-bar h-8 bg-secondary"></div>
+<div class="waveform-bar h-6 bg-primary"></div>
+<div class="waveform-bar h-4 bg-primary"></div>
+<div class="waveform-bar h-2 bg-secondary"></div>
+<div class="waveform-bar h-7 bg-primary"></div>
+<div class="waveform-bar h-5 bg-primary"></div>
+<div class="waveform-bar h-8 bg-secondary"></div>
+<div class="waveform-bar h-3 bg-primary"></div>
+<div class="waveform-bar h-6 bg-primary"></div>
+<div class="waveform-bar h-4 bg-secondary"></div>
+<div class="waveform-bar h-2 bg-primary"></div>
+<div class="waveform-bar h-7 bg-primary"></div>
+<div class="waveform-bar h-5 bg-secondary"></div>
+</div>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="font-label-md text-on-surface-variant block">04:22</span>
+<span class="material-symbols-outlined text-secondary" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Video Section -->
+<section>
+<h2 class="font-headline-md text-headline-md text-primary mb-8 tracking-wide">Visual Testimonies</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Video Card 1 -->
+<div class="flex flex-col">
+<div class="manuscript-frame overflow-hidden cursor-pointer group">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A still frame from a classical music performance in a grand marble courtyard at night. Warm oil lamps flicker in the corners. A musician sits on a patterned Persian rug, holding a sitar. The aesthetic is inspired by Mughal miniatures with rich maroons, gold highlights, and soft parchment textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc3tTaxJISL16KYzYCI5glUSUcCXk2bvRyR--sflb2FLY3NHR4LqFNAxRevfmadJx7mXs-YXH0MJIn046Y8d4qENB_uvDLmKfUwXXbIDG3CJ051QoKw2lt2f38QXNCulqnjSFP9gX05kIy3GNKmIgf1Cf00FgluGMbIttvi48zr4VfNYZAV07B6raMTkiN7RUvAHRnEOvzQ1_aEAE4vmeAb8eHp1V10suSjCGmBFA7r-pyT_33zzFITh1TKAjyx4_PS0o0Ko6Xcec"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-surface text-5xl" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+<div class="absolute bottom-2 right-2 bg-black/60 text-white px-2 py-1 font-label-md text-xs">15:00</div>
+</div>
+</div>
+<div class="mt-4">
+<h4 class="font-headline-md text-label-lg text-primary">Imperial Court Performance - Delhi 2023</h4>
+<p class="font-body-md text-on-surface-variant mt-1">A rare capture of the monsoon raga series conducted in the inner courtyard.</p>
+</div>
+</div>
+<!-- Video Card 2 -->
+<div class="flex flex-col">
+<div class="manuscript-frame overflow-hidden cursor-pointer group">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Close up of a master artisan's hands carving intricate floral patterns into a wooden instrument body. The lighting is focused and warm, highlighting the sawdust and the sharp metallic sheen of the chisel. Background is a dark, atmospheric workshop with antique tools hanging on the wall. Traditional luxury craftsmanship aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwwkENSh0zpCAd8WU2vQlu4s1mpMrnVBSuREGK2v8YZeHab45gMFdP2hLjSeMN1hQePxN5hGR_TaUR2xM1X5yyfKZFicl_rI6xheAY_ttjDeE8Qd6a1yaUni65SQP6XXHvFZoRTmldSpbuj0IXxAjaf2JE_ZN5UhDsm0gUV0EtnQZ8V_F8RkrbABRIswwqLha4VXWIP_vh1soQ3MxxI2fcdaRb2dH81o2ZeRaUhR4nVldtnqWeNxflgjKoM0boEvTjfwY-cobodXI"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-surface text-5xl" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+<div class="absolute bottom-2 right-2 bg-black/60 text-white px-2 py-1 font-label-md text-xs">08:45</div>
+</div>
+</div>
+<div class="mt-4">
+<h4 class="font-headline-md text-label-lg text-primary">The Artisan's Breath: Sitar Carving</h4>
+<p class="font-body-md text-on-surface-variant mt-1">Behind-the-scenes documentary on the creation of the Golden Lotus sitar.</p>
+</div>
+</div>
+<!-- Video Card 3 -->
+<div class="flex flex-col">
+<div class="manuscript-frame overflow-hidden cursor-pointer group">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="An atmospheric classroom setting with students sitting on a floor lined with beige cushions. A large arched window reveals a garden with cypress trees. The lighting is diffused afternoon sun. A teacher is demonstrating a vocal mudra. The color palette is dominated by sandstones, ivory, and deep reds, evoking an ancient academy of music." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqIeK7kR17HTKOMMwc7e3HUEwldoA9yw3oDD8lmzCIxE2_QG_O5wG0YXbHkttbLNSC8NLVWFu9f_36n5TebtXT5oCNgelyNVeJSg_Cs6X16zzBdgIBkMTz72qkraA6jZyaPpuzvJWrqFo6NLvJQHef7BZJ4abNRRTm5UTH6ZQ8iMp7AgCS3ek1tvD9Ux3OI26tKRhhGD8tyKw93x8oURK9DmkmSWfJBnV0LzM-m6qosS-xfmEs3HU5I3xQdB9MRUenPkulKpBtLuw"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-surface text-5xl" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+<div class="absolute bottom-2 right-2 bg-black/60 text-white px-2 py-1 font-label-md text-xs">42:10</div>
+</div>
+</div>
+<div class="mt-4">
+<h4 class="font-headline-md text-label-lg text-primary">Masterclass: The Science of Shruti</h4>
+<p class="font-body-md text-on-surface-variant mt-1">An in-depth lecture on microtonal nuances in the Jaipur-Atrauli Gharana.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full flex flex-col items-center justify-center gap-stack-md px-margin-page text-center border-t border-outline-variant py-12 mt-section-gap">
+<div class="font-headline-md text-headline-md text-primary">Heritage Collection</div>
+<div class="flex gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Archives</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Artisan Fellowship</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact</a>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-70">© 2024 Heritage Collection. Sacred &amp; Revered.</p>
+</footer>
+<!-- Floating Upload Button -->
+<button class="fixed bottom-8 right-8 bg-primary text-on-primary flex items-center gap-2 px-6 py-4 rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined" data-icon="upload">upload</span>
+<span class="font-label-lg uppercase tracking-widest">+ Upload</span>
+</button>
+<script>
+        // Micro-interaction for waveforms
+        document.querySelectorAll('.manuscript-frame').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const bars = card.querySelectorAll('.waveform-bar');
+                bars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 20) + 10;
+                    bar.style.height = `${randomHeight}px`;
+                });
+            });
+            card.addEventListener('mouseleave', () => {
+                const bars = card.querySelectorAll('.waveform-bar');
+                bars.forEach((bar, index) => {
+                    const originalHeights = [8, 16, 24, 12, 20, 32, 16, 24, 8, 20, 28, 12, 32, 20, 16];
+                    bar.style.height = `${originalHeights[index % originalHeights.length] / 4}px`;
+                });
+            });
+        });
+    </script>
+</body></html>

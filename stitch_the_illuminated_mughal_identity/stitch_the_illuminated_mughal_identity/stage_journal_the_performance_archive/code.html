@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stage Journal | Kathak Digital Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #fdf9ef;
+            font-family: 'EB Garamond', serif;
+            background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
+        }
+        .parchment-texture {
+            background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
+        }
+        .manuscript-border {
+            border: 1px solid #4e0616;
+            position: relative;
+        }
+        .manuscript-border::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border: 1px solid #7e570d;
+            pointer-events: none;
+        }
+        .timeline-line {
+            width: 2px;
+            background: linear-gradient(180deg, transparent 0%, #7e570d 15%, #7e570d 85%, transparent 100%);
+        }
+        .aged-photo-frame {
+            padding: 12px;
+            background: #f1eee4;
+            border: 1px solid #dac0c1;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        .gold-ink {
+            color: #7e570d;
+        }
+        .maroon-ink {
+            color: #4e0616;
+        }
+        .glass-header {
+            backdrop-filter: blur(8px);
+            background: rgba(253, 249, 239, 0.8);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#fdf9ef",
+                      "error": "#ba1a1a",
+                      "surface-container-low": "#f7f3e9",
+                      "primary-fixed-dim": "#ffb2b8",
+                      "surface-dim": "#dddad0",
+                      "on-secondary": "#ffffff",
+                      "surface-container-highest": "#e6e2d8",
+                      "surface-bright": "#fdf9ef",
+                      "secondary-fixed-dim": "#f3bd6d",
+                      "on-primary-fixed-variant": "#7c2b36",
+                      "inverse-on-surface": "#f4f0e7",
+                      "on-primary-container": "#ef858f",
+                      "primary-container": "#6b1e2a",
+                      "background": "#fdf9ef",
+                      "secondary-fixed": "#ffddb0",
+                      "on-primary": "#ffffff",
+                      "on-surface-variant": "#554243",
+                      "on-primary-fixed": "#40000e",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#614000",
+                      "on-error": "#ffffff",
+                      "surface-container": "#f1eee4",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#4f462d",
+                      "on-tertiary": "#ffffff",
+                      "inverse-surface": "#31312a",
+                      "on-background": "#1c1c16",
+                      "outline-variant": "#dac0c1",
+                      "tertiary-fixed-dim": "#d4c5a5",
+                      "primary-fixed": "#ffdadb",
+                      "tertiary-container": "#423922",
+                      "secondary-container": "#ffc877",
+                      "on-secondary-fixed": "#281800",
+                      "outline": "#877273",
+                      "inverse-primary": "#ffb2b8",
+                      "tertiary": "#2b240e",
+                      "primary": "#4e0616",
+                      "secondary": "#7e570d",
+                      "surface-variant": "#e6e2d8",
+                      "surface-container-high": "#ece8de",
+                      "on-secondary-container": "#795207",
+                      "tertiary-fixed": "#f0e1c0",
+                      "surface-tint": "#9a424c",
+                      "on-tertiary-container": "#b0a384",
+                      "on-surface": "#1c1c16",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed": "#221b06"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "0.75rem",
+                      "margin-page": "4rem",
+                      "margin-mobile": "1.5rem",
+                      "section-gap": "6rem",
+                      "stack-md": "1.5rem",
+                      "gutter": "2rem"
+              },
+              "fontFamily": {
+                      "label-md": ["EB Garamond"],
+                      "display-lg": ["EB Garamond"],
+                      "body-lg": ["EB Garamond"],
+                      "headline-lg": ["EB Garamond"],
+                      "display-lg-mobile": ["EB Garamond"],
+                      "label-lg": ["EB Garamond"],
+                      "headline-md": ["EB Garamond"],
+                      "body-md": ["EB Garamond"]
+              },
+              "fontSize": {
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface overflow-x-hidden">
+<!-- Top Navigation (Shared Component Integration) -->
+<header class="fixed top-0 left-0 w-full z-50 glass-header border-b border-primary/20 bg-surface/90">
+<nav class="flex justify-between items-center px-margin-page py-stack-sm w-full">
+<div class="font-headline-lg text-headline-lg text-primary uppercase tracking-widest">Kathak Archive</div>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">The Lineage</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Daily Riyaz</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Rhythm Folio</a>
+<a class="font-label-lg text-label-lg text-primary font-bold border-b-2 border-primary pb-1" href="#">Archives</a>
+</div>
+<button class="border border-primary px-6 py-2 uppercase tracking-widest font-label-md text-label-md hover:bg-secondary-fixed/10 transition-all cursor-pointer active:scale-95 text-primary">
+                New Entry
+            </button>
+</nav>
+</header>
+<!-- Side Navigation (Shared Component Integration) -->
+<aside class="hidden xl:flex fixed left-0 top-0 h-full z-40 flex-col bg-surface-container-low border-r-2 border-double border-primary w-80 pt-24 pb-8">
+<div class="px-8 mb-10">
+<h2 class="font-headline-md text-headline-md text-primary">The Archivist</h2>
+<p class="font-label-md text-label-md text-on-surface-variant italic">Court of Lucknow</p>
+</div>
+<div class="flex-grow flex flex-col">
+<a class="flex items-center gap-4 text-on-surface-variant px-8 py-4 hover:bg-secondary-fixed/10 hover:text-primary transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">menu_book</span> Imperial Index
+            </a>
+<a class="flex items-center gap-4 text-on-surface-variant px-8 py-4 hover:bg-secondary-fixed/10 hover:text-primary transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">history_edu</span> Gharana Records
+            </a>
+<a class="flex items-center gap-4 text-primary bg-secondary-fixed/20 font-bold border-l-4 border-primary px-8 py-4 font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">music_note</span> Notation Vault
+            </a>
+<a class="flex items-center gap-4 text-on-surface-variant px-8 py-4 hover:bg-secondary-fixed/10 hover:text-primary transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">self_improvement</span> Sacred Practice
+            </a>
+<a class="flex items-center gap-4 text-on-surface-variant px-8 py-4 hover:bg-secondary-fixed/10 hover:text-primary transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">auto_stories</span> Mudra Glossary
+            </a>
+</div>
+<div class="px-8 mt-auto flex flex-col gap-2">
+<a class="flex items-center gap-4 text-on-surface-variant py-2 font-label-md text-label-md hover:text-primary" href="#"><span class="material-symbols-outlined text-sm">settings</span> Settings</a>
+<a class="flex items-center gap-4 text-on-surface-variant py-2 font-label-md text-label-md hover:text-primary" href="#"><span class="material-symbols-outlined text-sm">help</span> Support</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-32 pb-section-gap px-margin-page xl:pl-96">
+<div class="max-w-5xl mx-auto">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-section-gap border-b border-primary/20 pb-8">
+<div>
+<h1 class="font-display-lg text-display-lg text-primary">Stage Journal</h1>
+<p class="font-body-lg text-body-lg italic text-on-surface-variant opacity-80">Chronicles of the Dancing Soul across the Sacred Stages of Time</p>
+</div>
+<div class="mt-8 md:mt-0 flex items-center gap-4">
+<span class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-tighter">View:</span>
+<div class="flex border border-primary p-1">
+<button class="px-4 py-1 bg-primary text-surface font-label-md text-label-md uppercase transition-all" id="listViewBtn">Timeline</button>
+<button class="px-4 py-1 hover:bg-secondary-fixed/20 text-primary font-label-md text-label-md uppercase transition-all" id="gridViewBtn">Grid</button>
+</div>
+</div>
+</div>
+<!-- Timeline Container -->
+<div class="relative" id="journalContainer">
+<!-- Vertical Timeline Line -->
+<div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 timeline-line hidden md:block"></div>
+<!-- Performance Entries -->
+<div class="space-y-gutter relative">
+<!-- Entry 1: Left -->
+<div class="relative flex flex-col md:flex-row items-center w-full group">
+<div class="w-full md:w-1/2 md:pr-16 order-2 md:order-1">
+<div class="manuscript-border p-6 bg-surface shadow-sm hover:shadow-md transition-all duration-500">
+<div class="aged-photo-frame mb-4 overflow-hidden">
+<img class="w-full h-64 object-cover filter sepia-[0.3] hover:sepia-0 transition-all duration-700" data-alt="A vintage, sepia-toned photograph of a Kathak dancer in a dramatic spinning posture on a grand marble stage. The lighting is warm and golden, reminiscent of a royal Mughal court performance. The dancer's costume is intricate with gold embroidery, and their feet are adorned with numerous brass bells. The background features ornate archways and soft candlelight, creating a reverent and timeless atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAFIwQRU8FGb2dJAkiDj1OPxUIfIBFblJrmAo6TLQ4kQ0UiRAguGlGCgCIEMHswOUCoy_56IJ3Ck3uxa6EWObHB6fRESoJnXybk9t0vyTjdepDTlbDy1RyORvv_1WyGH1NOJAY3miF5hDOCm5o5J0VmUvXVOS1vm4SF-wNcBWL56c9w4xAJX0kQd3Np3pA7agP7QlE0zCu8G3UXjTDm7Jjm6sLqG0tSxF_Bt8XbZ88cUKE4ar-B2NuPrR5_wh6kFn4E9hEGBY7QZs"/>
+</div>
+<div class="text-center md:text-left">
+<span class="font-label-md text-label-md gold-ink uppercase tracking-widest mb-2 block">Spring Equinox, 1998</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Ghungroo Pujan: The Awakening</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 italic">The Royal Opera House, Mumbai</p>
+<div class="flex justify-center md:justify-start gap-4">
+<span class="material-symbols-outlined gold-ink text-xl cursor-pointer hover:scale-110 transition-transform">play_circle</span>
+<span class="material-symbols-outlined gold-ink text-xl cursor-pointer hover:scale-110 transition-transform">photo_library</span>
+<span class="material-symbols-outlined gold-ink text-xl cursor-pointer hover:scale-110 transition-transform">description</span>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full border-2 border-secondary bg-surface z-10 hidden md:flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+<div class="w-full md:w-1/2 md:pl-16 order-1 md:order-2 mb-8 md:mb-0">
+<span class="font-display-lg text-primary opacity-10 text-8xl pointer-events-none select-none">'98</span>
+</div>
+</div>
+<!-- Entry 2: Right -->
+<div class="relative flex flex-col md:flex-row items-center w-full group">
+<div class="w-full md:w-1/2 md:pr-16 order-1 mb-8 md:mb-0 text-right">
+<span class="font-display-lg text-primary opacity-10 text-8xl pointer-events-none select-none">'05</span>
+</div>
+<div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full border-2 border-secondary bg-surface z-10 hidden md:flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+<div class="w-full md:w-1/2 md:pl-16 order-2">
+<div class="manuscript-border p-6 bg-surface shadow-sm hover:shadow-md transition-all duration-500">
+<div class="aged-photo-frame mb-4 overflow-hidden">
+<img class="w-full h-64 object-cover filter sepia-[0.2] hover:sepia-0 transition-all duration-700" data-alt="A cinematic capture of a Kathak performance at night under a full moon at the Konark Sun Temple. The dancer is a silhouette against the ancient, intricately carved stone wheels of the temple, with a single warm spotlight illuminating the dust in the air. The mood is sacred and ethereal, with deep shadows and highlights of amber and gold. The composition is wide, showing the grandeur of the historical site." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK_TQxeHodQvLw2nBptE8FFzqrTQZyxFy29Rm8NG7BwO_isLXyhaP0Tss-xgUaXHF07LQ8G7fKl3Ul8I0CfRGBhtS_e6y2QVPovgleDuAZ6P_jFXuCXD0iWJULQjxfSwT10HjZbSzZ_orunfBfwC4bjkfBW5zOLrBJpI0snYu1Rs-IsXXvOJyACVLofsR8ViPJvVcBBYHCmg2uWCi3hrPFE7_5CLQnEKuEQCaXPVei4wD8z4coAdhXdi0FCiZR9MmadOykq2CsKmo"/>
+</div>
+<div class="text-center md:text-left">
+<span class="font-label-md text-label-md gold-ink uppercase tracking-widest mb-2 block">Full Moon Festival, 2005</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Chakradhar Samaroh</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 italic">Raigarh Fort Courtyard</p>
+<div class="flex justify-center md:justify-start gap-4">
+<span class="material-symbols-outlined gold-ink text-xl cursor-pointer hover:scale-110 transition-transform">videocam</span>
+<span class="material-symbols-outlined gold-ink text-xl cursor-pointer hover:scale-110 transition-transform">audio_file</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Entry 3: Left -->
+<div class="relative flex flex-col md:flex-row items-center w-full group">
+<div class="w-full md:w-1/2 md:pr-16 order-2 md:order-1">
+<div class="manuscript-border p-6 bg-surface shadow-sm hover:shadow-md transition-all duration-500">
+<div class="aged-photo-frame mb-4 overflow-hidden">
+<img class="w-full h-64 object-cover filter sepia-[0.3] hover:sepia-0 transition-all duration-700" data-alt="A close-up artistic shot focusing on a Kathak dancer's hands performing a Mudra. The hands are painted with traditional red Alta, and gold rings catch the soft, low-key lighting. The background is a deep, dark velvet curtain that emphasizes the ivory skin tone and the vivid red pigment. The atmosphere is one of focused devotion and technical precision, captured in a high-contrast luxury aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgndRuc8EXQEfpz26bjMwwd03Sp8e1xSr98CVyDFIc_JienialXVP5my0HXl1nZtiMrPPKVUZSwNR1dlj9xcAdUNPSBdpPUL75LCzdIt7tTlMAYDXeDetF1J4x7k8H4khMz3SW1bzrtUXogquVm-iX6Bif3pg1ZALG83jMMdwM89dLJvL2K0oy1cNWeuf682Una7wcQvw_kSADRZH7jPVOu6QXiRVLeS14qqZtLr4uy-0ujjVoCZGUqs_XX9D_rF9aomwFRdsMwUc"/>
+</div>
+<div class="text-center md:text-left">
+<span class="font-label-md text-label-md gold-ink uppercase tracking-widest mb-2 block">Winter Solstice, 2012</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Nritya-Sadhana Recital</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 italic">Kamani Auditorium, Delhi</p>
+<div class="flex justify-center md:justify-start gap-4">
+<span class="material-symbols-outlined gold-ink text-xl cursor-pointer hover:scale-110 transition-transform">visibility</span>
+<span class="material-symbols-outlined gold-ink text-xl cursor-pointer hover:scale-110 transition-transform">share</span>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full border-2 border-secondary bg-surface z-10 hidden md:flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+<div class="w-full md:w-1/2 md:pl-16 order-1 md:order-2 mb-8 md:mb-0">
+<span class="font-display-lg text-primary opacity-10 text-8xl pointer-events-none select-none">'12</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-12 right-12 w-16 h-16 bg-primary text-surface rounded-full shadow-2xl flex items-center justify-center group hover:scale-110 transition-all active:scale-95 z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+<span class="absolute right-20 bg-primary text-surface px-4 py-2 font-label-md text-label-md uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Add Performance</span>
+</button>
+<!-- Footer (Shared Component Integration) -->
+<footer class="w-full py-stack-md px-margin-page flex flex-col items-center gap-stack-sm bg-surface border-t-4 border-double border-secondary-fixed mt-section-gap">
+<div class="font-headline-sm text-headline-sm text-primary uppercase tracking-widest">Kathak Digital Archive</div>
+<div class="flex gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Use</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Royal Decrees</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Folio</a>
+</div>
+<p class="font-label-md text-label-md text-secondary mt-4 opacity-70">© 2024 Kathak Digital Archive. Preserving the Sacred Lineage.</p>
+</footer>
+<script>
+        const listViewBtn = document.getElementById('listViewBtn');
+        const gridViewBtn = document.getElementById('gridViewBtn');
+        const journalContainer = document.getElementById('journalContainer');
+        const entries = journalContainer.querySelectorAll('.group');
+        const timelineLine = journalContainer.querySelector('.timeline-line');
+
+        gridViewBtn.addEventListener('click', () => {
+            journalContainer.classList.remove('relative');
+            journalContainer.querySelector('.space-y-gutter').classList.remove('space-y-gutter');
+            journalContainer.querySelector('.space-y-gutter')?.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'gap-gutter');
+            
+            // Re-layout for Grid
+            const wrapper = journalContainer.children[1];
+            wrapper.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter";
+            
+            timelineLine.style.display = 'none';
+            
+            entries.forEach(entry => {
+                entry.className = "flex flex-col h-full";
+                const contentDiv = entry.querySelector('.md\\:pr-16') || entry.querySelector('.md\\:pl-16');
+                contentDiv.className = "w-full";
+                const yearDiv = entry.querySelector('.opacity-10');
+                if(yearDiv) yearDiv.style.display = 'none';
+                const dot = entry.querySelector('.absolute.left-1\\/2');
+                if(dot) dot.style.display = 'none';
+            });
+
+            gridViewBtn.classList.add('bg-primary', 'text-surface');
+            gridViewBtn.classList.remove('hover:bg-secondary-fixed/20', 'text-primary');
+            listViewBtn.classList.remove('bg-primary', 'text-surface');
+            listViewBtn.classList.add('hover:bg-secondary-fixed/20', 'text-primary');
+        });
+
+        listViewBtn.addEventListener('click', () => {
+            location.reload(); // Quick reset to initial state
+        });
+
+        // Hover Parallax Effect for Cards
+        document.querySelectorAll('.manuscript-border').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+    </script>
+</body></html>

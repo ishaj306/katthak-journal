@@ -1,0 +1,229 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
+import { createClient } from "@/lib/supabase/server";
+import {
+  COMPOSITION_TYPE_LABELS,
+  GHARANA_LABELS,
+  MEDIA_KINDS,
+  type Composition,
+  type CompositionMedia,
+  type MediaKind,
+} from "@/lib/db/types";
+import { MediaSection } from "../_components/MediaSection";
+import { DeleteCompositionButton } from "../_components/DeleteCompositionButton";
+
+export const metadata = {
+  title: "Composition | Kathak Journal",
+};
+
+function formatDate(iso: string | null): string | null {
+  if (!iso) return null;
+  try {
+    return new Date(iso).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  } catch {
+    return iso;
+  }
+}
+
+export default async function CompositionDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const { userId } = await auth();
+  if (!userId) notFound();
+
+  const supabase = await createClient();
+  const { data: composition } = await supabase
+    .from("compositions")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle<Composition>();
+
+  if (!composition) notFound();
+
+  const { data: mediaRows } = await supabase
+    .from("composition_media")
+    .select("*")
+    .eq("composition_id", id)
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+
+  const media = (mediaRows ?? []) as CompositionMedia[];
+
+  const urlMap = new Map<string, string>();
+  if (media.length > 0) {
+    const { data: signed } = await supabase.storage
+      .from("composition-media")
+      .createSignedUrls(
+        media.map((m) => m.storage_path),
+        60 * 60
+      );
+    for (const row of signed ?? []) {
+      if (row.signedUrl) urlMap.set(row.path ?? "", row.signedUrl);
+    }
+  }
+
+  const grouped: Record<MediaKind, (CompositionMedia & { url: string })[]> = {
+    image: [],
+    audio: [],
+    video: [],
+    pdf: [],
+  };
+  for (const m of media) {
+    const url = urlMap.get(m.storage_path);
+    if (!url) continue;
+    grouped[m.kind].push({ ...m, url });
+  }
+
+  const dateLabel = formatDate(composition.date_learned);
+
+  return (
+    <main className="mx-auto max-w-5xl px-margin-mobile py-section-gap md:px-margin-page">
+      <Link
+        href="/compositions"
+        className="inline-flex items-center gap-2 font-serif text-label-md uppercase tracking-widest text-secondary transition-colors hover:text-primary"
+      >
+        <span className="material-symbols-outlined text-base">arrow_back</span>
+        Back to the archive
+      </Link>
+
+      <header className="mt-8 border-b border-outline-variant pb-12 text-center">
+        <span className="bg-tertiary-fixed px-3 py-1 font-serif text-label-md uppercase tracking-widest text-on-tertiary-fixed">
+          {COMPOSITION_TYPE_LABELS[composition.type]}
+        </span>
+        <h1 className="mt-6 font-display text-display-lg-mobile text-primary md:text-display-lg">
+          {composition.title}
+        </h1>
+        <p className="mt-4 font-serif text-body-md italic text-on-surface-variant">
+          {[
+            composition.guru_name ? `Guru ${composition.guru_name}` : null,
+            composition.gharana ? GHARANA_LABELS[composition.gharana] : null,
+            dateLabel ? `Learned on ${dateLabel}` : null,
+          ]
+            .filter(Boolean)
+            .join("  ·  ") || "Self-Composition"}
+        </p>
+        {composition.difficulty ? (
+          <div className="mt-6 flex justify-center gap-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span
+                key={i}
+                className="material-symbols-outlined text-2xl text-secondary"
+                style={{
+                  fontVariationSettings:
+                    i < (composition.difficulty ?? 0)
+                      ? "'FILL' 1"
+                      : "'FILL' 0",
+                  opacity: i < (composition.difficulty ?? 0) ? 1 : 0.3,
+                }}
+              >
+                notifications
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </header>
+
+      <section className="mt-16">
+        <h2 className="text-center font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
+          The Bols
+        </h2>
+        <div
+          className="mt-4 border border-dashed border-secondary bg-[rgba(232,217,184,0.1)] p-8 text-center md:p-12"
+          style={{
+            fontSize: "22px",
+            lineHeight: "2",
+            letterSpacing: "0.05em",
+          }}
+        >
+          {composition.bols ? (
+            <p className="whitespace-pre-line font-serif italic text-on-surface">
+              {composition.bols}
+            </p>
+          ) : (
+            <p className="font-serif italic text-outline-variant">
+              No bols inscribed yet.{" "}
+              <Link
+                href={`/compositions/${composition.id}/edit`}
+                className="text-secondary underline"
+              >
+                Add them now
+              </Link>
+              .
+            </p>
+          )}
+        </div>
+      </section>
+
+      <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-2">
+        {composition.meaning ? (
+          <section>
+            <h3 className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
+              Meaning &amp; Poetry
+            </h3>
+            <p className="mt-4 whitespace-pre-line font-serif text-body-md leading-relaxed text-on-surface">
+              {composition.meaning}
+            </p>
+          </section>
+        ) : null}
+        {composition.instructions ? (
+          <section>
+            <h3 className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
+              Performance Instructions
+            </h3>
+            <p className="mt-4 whitespace-pre-line font-serif text-body-md leading-relaxed text-on-surface">
+              {composition.instructions}
+            </p>
+          </section>
+        ) : null}
+      </div>
+
+      {composition.corrections ? (
+        <section className="mt-12 border-l-4 border-secondary bg-surface-container-low p-6 italic md:p-8">
+          <h3 className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
+            Corrections from Guru
+          </h3>
+          <p className="mt-3 whitespace-pre-line font-serif text-body-md leading-relaxed text-on-surface">
+            {composition.corrections}
+          </p>
+        </section>
+      ) : null}
+
+      {MEDIA_KINDS.map((kind) => (
+        <MediaSection
+          key={kind}
+          kind={kind}
+          items={grouped[kind]}
+          compositionId={composition.id}
+          userId={userId}
+        />
+      ))}
+
+      <footer className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-outline-variant pt-8 md:flex-row">
+        <DeleteCompositionButton id={composition.id} />
+        <div className="flex flex-wrap items-center gap-4">
+          <Link
+            href={`/compositions/${composition.id}/print`}
+            className="inline-flex items-center gap-2 border border-secondary px-6 py-3 font-serif text-label-lg uppercase tracking-[0.2em] text-secondary transition-all hover:bg-secondary-fixed-dim"
+          >
+            <span className="material-symbols-outlined text-base">print</span>
+            Export PDF
+          </Link>
+          <Link
+            href={`/compositions/${composition.id}/edit`}
+            className="border border-primary bg-primary px-10 py-3 font-serif text-label-lg uppercase tracking-[0.2em] text-on-primary transition-all hover:bg-primary-container"
+          >
+            Edit Composition
+          </Link>
+        </div>
+      </footer>
+    </main>
+  );
+}

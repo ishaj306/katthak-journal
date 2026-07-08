@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kathak Journal | A Sacred Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#4e0616",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#f3bd6d",
+                    "secondary": "#7e570d",
+                    "primary-fixed": "#ffdadb",
+                    "on-surface-variant": "#554243",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#9a424c",
+                    "outline": "#877273",
+                    "tertiary-container": "#423922",
+                    "on-tertiary-fixed-variant": "#4f462d",
+                    "surface-container-highest": "#e6e2d8",
+                    "on-primary-fixed": "#40000e",
+                    "primary-fixed-dim": "#ffb2b8",
+                    "on-secondary-fixed-variant": "#614000",
+                    "tertiary-fixed-dim": "#d4c5a5",
+                    "secondary-container": "#ffc877",
+                    "primary-container": "#6b1e2a",
+                    "on-primary-container": "#ef858f",
+                    "on-surface": "#1c1c16",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#ffb2b8",
+                    "on-tertiary-container": "#b0a384",
+                    "surface-variant": "#e6e2d8",
+                    "secondary-fixed": "#ffddb0",
+                    "surface-container-low": "#f7f3e9",
+                    "on-secondary-fixed": "#281800",
+                    "on-secondary-container": "#795207",
+                    "tertiary-fixed": "#f0e1c0",
+                    "tertiary": "#2b240e",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#ece8de",
+                    "surface-container": "#f1eee4",
+                    "on-primary-fixed-variant": "#7c2b36",
+                    "inverse-on-surface": "#f4f0e7",
+                    "surface-bright": "#fdf9ef",
+                    "background": "#fdf9ef",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#221b06",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fdf9ef",
+                    "on-background": "#1c1c16",
+                    "outline-variant": "#dac0c1",
+                    "surface-dim": "#dddad0",
+                    "inverse-surface": "#31312a",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-page": "4rem",
+                    "gutter": "2rem",
+                    "stack-sm": "0.75rem",
+                    "section-gap": "6rem",
+                    "margin-mobile": "1.5rem",
+                    "stack-md": "1.5rem"
+            },
+            "fontFamily": {
+                    "headline-md": ["EB Garamond"],
+                    "display-lg": ["EB Garamond"],
+                    "label-lg": ["EB Garamond"],
+                    "display-lg-mobile": ["EB Garamond"],
+                    "label-md": ["EB Garamond"],
+                    "headline-lg": ["EB Garamond"],
+                    "body-md": ["EB Garamond"],
+                    "body-lg": ["EB Garamond"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fdf9ef;
+            color: #1c1c16;
+            font-family: 'EB Garamond', serif;
+            overflow-x: hidden;
+        }
+
+        .parchment-texture {
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            background-repeat: repeat;
+        }
+
+        .mughal-border {
+            border: 24px solid transparent;
+            border-image: url('https://img.freepik.com/free-vector/indian-ornamental-border-design-gold_53876-120302.jpg') 30 stretch; /* Simulated border logic */
+            mask-image: linear-gradient(to bottom, black 95%, transparent);
+        }
+
+        /* Simplified Ornamental Border */
+        .ornamental-frame {
+            border: 1px solid #7e570d;
+            padding: 2px;
+            position: relative;
+        }
+        .ornamental-frame::before {
+            content: '';
+            position: absolute;
+            top: 4px; left: 4px; right: 4px; bottom: 4px;
+            border: 0.5px solid #4e0616;
+            pointer-events: none;
+        }
+
+        .manuscript-break {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #7e570d 50%, transparent);
+            position: relative;
+            margin: 2rem 0;
+        }
+        .manuscript-break::after {
+            content: '⬥';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: #7e570d;
+            background: #fdf9ef;
+            padding: 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            color: #7e570d;
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="parchment-texture min-h-screen selection:bg-secondary-fixed selection:text-primary">
+<!-- Top Navigation Bar -->
+<nav class="flex justify-between items-center w-full px-margin-page py-6 max-w-full fixed top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-primary/20">
+<div class="font-display-lg text-display-lg text-primary tracking-tighter cursor-default">
+            Kathak Journal
+        </div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-primary font-bold border-b border-secondary hover:text-secondary transition-colors duration-300" href="#">The Archive</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant font-medium hover:text-secondary transition-colors duration-300" href="#">Lineages</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant font-medium hover:text-secondary transition-colors duration-300" href="#">Philosophy</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant font-medium hover:text-secondary transition-colors duration-300" href="#">Journal</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant font-medium hover:text-secondary transition-colors duration-300" href="#">Folios</a>
+</div>
+<button class="font-label-lg text-label-lg uppercase tracking-widest border border-primary px-6 py-2 text-primary hover:bg-primary hover:text-on-primary transition-all duration-300 scale-95 hover:scale-100">
+            Enter Court
+        </button>
+</nav>
+<!-- Hero Section -->
+<header class="relative min-h-screen flex flex-col items-center justify-center pt-24 px-margin-mobile md:px-margin-page overflow-hidden">
+<!-- Background Animation Effect -->
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+
+</div>
+<!-- Decorative Corners -->
+<div class="absolute top-32 left-8 md:left-24 w-16 h-16 border-t-2 border-l-2 border-secondary/40 pointer-events-none"></div>
+<div class="absolute top-32 right-8 md:right-24 w-16 h-16 border-t-2 border-r-2 border-secondary/40 pointer-events-none"></div>
+<div class="absolute bottom-12 left-8 md:left-24 w-16 h-16 border-b-2 border-l-2 border-secondary/40 pointer-events-none"></div>
+<div class="absolute bottom-12 right-8 md:right-24 w-16 h-16 border-b-2 border-r-2 border-secondary/40 pointer-events-none"></div>
+<div class="text-center relative z-10 max-w-4xl">
+<!-- Ghungroo Mandala Icon -->
+<div class="mb-6 flex justify-center floating">
+<div class="w-16 h-16 rounded-full border border-secondary flex items-center justify-center bg-surface-container-low shadow-sm">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+</div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-4 leading-tight">
+                A sacred archive for your dance journey
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12 italic max-w-2xl mx-auto">
+                Preserve compositions, riyaz, performances, and guru wisdom in one timeless digital manuscript.
+            </p>
+<div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+<button class="w-full md:w-auto px-10 py-4 bg-primary text-on-primary font-label-lg text-label-lg uppercase tracking-widest hover:bg-primary-container transition-all duration-300">
+                    Begin Your Journal
+                </button>
+<button class="w-full md:w-auto px-10 py-4 border border-secondary text-secondary font-label-lg text-label-lg uppercase tracking-widest hover:bg-secondary-fixed/10 transition-all duration-300">
+                    Sign In
+                </button>
+</div>
+</div>
+<!-- Scroll Indicator -->
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+<span class="font-label-md text-label-md uppercase tracking-widest">Explore the Folios</span>
+<span class="material-symbols-outlined animate-bounce">expand_more</span>
+</div>
+</header>
+<!-- Content Sections -->
+<main class="py-section-gap px-margin-mobile md:px-margin-page max-w-7xl mx-auto">
+<!-- Section Divider -->
+<div class="manuscript-break mb-section-gap"></div>
+<!-- Feature Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Card 1: Composition Library -->
+<div class="ornamental-frame bg-surface-container-low p-8 flex flex-col items-center text-center transition-transform hover:-translate-y-2 duration-500">
+<div class="mb-6">
+<span class="material-symbols-outlined text-5xl">auto_stories</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-4">Composition Library</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    Document every Tukra, Tora, and Paran with precision. Attach audio recordings and notation in a structured, classical format.
+                </p>
+<div class="mt-8 pt-6 border-t border-secondary/20 w-full">
+<a class="font-label-md text-label-md uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">View Samples →</a>
+</div>
+</div>
+<!-- Card 2: Riyaz Tracker -->
+<div class="ornamental-frame bg-surface-container-low p-8 flex flex-col items-center text-center transition-transform hover:-translate-y-2 duration-500">
+<div class="mb-6">
+<span class="material-symbols-outlined text-5xl">history_toggle_off</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-4">Riyaz Tracker</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    Log your daily practice hours and metabolic intensities. Watch your stamina grow as you track footwork cycles and laya mastery over years.
+                </p>
+<div class="mt-8 pt-6 border-t border-secondary/20 w-full">
+<a class="font-label-md text-label-md uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Log Session →</a>
+</div>
+</div>
+<!-- Card 3: Performance Journal -->
+<div class="ornamental-frame bg-surface-container-low p-8 flex flex-col items-center text-center transition-transform hover:-translate-y-2 duration-500">
+<div class="mb-6">
+<span class="material-symbols-outlined text-5xl">theater_comedy</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-4">Performance Folio</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    Archive videos of your stage moments. Keep notes on guru critiques and audience energy to reflect on your artistic evolution.
+                </p>
+<div class="mt-8 pt-6 border-t border-secondary/20 w-full">
+<a class="font-label-md text-label-md uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Relive Moments →</a>
+</div>
+</div>
+</div>
+<!-- Aesthetic Highlight Section -->
+<section class="mt-section-gap flex flex-col md:flex-row items-center gap-16 py-12">
+<div class="flex-1 space-y-6">
+<h2 class="font-display-lg text-headline-lg text-primary italic underline decoration-secondary decoration-1 underline-offset-8">The Wisdom of Lineages</h2>
+<p class="font-body-lg text-body-lg text-on-surface leading-loose">
+                    In the tradition of Kathak, knowledge is often oral, passed down in whispers from Guru to Shishya. Kathak Journal provides a sanctuary for these ephemeral teachings, ensuring that the nuances of your Gharana are never lost to time.
+                </p>
+<div class="flex items-center gap-4 text-secondary italic">
+<span class="material-symbols-outlined">ink_pen</span>
+<span class="font-body-md">Hand-crafted digital preservation.</span>
+</div>
+</div>
+<div class="flex-1 w-full aspect-[4/5] ornamental-frame p-4 bg-background relative overflow-hidden group">
+<img class="w-full h-full object-cover grayscale-[20%] group-hover:scale-105 transition-transform duration-1000" data-alt="A high-quality, atmospheric photograph of a Kathak dancer's feet adorned with intricate brass ghungroos (bells), resting on a traditional textured stone floor. The lighting is low-key and dramatic, highlighting the metallic glint of the bells and the aged parchment-like texture of the surroundings. The color palette consists of deep maroons, antique golds, and soft ivory tones, reflecting a sacred and timeless archival aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6w96Rul24iv_0oN01K-QSp3_vs4nChr1kksFb9GZpTmO_uWg1QSgcxMijNAugF09NeKpOMeau9DSg9dmjlcdJRmDHtH_3ehOgzUq17BV9W_4j_PZORc-J3wPC2FHV6s9JfL0oDn90o4dSfIVt3BoKDcE73YlnYBgH5lkUjkV-AFU8r7p0YLSjPP4MQqFReih9xQWFDVNOSYiMCWDtWD1Zt1Ytzlxx66m416FJTVjww_G43CgRahhulqUFrxV1TJEBfXyuBOvTxZg"/>
+<div class="absolute inset-0 bg-primary/10 pointer-events-none"></div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full px-margin-page py-section-gap bg-surface-container flex flex-col items-center gap-stack-md border-t-2 border-double border-secondary-container">
+<div class="flex flex-col items-center gap-4">
+<div class="font-headline-md text-headline-md text-primary tracking-widest">KATHAK JOURNAL</div>
+<div class="flex gap-8">
+<a class="font-body-md text-body-md italic text-on-surface-variant hover:text-primary hover:bg-secondary-fixed/10 transition-opacity" href="#">Archives</a>
+<a class="font-body-md text-body-md italic text-on-surface-variant hover:text-primary hover:bg-secondary-fixed/10 transition-opacity" href="#">The Lineage</a>
+<a class="font-body-md text-body-md italic text-on-surface-variant hover:text-primary hover:bg-secondary-fixed/10 transition-opacity" href="#">Terms</a>
+<a class="font-body-md text-body-md italic text-on-surface-variant hover:text-primary hover:bg-secondary-fixed/10 transition-opacity" href="#">Privacy</a>
+</div>
+</div>
+<div class="manuscript-break w-1/3 opacity-30"></div>
+<div class="text-on-surface font-body-md text-body-md italic opacity-80 hover:opacity-100 transition-opacity">
+            © MMXXIV KATHAK JOURNAL. PRESERVING THE SACRED RHYTHM.
+        </div>
+</footer>
+<script>
+        // Micro-interaction for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Simple scroll reveal
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.ornamental-frame').forEach(el => {
+            el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

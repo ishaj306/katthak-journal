@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heritage Collection | The Imperial Archives</title>
+<!-- Tailwind CSS with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: EB Garamond (as requested in config) and Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#2b240e",
+                    "surface-container-high": "#ece8de",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#4e0616",
+                    "tertiary-fixed": "#f0e1c0",
+                    "on-surface": "#1c1c16",
+                    "on-secondary-container": "#795207",
+                    "background": "#fdf9ef",
+                    "inverse-surface": "#31312a",
+                    "tertiary-container": "#423922",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "surface": "#fdf9ef",
+                    "on-secondary-fixed-variant": "#614000",
+                    "on-surface-variant": "#554243",
+                    "outline": "#877273",
+                    "surface-variant": "#e6e2d8",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#7c2b36",
+                    "tertiary-fixed-dim": "#d4c5a5",
+                    "surface-dim": "#dddad0",
+                    "surface-tint": "#9a424c",
+                    "on-primary-container": "#ef858f",
+                    "primary-fixed-dim": "#ffb2b8",
+                    "on-primary-fixed": "#40000e",
+                    "secondary-fixed-dim": "#f3bd6d",
+                    "primary-fixed": "#ffdadb",
+                    "primary-container": "#6b1e2a",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#4f462d",
+                    "surface-container": "#f1eee4",
+                    "inverse-on-surface": "#f4f0e7",
+                    "surface-container-low": "#f7f3e9",
+                    "secondary-fixed": "#ffddb0",
+                    "on-secondary-fixed": "#281800",
+                    "surface-bright": "#fdf9ef",
+                    "on-tertiary-fixed": "#221b06",
+                    "inverse-primary": "#ffb2b8",
+                    "outline-variant": "#dac0c1",
+                    "on-background": "#1c1c16",
+                    "secondary-container": "#ffc877",
+                    "on-tertiary-container": "#b0a384",
+                    "on-error-container": "#93000a",
+                    "secondary": "#7e570d",
+                    "surface-container-highest": "#e6e2d8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "1.5rem",
+                    "section-gap": "6rem",
+                    "stack-md": "1.5rem",
+                    "margin-page": "4rem",
+                    "gutter": "2rem",
+                    "stack-sm": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline-lg": ["EB Garamond"],
+                    "display-lg-mobile": ["EB Garamond"],
+                    "label-lg": ["EB Garamond"],
+                    "label-md": ["EB Garamond"],
+                    "body-md": ["EB Garamond"],
+                    "body-lg": ["EB Garamond"],
+                    "display-lg": ["EB Garamond"],
+                    "headline-md": ["EB Garamond"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fdf9ef; /* background from config */
+            font-family: 'EB Garamond', serif;
+            color: #1c1c16; /* on-background */
+        }
+
+        /* Parchment Texture Overlay */
+        .parchment-texture {
+            position: relative;
+        }
+        .parchment-texture::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("https://www.transparenttextures.com/patterns/p6.png");
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Filigree Border Utility */
+        .filigree-border {
+            border: 1px solid #7e570d; /* secondary/gold */
+            padding: 1rem;
+            position: relative;
+        }
+        .filigree-border::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            border: 2px solid #4e0616; /* primary/maroon */
+            pointer-events: none;
+        }
+
+        /* Ghungroo Motifs */
+        .ghungroo-list li {
+            position: relative;
+            padding-left: 2rem;
+            list-style: none;
+        }
+        .ghungroo-list li::before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: #7e570d;
+            font-size: 0.8rem;
+            top: 0.2rem;
+            text-shadow: 0 0 2px rgba(126, 87, 13, 0.5);
+        }
+
+        /* Manuscript Break Divider */
+        .manuscript-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #877273 20%, #7e570d 50%, #877273 80%, transparent);
+            position: relative;
+            width: 100%;
+            margin: 4rem 0;
+        }
+        .manuscript-divider::after {
+            content: "◆";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: #fdf9ef;
+            padding: 0 1rem;
+            color: #7e570d;
+            font-size: 1.2rem;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            color: #7e570d;
+        }
+
+        /* Golden glow for buttons */
+        .btn-heritage:hover {
+            background-color: rgba(232, 217, 184, 0.2);
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="parchment-texture overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="bg-background border-b border-outline-variant sticky top-0 z-50">
+<nav class="flex justify-between items-center w-full px-margin-page py-6 max-w-7xl mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-widest uppercase">
+                Heritage Collection
+            </div>
+<div class="hidden md:flex gap-10 items-center">
+<a class="font-label-lg text-label-lg text-primary border-b border-primary hover:text-primary transition-colors duration-300" href="#">The Archive</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Folios</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Artisans</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Philosophy</a>
+</div>
+<div class="flex gap-6 items-center">
+<button class="scale-95 transition-transform duration-200"><span class="material-symbols-outlined">shopping_bag</span></button>
+<button class="scale-95 transition-transform duration-200"><span class="material-symbols-outlined">person</span></button>
+</div>
+</nav>
+</header>
+<main class="max-w-7xl mx-auto px-margin-page">
+<!-- Hero Section -->
+<section class="min-h-[819px] flex flex-col items-center justify-center text-center py-section-gap">
+<div class="filigree-border max-w-4xl w-full p-12 md:p-24 bg-surface-container-low/50 backdrop-blur-sm">
+<span class="font-label-lg text-label-lg text-secondary tracking-[0.4em] uppercase mb-6 block">Sacred &amp; Revered</span>
+<h1 class="font-display-lg text-display-lg text-primary mb-8 leading-tight">The Imperial Archives</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-12">
+                    A repository of timeless artistry, meticulously preserved through centuries of craftsmanship. Discover the silent echoes of Mughal grandeur through tactile vellum and gold leaf.
+                </p>
+<a class="inline-block px-10 py-4 border border-primary bg-background font-label-lg text-label-lg text-primary uppercase tracking-widest btn-heritage" href="#archives">
+                    Enter the Vault
+                </a>
+</div>
+</section>
+<div class="manuscript-divider"></div>
+<!-- Sacred Craftsmanship Section -->
+<section class="py-section-gap grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="relative group">
+<div class="filigree-border p-2">
+<img class="w-full h-[600px] object-cover grayscale-[0.2] transition-transform duration-700 group-hover:scale-105" data-alt="A macro photograph of an ancient Mughal manuscript being restored. The image shows a steady hand using a fine brush to apply gold leaf to an intricate floral border (Islimi pattern). The lighting is warm and candle-like, highlighting the rich texture of the handmade parchment and the deep maroon pigments. The aesthetic is traditional, luxurious, and highly detailed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoZmrLqj28OG5lh55pIHHVW5fjMP_o-vNgVggw4zv-H5Y3mg0fcQBFdOihD2CATooODPIFxea62vmMSmiPBKVt8B8U3n_c_1NHDhTlaeMmHPpgkY7dT46sUehvKzBiieQG19z-vyo1OWdaUfXW5FRUA6alsArAfExnPlAxSC4ca7Vfh2EDJK0xcdd9dIzzVw00Mg2vDLvhi-zx0UdUnx8ULju0g9eNGY5qPEwR1tx1n6SlBQ1ht-9HhJW6Cb2NZnmP9zAnsMew0Cc"/>
+</div>
+<div class="absolute -bottom-8 -right-8 w-48 h-48 border border-secondary p-2 bg-background hidden lg:block">
+<img class="w-full h-full object-cover" data-alt="A close-up shot of a small ornate silver ghungroo bell resting on a piece of vintage leather-bound book. The bell is intricately engraved with tiny patterns, reflecting a soft golden light. The background is a blurred antique workshop with various crafting tools and scrolls, emphasizing a sacred and reverent atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz3Hhi9HHikiOKWoUgGklr8uXhjubRnDcva8UaNnZ9pzXahWajcu0FA18d_GMfx6vkRjwKB2KGOm8IRzMp1MoLqOsv7lhFFPkrBR-UVXXP2CjI8sJfaVHimCskO8foP4cvtnOVY8Id3xggvhNQrlViAkSHhPTn6nuW66UIRYQPKmLQ_9HdSkM3pJU6g-uZXnIoD0dzbwYOlRaPQiXmE2TfhvLdd6AXgvAn74WCgDs73Swjg4FK8uxGC3qGu4fGva6VvRITzk1DsXA"/>
+</div>
+</div>
+<div class="space-y-stack-md">
+<h2 class="font-headline-lg text-headline-lg text-primary italic">Sacred Craftsmanship</h2>
+<div class="w-24 h-[1px] bg-secondary mb-8"></div>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                    Our artisans belong to lineages that have served royal courts for generations. Each piece in the Heritage Collection is not merely manufactured; it is invoked through a series of ritualistic techniques passed down in hushed whispers.
+                </p>
+<ul class="ghungroo-list font-body-md text-body-md text-on-surface space-y-4">
+<li>Hand-pounded gold leaf harvested from the banks of the sacred rivers.</li>
+<li>Vegetable dyes extracted from rare madder roots and indigo ferments.</li>
+<li>Needlework so fine it mirrors the delicate latticework of the marble jali.</li>
+<li>Sourced ethically from fellowships that preserve ancient livelihoods.</li>
+</ul>
+<div class="pt-8">
+<button class="font-label-lg text-label-lg text-secondary border-b border-secondary pb-1 tracking-widest hover:text-primary hover:border-primary transition-all uppercase">
+                        Our Artistic Lineage
+                    </button>
+</div>
+</div>
+</section>
+<div class="manuscript-divider"></div>
+<!-- Bento Grid: The Folios -->
+<section class="py-section-gap">
+<div class="text-center mb-16">
+<h2 class="font-display-lg text-display-lg text-primary mb-4">Curated Folios</h2>
+<p class="font-body-md text-body-md text-on-surface-variant uppercase tracking-widest italic">A Glimpse into the Vaults</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 h-auto md:h-[800px]">
+<!-- Main Featured Item -->
+<div class="md:col-span-8 relative overflow-hidden filigree-border bg-surface-container group">
+<div class="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-110" data-alt="A panoramic view of an imperial library with tall mahogany shelves filled with ancient scrolls and leather-bound folios. The floor is covered in intricate Persian rugs. The lighting is low and atmospheric, with dust motes dancing in single shafts of sunlight. The mood is silent, sacred, and filled with the scent of old paper and cedarwood." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCZJtUONdHcKDDV-NmKI04B_NE2RdwKFqD2hoOtZQTNo9tCKkWHx6sU8-noe9YFQ9TJ8mbnYeijEJYorn4dJMHJgrMqTebicERATQRIOqiDnIKTcSAvvW22gEKW4il2L5lZrmaWS-0dHWs9fyfrClMQGh0PnCGyGylCmqt6wO1hTjPIcBNum0TGWVZe6u5sfV1nyoeneT2n4af4v6CGuASdl8-FrsykMqEEcHj558LqlbXgYtFlcxLTn9mlAna23ZrtztegZg-asdw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent z-10"></div>
+<div class="absolute bottom-12 left-12 z-20 text-background">
+<span class="font-label-md text-label-md uppercase tracking-[0.3em] mb-2 block">Featured Series</span>
+<h3 class="font-headline-lg text-headline-lg mb-4">The Sunburst Chronicles</h3>
+<p class="font-body-md text-body-md max-w-lg mb-6 opacity-90">A collection documenting the rise of the solar dynasty through gold-illuminated calligraphy and indigo maps.</p>
+<button class="px-8 py-3 border border-background hover:bg-background hover:text-primary transition-all font-label-lg text-label-lg uppercase">View Folio</button>
+</div>
+</div>
+<!-- Secondary Items -->
+<div class="md:col-span-4 flex flex-col gap-8">
+<div class="flex-1 filigree-border relative overflow-hidden group">
+<div class="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-110" data-alt="A detailed portrait of a traditional weaving loom used for Banarasi silk. The threads are vibrant crimson and gold, creating an intricate floral pattern. The light is soft and natural, emphasizing the organic texture of the silk. The style is classic and high-end." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBpJbXYvuwlIrlgHAA-751rd26JGHVhxCMJp0bjlKelYERbbIjIetOXcFEjDJWmj5u_Laq-TmN0-yfMBSGyUrBbbmdhIhKO4-n-qh0fybXBuKVMKolkKmijlDmQLs7gLj0MfFiTmp3vrtnhV1hK0szAcQ4JwkFCRpOw-m7SyLNmTPsxMF319JhySdFWb5Kyjx2PIGku92uLLCSrzTz0ulIIdRys-bE1DHSNbgb8RtaWhfJ80_b_PL54MNGkeTJzwYZqWEV0g95gLp4')"></div>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
+<div class="absolute inset-0 flex flex-col items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 p-8 text-center">
+<h4 class="font-headline-md text-headline-md text-primary mb-2">Textile Arts</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">The geometry of woven dreams.</p>
+</div>
+</div>
+<div class="flex-1 filigree-border relative overflow-hidden group">
+<div class="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-110" data-alt="An assortment of ancient copper and bronze calligraphy pens and ink pots arranged on a piece of sand-colored handmade paper. Each tool is engraved with intricate floral motifs. The composition is artistic and minimalist, reflecting the heritage and craftsmanship of old-world writing." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC2n9s7vtzCt1wDoNrBpRBfoO53uBHmAscc-oVVBJNkAWWMt8fft5xockdo7s_nDPmELLhlB6kmj9xzSxPiKIMRUHFAn6Q9IMEJLJP-q2pmlnS5XOVZUmlrAGFH84DsOXrbdT1M_nnOjBiOkR1KlEiobAum6zoCEQX0h-bEQfK9BoD25j7k2rNBQ9k4a0PhyUrB31Z4idHiqoaPEA5ba7l1I1GcJmR8wHvlCtlO8RiLMiUBQ2QNUFHNAes-IqSgX7Vym_faoUD9Sdw')"></div>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
+<div class="absolute inset-0 flex flex-col items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 p-8 text-center">
+<h4 class="font-headline-md text-headline-md text-primary mb-2">Scribes Corner</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">The weight of every written word.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="manuscript-divider"></div>
+<!-- The Artisan Fellowship -->
+<section class="py-section-gap text-center">
+<div class="max-w-3xl mx-auto space-y-stack-md">
+<span class="material-symbols-outlined text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">The Artisan Fellowship</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant italic">
+                    "Every stroke is a prayer, every weave a testament to the hands that came before us."
+                </p>
+<div class="flex justify-center gap-12 py-8">
+<div class="flex flex-col items-center">
+<span class="font-display-lg text-display-lg text-secondary">24</span>
+<span class="font-label-md text-label-md uppercase tracking-widest">Master Craftsmen</span>
+</div>
+<div class="w-[1px] h-12 bg-outline-variant self-center"></div>
+<div class="flex flex-col items-center">
+<span class="font-display-lg text-display-lg text-secondary">400+</span>
+<span class="font-label-md text-label-md uppercase tracking-widest">Years of Tradition</span>
+</div>
+<div class="w-[1px] h-12 bg-outline-variant self-center"></div>
+<div class="flex flex-col items-center">
+<span class="font-display-lg text-display-lg text-secondary">12</span>
+<span class="font-label-md text-label-md uppercase tracking-widest">Preserved Arts</span>
+</div>
+</div>
+<div class="pt-4">
+<button class="px-12 py-5 border-2 border-primary text-primary font-label-lg text-label-lg uppercase tracking-[0.2em] hover:bg-primary hover:text-background transition-all">Support the Craft</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full flex flex-col items-center justify-center gap-stack-md px-margin-page text-center border-t border-outline-variant dark:border-outline py-12 mt-section-gap bg-background">
+<div class="font-headline-md text-headline-md text-primary tracking-widest uppercase">
+            Heritage Collection
+        </div>
+<div class="flex flex-wrap justify-center gap-8 mb-4">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Archives</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Artisan Fellowship</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact</a>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto">
+            © 2024 Heritage Collection. Sacred &amp; Revered.
+        </div>
+<div class="flex gap-4 mt-4">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">palette</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">auto_stories</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">history_edu</span>
+</div>
+</footer>
+<script>
+        // Micro-interactions for scrolling reveal
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+                observer.observe(section);
+            });
+        });
+    </script>
+</body></html>
