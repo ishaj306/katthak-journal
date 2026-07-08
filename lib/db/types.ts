@@ -53,6 +53,21 @@ export const GHARANA_LABELS: Record<Gharana, string> = {
 export const MEDIA_KINDS = ["audio", "video", "image", "pdf"] as const;
 export type MediaKind = (typeof MEDIA_KINDS)[number];
 
+export type Profile = {
+  id: string;
+  display_name: string | null;
+  dance_start_date: string | null;
+  bio: string | null;
+  avatar_url: string | null;
+  primary_guru: string | null;
+  gharana: Gharana | null;
+  city: string | null;
+  country: string | null;
+  onboarded: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type Composition = {
   id: string;
   user_id: string;

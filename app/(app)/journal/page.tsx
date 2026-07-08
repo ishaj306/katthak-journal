@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { JournalEntry } from "@/lib/db/types";
 import { excerpt, formatJournalDate } from "@/lib/memory";
 import { CalendarStrip } from "./_components/CalendarStrip";
+import { EmptyState } from "@/components/manuscript/EmptyState";
 
 export const metadata = {
   title: "Private Pages | Kathak Journal",
@@ -113,27 +114,13 @@ export default async function JournalPage({
           </p>
         </div>
       ) : entries.length === 0 ? (
-        <div className="mx-auto max-w-xl border border-outline-variant bg-surface-container-low p-12 text-center">
-          <span
-            className="material-symbols-outlined text-6xl text-secondary"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            menu_book
-          </span>
-          <h2 className="mt-4 font-display text-headline-md text-primary">
-            The page is blank
-          </h2>
-          <p className="mt-4 font-serif text-body-md italic text-on-surface-variant">
-            What did the riyaz teach you today? What did the stage reveal? Write
-            it before it slips away.
-          </p>
-          <Link
-            href="/journal/new"
-            className="mt-8 inline-flex items-center gap-3 bg-primary px-8 py-3 font-serif text-label-lg uppercase tracking-[0.2em] text-on-primary transition-all hover:bg-primary-container"
-          >
-            Write First Page
-          </Link>
-        </div>
+        <EmptyState
+          art="mandala"
+          title="The page is blank"
+          body="What did the riyaz teach you today? What did the stage reveal? Write it before it slips away."
+          actionHref="/journal/new"
+          actionLabel="Write First Page"
+        />
       ) : (
         <ul className="space-y-stack-md">
           {entries.map((e) => (

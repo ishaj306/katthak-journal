@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { CompositionTypeFilter } from "./_components/CompositionTypeFilter";
 import { CompositionCard } from "./_components/CompositionCard";
+import { EmptyState } from "@/components/manuscript/EmptyState";
 import {
   COMPOSITION_TYPES,
   type CompositionType,
@@ -118,28 +119,13 @@ export default async function CompositionsPage({
           </p>
         </div>
       ) : compositions.length === 0 ? (
-        <div className="mx-auto max-w-xl border border-outline-variant bg-surface-container-low p-12 text-center">
-          <span
-            className="material-symbols-outlined text-6xl text-secondary"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            auto_stories
-          </span>
-          <h2 className="mt-4 font-display text-headline-lg text-primary">
-            Your manuscript awaits its first folio
-          </h2>
-          <p className="mt-4 font-serif text-body-md italic text-on-surface-variant">
-            Begin by inscribing your first composition. Every bol, every
-            correction, every memory will be preserved here.
-          </p>
-          <Link
-            href="/compositions/new"
-            className="mt-8 inline-flex items-center justify-center gap-3 bg-primary px-10 py-4 font-serif text-label-lg uppercase tracking-[0.2em] text-on-primary transition-all hover:bg-primary-container"
-          >
-            <span className="material-symbols-outlined">edit_note</span>
-            Add Your First Composition
-          </Link>
-        </div>
+        <EmptyState
+          art="lotus"
+          title="Your manuscript awaits its first folio"
+          body="Begin by inscribing your first composition. Every bol, every correction, every memory will be preserved here."
+          actionHref="/compositions/new"
+          actionLabel="Add Your First Composition"
+        />
       ) : (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {compositions.map((c) => (

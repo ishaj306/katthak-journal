@@ -8,6 +8,7 @@ import {
 } from "@/lib/db/types";
 import { WisdomCard } from "./_components/WisdomCard";
 import { WisdomCreator } from "./_components/WisdomCreator";
+import { EmptyState } from "@/components/manuscript/EmptyState";
 
 export const metadata = {
   title: "Guru Wisdom | Kathak Journal",
@@ -113,21 +114,11 @@ export default async function WisdomPage({
           </p>
         </div>
       ) : items.length === 0 ? (
-        <div className="mx-auto max-w-xl border border-outline-variant bg-surface-container-low p-12 text-center">
-          <span
-            className="material-symbols-outlined text-6xl text-secondary"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            format_quote
-          </span>
-          <h2 className="mt-4 font-display text-headline-md text-primary">
-            No wisdom captured yet
-          </h2>
-          <p className="mt-4 font-serif text-body-md italic text-on-surface-variant">
-            Every correction, every metaphor, every philosophy spoken by your
-            guru — preserve it here so it never fades.
-          </p>
-        </div>
+        <EmptyState
+          art="cypress"
+          title="No wisdom captured yet"
+          body="Every correction, every metaphor, every philosophy spoken by your guru — preserve it here so it never fades."
+        />
       ) : (
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-gutter md:grid-cols-2 xl:grid-cols-3">
           {items.map((w, i) => (

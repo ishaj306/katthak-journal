@@ -6,6 +6,7 @@ import {
   formatPerformanceDate,
   groupPerformancesByYear,
 } from "@/lib/memory";
+import { EmptyState } from "@/components/manuscript/EmptyState";
 
 export const metadata = {
   title: "Stage Journal | Kathak Journal",
@@ -54,27 +55,14 @@ export default async function PerformancesPage() {
           </p>
         </div>
       ) : performances.length === 0 ? (
-        <div className="mx-auto max-w-xl border border-outline-variant bg-surface-container-low p-12 text-center">
-          <span
-            className="material-symbols-outlined text-6xl text-secondary"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            theater_comedy
-          </span>
-          <h2 className="mt-4 font-display text-headline-lg text-primary">
-            The stage awaits its first chronicle
-          </h2>
-          <p className="mt-4 font-serif text-body-md italic text-on-surface-variant">
-            Every recital, every festival, every classroom showing — preserve
-            them with photos, videos, and reflections.
-          </p>
-          <Link
-            href="/performances/new"
-            className="mt-8 inline-flex items-center gap-3 bg-primary px-8 py-3 font-serif text-label-lg uppercase tracking-[0.2em] text-on-primary transition-all hover:bg-primary-container"
-          >
-            Add First Performance
-          </Link>
-        </div>
+        <EmptyState
+          art="dancer"
+          title="The stage awaits its first chronicle"
+          body="Every recital, every festival, every classroom showing — preserve them with photos, videos, and reflections."
+          actionHref="/performances/new"
+          actionLabel="Add First Performance"
+          actionIcon="add"
+        />
       ) : (
         <div className="relative" id="journalContainer">
           <div

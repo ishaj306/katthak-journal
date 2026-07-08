@@ -11,6 +11,7 @@ import { StatsRow } from "./_components/StatsRow";
 import { Heatmap } from "./_components/Heatmap";
 import { ManualSessionForm } from "./_components/ManualSessionForm";
 import { SessionList } from "./_components/SessionList";
+import { Metronome } from "./_components/Metronome";
 
 export const metadata = {
   title: "Riyaz | Kathak Journal",
@@ -62,6 +63,10 @@ export default async function RiyazPage() {
           <StreakCard buckets={buckets} streak={streak} now={now} />
           <StatsRow stats={stats} />
         </aside>
+      </div>
+
+      <div className="mt-gutter">
+        <Metronome />
       </div>
 
       <div

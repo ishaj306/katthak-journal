@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { createClient } from "@/lib/supabase/server";
+import { getOrCreateProfile } from "@/lib/profile";
 import { ManuscriptBreak } from "@/components/manuscript/ManuscriptBreak";
 import { OrnamentalFrame } from "@/components/manuscript/OrnamentalFrame";
 import { pickQuoteOfDay } from "@/lib/lineage";
@@ -78,6 +80,7 @@ const tiles = [
 
 export default async function DashboardPage() {
   let email: string | undefined;
+  let displayName: string | null = null;
   let compositionCount: number | null = null;
 
   let lifetimeSeconds = 0;
@@ -88,6 +91,10 @@ export default async function DashboardPage() {
     email = user?.emailAddresses[0]?.emailAddress;
 
     if (userId) {
+      const profile = await getOrCreateProfile(userId);
+      if (profile && !profile.onboarded) redirect("/onboarding");
+      displayName = profile?.display_name ?? null;
+
       const supabase = await createClient();
       const { count } = await supabase
         .from("compositions")
@@ -116,7 +123,7 @@ export default async function DashboardPage() {
           Folio I
         </p>
         <h1 className="mt-2 font-display text-display-lg-mobile text-primary md:text-display-lg">
-          Namaste, dancer
+          Namaste, {displayName || "dancer"}
         </h1>
         <p className="mt-3 font-serif text-body-lg italic text-on-surface-variant">
           {email ? `Signed in as ${email}` : "The manuscript opens fresh."}
