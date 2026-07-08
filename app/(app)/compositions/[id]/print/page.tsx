@@ -8,6 +8,8 @@ import {
   type CompositionMedia,
 } from "@/lib/db/types";
 import { PrintButton } from "./PrintButton";
+import { RichText } from "@/components/manuscript/RichText";
+import { isBlankHtml } from "@/lib/sanitize";
 
 export const metadata = {
   title: "Print | Kathak Journal",
@@ -136,31 +138,27 @@ export default async function PrintCompositionPage({
           </div>
         </section>
 
-        {composition.meaning ? (
+        {!isBlankHtml(composition.meaning) ? (
           <section className="mt-10">
             <h3 className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
               Meaning &amp; Poetry
             </h3>
-            <p className="mt-3 whitespace-pre-line font-serif text-body-md leading-relaxed">
-              {composition.meaning}
-            </p>
+            <RichText html={composition.meaning} className="mt-3" />
           </section>
         ) : null}
 
-        {composition.instructions ? (
+        {!isBlankHtml(composition.instructions) ? (
           <section className="mt-8">
             <h3 className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
               Performance Instructions
             </h3>
-            <p className="mt-3 whitespace-pre-line font-serif text-body-md leading-relaxed">
-              {composition.instructions}
-            </p>
+            <RichText html={composition.instructions} className="mt-3" />
           </section>
         ) : null}
 
-        {composition.corrections ? (
+        {!isBlankHtml(composition.corrections) ? (
           <section
-            className="mt-8 p-5 italic"
+            className="mt-8 p-5"
             style={{
               borderLeft: "4px solid #B8893E",
               background: "rgba(232,217,184,0.15)",
@@ -169,9 +167,7 @@ export default async function PrintCompositionPage({
             <h3 className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
               Corrections from Guru
             </h3>
-            <p className="mt-2 whitespace-pre-line font-serif text-body-md leading-relaxed">
-              {composition.corrections}
-            </p>
+            <RichText html={composition.corrections} className="mt-2" />
           </section>
         ) : null}
 

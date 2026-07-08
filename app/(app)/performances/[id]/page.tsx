@@ -16,6 +16,7 @@ import { AudioPlayer } from "../../compositions/_components/AudioPlayer";
 import { VideoPlayer } from "../../compositions/_components/VideoPlayer";
 import { PerformanceMediaUploader } from "../_components/PerformanceMediaUploader";
 import { PerformanceMediaDeleteButton } from "../_components/PerformanceMediaDeleteButton";
+import { AudioRecorder } from "@/components/manuscript/AudioRecorder";
 import { DeletePerformanceButton } from "../_components/DeletePerformanceButton";
 
 export const metadata = {
@@ -355,11 +356,22 @@ export default async function PerformanceDetailPage({
                 </p>
               )}
 
-              <PerformanceMediaUploader
-                performanceId={performance.id}
-                userId={userId}
-                kind={kind}
-              />
+              <div className="space-y-4">
+                <PerformanceMediaUploader
+                  performanceId={performance.id}
+                  userId={userId}
+                  kind={kind}
+                />
+                {kind === "audio" ? (
+                  <AudioRecorder
+                    bucket="performance-media"
+                    table="performance_media"
+                    parentColumn="performance_id"
+                    parentId={performance.id}
+                    userId={userId}
+                  />
+                ) : null}
+              </div>
             </div>
           );
         })}

@@ -9,6 +9,7 @@ import {
 } from "@/app/actions/journal";
 import { todayIso } from "@/lib/memory";
 import type { JournalEntry } from "@/lib/db/types";
+import { ManuscriptEditor } from "@/components/manuscript/ManuscriptEditor";
 
 const initial: JournalFormState = {};
 
@@ -68,18 +69,10 @@ export function JournalForm({ existing }: { existing?: JournalEntry }) {
         <label className="mb-1 block font-serif italic text-[14px] text-primary">
           What did today&rsquo;s riyaz teach you?
         </label>
-        <textarea
+        <ManuscriptEditor
           name="body"
-          rows={16}
-          defaultValue={existing?.body ?? ""}
+          defaultHTML={existing?.body ?? ""}
           placeholder="The leather page is open. Begin…"
-          className="w-full bg-transparent p-4 font-serif italic text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none"
-          style={{
-            fontSize: "18px",
-            lineHeight: "1.8",
-            border: "1px solid #7e570d",
-            background: "rgba(232,217,184,0.05)",
-          }}
         />
       </div>
 

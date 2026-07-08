@@ -12,6 +12,8 @@ import {
 } from "@/lib/db/types";
 import { MediaSection } from "../_components/MediaSection";
 import { DeleteCompositionButton } from "../_components/DeleteCompositionButton";
+import { RichText } from "@/components/manuscript/RichText";
+import { isBlankHtml } from "@/lib/sanitize";
 
 export const metadata = {
   title: "Composition | Kathak Journal",
@@ -163,36 +165,30 @@ export default async function CompositionDetailPage({
       </section>
 
       <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-2">
-        {composition.meaning ? (
+        {!isBlankHtml(composition.meaning) ? (
           <section>
             <h3 className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
               Meaning &amp; Poetry
             </h3>
-            <p className="mt-4 whitespace-pre-line font-serif text-body-md leading-relaxed text-on-surface">
-              {composition.meaning}
-            </p>
+            <RichText html={composition.meaning} className="mt-4" />
           </section>
         ) : null}
-        {composition.instructions ? (
+        {!isBlankHtml(composition.instructions) ? (
           <section>
             <h3 className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
               Performance Instructions
             </h3>
-            <p className="mt-4 whitespace-pre-line font-serif text-body-md leading-relaxed text-on-surface">
-              {composition.instructions}
-            </p>
+            <RichText html={composition.instructions} className="mt-4" />
           </section>
         ) : null}
       </div>
 
-      {composition.corrections ? (
-        <section className="mt-12 border-l-4 border-secondary bg-surface-container-low p-6 italic md:p-8">
+      {!isBlankHtml(composition.corrections) ? (
+        <section className="mt-12 border-l-4 border-secondary bg-surface-container-low p-6 md:p-8">
           <h3 className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
             Corrections from Guru
           </h3>
-          <p className="mt-3 whitespace-pre-line font-serif text-body-md leading-relaxed text-on-surface">
-            {composition.corrections}
-          </p>
+          <RichText html={composition.corrections} className="mt-3" />
         </section>
       ) : null}
 

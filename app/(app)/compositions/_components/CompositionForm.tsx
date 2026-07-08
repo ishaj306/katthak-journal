@@ -15,6 +15,7 @@ import {
   type Composition,
 } from "@/lib/db/types";
 import { GhungrooRating } from "./GhungrooRating";
+import { ManuscriptEditor } from "@/components/manuscript/ManuscriptEditor";
 
 const initial: CompositionFormState = {};
 
@@ -170,41 +171,30 @@ export function CompositionForm({
 
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
         <div>
-          <CustomLabel htmlFor="meaning">Meaning &amp; Poetry</CustomLabel>
-          <textarea
-            id="meaning"
+          <CustomLabel>Meaning &amp; Poetry</CustomLabel>
+          <ManuscriptEditor
             name="meaning"
-            rows={4}
-            defaultValue={existing?.meaning ?? ""}
+            defaultHTML={existing?.meaning ?? ""}
             placeholder="The spiritual significance behind each movement..."
-            className="h-32 w-full border border-outline-variant bg-transparent p-3 font-serif text-body-md text-primary focus:border-primary focus:outline-none focus:ring-0"
           />
         </div>
 
         <div>
-          <CustomLabel htmlFor="instructions">
-            Performance Instructions
-          </CustomLabel>
-          <textarea
-            id="instructions"
+          <CustomLabel>Performance Instructions</CustomLabel>
+          <ManuscriptEditor
             name="instructions"
-            rows={4}
-            defaultValue={existing?.instructions ?? ""}
+            defaultHTML={existing?.instructions ?? ""}
             placeholder="Specific focus on footwork weight or hand placement..."
-            className="h-32 w-full border border-outline-variant bg-transparent p-3 font-serif text-body-md text-primary focus:border-primary focus:outline-none focus:ring-0"
           />
         </div>
       </div>
 
-      <div className="border-l-4 border-secondary bg-surface-container-low p-6 italic">
-        <CustomLabel htmlFor="corrections">Corrections from Guru</CustomLabel>
-        <textarea
-          id="corrections"
+      <div className="border-l-4 border-secondary bg-surface-container-low p-6">
+        <CustomLabel>Corrections from Guru</CustomLabel>
+        <ManuscriptEditor
           name="corrections"
-          rows={3}
-          defaultValue={existing?.corrections ?? ""}
+          defaultHTML={existing?.corrections ?? ""}
           placeholder="Words of wisdom to refine the practice..."
-          className="w-full border-0 bg-transparent font-serif text-body-md text-primary focus:outline-none focus:ring-0"
         />
       </div>
 

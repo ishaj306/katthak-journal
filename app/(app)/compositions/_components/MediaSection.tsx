@@ -3,6 +3,7 @@ import { AudioPlayer } from "./AudioPlayer";
 import { VideoPlayer } from "./VideoPlayer";
 import { MediaUploader } from "./MediaUploader";
 import { MediaDeleteButton } from "./MediaDeleteButton";
+import { AudioRecorder } from "@/components/manuscript/AudioRecorder";
 import { MEDIA_CONFIG, formatBytes, formatDuration } from "@/lib/media-config";
 import type { CompositionMedia, MediaKind } from "@/lib/db/types";
 
@@ -148,11 +149,22 @@ export function MediaSection({
         </p>
       )}
 
-      <MediaUploader
-        compositionId={compositionId}
-        userId={userId}
-        kind={kind}
-      />
+      <div className="space-y-4">
+        <MediaUploader
+          compositionId={compositionId}
+          userId={userId}
+          kind={kind}
+        />
+        {kind === "audio" ? (
+          <AudioRecorder
+            bucket="composition-media"
+            table="composition_media"
+            parentColumn="composition_id"
+            parentId={compositionId}
+            userId={userId}
+          />
+        ) : null}
+      </div>
     </section>
   );
 }

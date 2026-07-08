@@ -65,7 +65,15 @@ export function todayIso(): string {
 
 export function excerpt(text: string | null, n = 140): string {
   if (!text) return "";
-  const clean = text.replace(/\s+/g, " ").trim();
+  // Strip any HTML tags (journal/notes may hold Tiptap markup) then collapse.
+  const clean = text
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
   return clean.length > n ? clean.slice(0, n - 1) + "…" : clean;
 }
 
