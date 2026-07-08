@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { EB_Garamond, Cormorant_Garamond } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ServiceWorkerRegistrar } from "@/components/ServiceWorkerRegistrar";
 import "./globals.css";
 
 const ebGaramond = EB_Garamond({
@@ -22,6 +23,23 @@ export const metadata: Metadata = {
   title: "Kathak Journal — A Sacred Archive for Your Dance Journey",
   description:
     "Preserve compositions, riyaz, performances, and guru wisdom in one timeless manuscript.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "Kathak Journal",
+    statusBarStyle: "default",
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#6B1E2A",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({
@@ -67,6 +85,7 @@ export default function RootLayout({
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           />
           {children}
+          <ServiceWorkerRegistrar />
         </body>
       </html>
     </ClerkProvider>

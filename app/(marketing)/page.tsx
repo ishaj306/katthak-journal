@@ -3,6 +3,12 @@ import { SiteFooter } from "@/components/manuscript/SiteFooter";
 import { ManuscriptBreak } from "@/components/manuscript/ManuscriptBreak";
 import { OrnamentalFrame } from "@/components/manuscript/OrnamentalFrame";
 import { MaroonButton } from "@/components/manuscript/MaroonButton";
+import {
+  DancerSilhouette,
+  JaliPattern,
+  CornerFlourish,
+  GhungrooMandala,
+} from "@/components/manuscript/Ornaments";
 import Link from "next/link";
 
 const featureCards = [
@@ -43,14 +49,7 @@ export default function LandingPage() {
 
         <div className="relative z-10 max-w-4xl text-center">
           <div className="mb-6 flex justify-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-secondary bg-surface-container-low shadow-sm">
-              <span
-                className="material-symbols-outlined text-4xl text-secondary"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                spa
-              </span>
-            </div>
+            <GhungrooMandala className="text-secondary" size={96} />
           </div>
 
           <h1 className="mb-4 font-display text-display-lg-mobile leading-tight text-primary md:text-display-lg">
@@ -137,18 +136,17 @@ export default function LandingPage() {
               </span>
             </div>
           </div>
-          <OrnamentalFrame className="relative aspect-[4/5] w-full flex-1 overflow-hidden bg-background p-4">
-            <div className="flex h-full w-full items-center justify-center bg-surface-container-low text-secondary">
-              <div className="flex flex-col items-center gap-2 opacity-60">
-                <span
-                  className="material-symbols-outlined text-7xl"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
-                >
-                  image
-                </span>
-                <span className="font-serif text-label-md uppercase tracking-widest">
-                  Your ghungroo photo here
-                </span>
+          <OrnamentalFrame className="relative aspect-[4/5] w-full flex-1 overflow-hidden bg-surface-container-low p-4">
+            <div className="relative flex h-full w-full items-center justify-center">
+              <div className="pointer-events-none absolute inset-0 opacity-[0.07]">
+                <JaliPattern opacity={1} />
+              </div>
+              <DancerSilhouette className="relative text-primary" size={280} />
+              <div className="absolute left-3 top-3 text-secondary opacity-70">
+                <CornerFlourish size={48} />
+              </div>
+              <div className="absolute bottom-3 right-3 rotate-180 text-secondary opacity-70">
+                <CornerFlourish size={48} />
               </div>
             </div>
           </OrnamentalFrame>

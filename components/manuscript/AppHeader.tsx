@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
+import { MobileNav } from "./MobileNav";
 
 const links = [
   { label: "Compositions", href: "/compositions" },
@@ -66,6 +67,7 @@ export function AppHeader() {
             },
           }}
         />
+        <MobileNav />
       </div>
     </header>
   );

@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getOrCreateProfile } from "@/lib/profile";
 import { ManuscriptBreak } from "@/components/manuscript/ManuscriptBreak";
 import { OrnamentalFrame } from "@/components/manuscript/OrnamentalFrame";
+import { Shamsa } from "@/components/manuscript/Ornaments";
 import { pickQuoteOfDay } from "@/lib/lineage";
 import type { KathakQuote } from "@/lib/db/types";
 
@@ -118,7 +119,10 @@ export default async function DashboardPage() {
 
   return (
     <main className="mx-auto max-w-6xl px-margin-mobile py-section-gap md:px-margin-page">
-      <header className="text-center">
+      <header className="relative text-center">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 text-secondary opacity-[0.06]">
+          <Shamsa size={340} />
+        </div>
         <p className="font-serif text-label-md uppercase tracking-widest text-secondary">
           Folio I
         </p>

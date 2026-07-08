@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#6B1E2A"/>
+  <circle cx="256" cy="256" r="30" fill="none" stroke="#FAF6EC" stroke-width="4"/>
+  <circle cx="256" cy="256" r="12" fill="#B8893E"/>
+  <g fill="none" stroke="#E8D9B8" stroke-width="3">
+    <g id="mspokes">
+      <line x1="256" y1="220" x2="256" y2="180"/>
+      <circle cx="256" cy="168" r="13"/>
+    </g>
+    <use href="#mspokes" transform="rotate(45 256 256)"/>
+    <use href="#mspokes" transform="rotate(90 256 256)"/>
+    <use href="#mspokes" transform="rotate(135 256 256)"/>
+    <use href="#mspokes" transform="rotate(180 256 256)"/>
+    <use href="#mspokes" transform="rotate(225 256 256)"/>
+    <use href="#mspokes" transform="rotate(270 256 256)"/>
+    <use href="#mspokes" transform="rotate(315 256 256)"/>
+  </g>
+</svg>
