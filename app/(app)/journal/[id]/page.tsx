@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { JournalForm } from "../_components/JournalForm";
 import { DeleteJournalButton } from "../_components/DeleteJournalButton";
+import { Icon } from "@/components/manuscript/Icons";
 import type { JournalEntry } from "@/lib/db/types";
 
 export const metadata = {
@@ -29,7 +30,7 @@ export default async function JournalDetailPage({
         href="/journal"
         className="inline-flex items-center gap-2 font-serif text-label-md uppercase tracking-widest text-secondary transition-colors hover:text-primary"
       >
-        <span className="material-symbols-outlined text-base">arrow_back</span>
+        <Icon.ArrowLeft size={16} />
         Back to private pages
       </Link>
 

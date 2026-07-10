@@ -4,6 +4,7 @@ import { VideoPlayer } from "./VideoPlayer";
 import { MediaUploader } from "./MediaUploader";
 import { MediaDeleteButton } from "./MediaDeleteButton";
 import { AudioRecorder } from "@/components/manuscript/AudioRecorder";
+import { Icon, MediaIcon } from "@/components/manuscript/Icons";
 import { MEDIA_CONFIG, formatBytes, formatDuration } from "@/lib/media-config";
 import type { CompositionMedia, MediaKind } from "@/lib/db/types";
 
@@ -86,8 +87,8 @@ function MediaItem({ m }: { m: MediaWithUrl }) {
       className="flex items-center justify-between gap-4 border border-secondary bg-surface-container-low p-4 transition-colors hover:bg-tertiary-fixed/30"
     >
       <div className="flex items-center gap-3">
-        <span className="material-symbols-outlined text-secondary">
-          picture_as_pdf
+        <span className="flex-none text-secondary">
+          <Icon.Document size={22} />
         </span>
         <div>
           <p className="font-serif text-body-md text-on-surface">
@@ -115,14 +116,15 @@ export function MediaSection({
   userId: string;
 }) {
   const cfg = MEDIA_CONFIG[kind];
+  const KindIcon = MediaIcon[kind];
   const isImage = kind === "image";
 
   return (
     <section className="mt-12">
       <div className="mb-6 flex items-end justify-between border-b border-outline-variant pb-2">
         <h3 className="flex items-center gap-3 font-display text-headline-md text-primary">
-          <span className="material-symbols-outlined text-secondary">
-            {cfg.icon}
+          <span className="flex-none text-secondary">
+            <KindIcon size={24} />
           </span>
           {cfg.label}
         </h3>

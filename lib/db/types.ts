@@ -338,5 +338,115 @@ export type KathakQuote = {
   created_at: string;
 };
 
+// ============================================================
+// Ghungroo Diary — the dancer's bells over the years
+// ============================================================
+
+export const GHUNGROO_KINDS = [
+  "acquired",
+  "restrung",
+  "added_bells",
+  "first_worn",
+  "repair",
+  "note",
+] as const;
+
+export type GhungrooKind = (typeof GHUNGROO_KINDS)[number];
+
+export const GHUNGROO_KIND_LABELS: Record<GhungrooKind, string> = {
+  acquired: "Acquired",
+  restrung: "Restrung",
+  added_bells: "Added bells",
+  first_worn: "First worn",
+  repair: "Repair",
+  note: "Note",
+};
+
+export type GhungrooEntry = {
+  id: string;
+  user_id: string;
+  entry_date: string;
+  kind: GhungrooKind;
+  title: string | null;
+  bell_count: number | null;
+  string_material: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export const ghungrooInputSchema = z.object({
+  entry_date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Use YYYY-MM-DD"),
+  kind: z.enum(GHUNGROO_KINDS),
+  title: z.string().trim().max(200).nullable().optional(),
+  bell_count: z.coerce
+    .number()
+    .int()
+    .min(0)
+    .max(2000)
+    .nullable()
+    .optional()
+    .or(z.literal("").transform(() => null)),
+  string_material: z.string().trim().max(120).nullable().optional(),
+  notes: z.string().max(4000).nullable().optional(),
+});
+
+export type GhungrooInput = z.infer<typeof ghungrooInputSchema>;
+
+// ============================================================
+// Costume & wardrobe log
+// ============================================================
+
+export const COSTUME_KINDS = [
+  "costume",
+  "jewellery",
+  "accessory",
+  "makeup",
+  "other",
+] as const;
+
+export type CostumeKind = (typeof COSTUME_KINDS)[number];
+
+export const COSTUME_KIND_LABELS: Record<CostumeKind, string> = {
+  costume: "Costume",
+  jewellery: "Jewellery",
+  accessory: "Accessory",
+  makeup: "Makeup",
+  other: "Other",
+};
+
+export type Costume = {
+  id: string;
+  user_id: string;
+  name: string;
+  kind: CostumeKind;
+  color: string | null;
+  fabric: string | null;
+  occasion: string | null;
+  worn_on: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export const costumeInputSchema = z.object({
+  name: z.string().trim().min(1, "A name is required").max(200),
+  kind: z.enum(COSTUME_KINDS),
+  color: z.string().trim().max(120).nullable().optional(),
+  fabric: z.string().trim().max(120).nullable().optional(),
+  occasion: z.string().trim().max(200).nullable().optional(),
+  worn_on: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Use YYYY-MM-DD")
+    .nullable()
+    .optional()
+    .or(z.literal("").transform(() => null)),
+  notes: z.string().max(4000).nullable().optional(),
+});
+
+export type CostumeInput = z.infer<typeof costumeInputSchema>;
+
 
 

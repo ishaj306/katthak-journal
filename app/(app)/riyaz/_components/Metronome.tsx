@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { TALAS, vibhagStarts, type Tala } from "@/lib/talas";
+import { Icon } from "@/components/manuscript/Icons";
 
 type Accent = "sam" | "vibhag" | "normal";
 
@@ -134,8 +135,8 @@ export function Metronome() {
           <h3 className="font-serif text-label-lg uppercase tracking-[0.2em] text-secondary">
             Tala Clock
           </h3>
-          <span className="material-symbols-outlined text-secondary opacity-50">
-            music_note
+          <span className="text-secondary opacity-50">
+            <Icon.Tabla size={22} />
           </span>
         </div>
 
@@ -228,12 +229,7 @@ export function Metronome() {
               onClick={playing ? stop : start}
               className="flex items-center gap-2 border border-primary bg-primary px-8 py-3 font-serif text-label-md uppercase tracking-widest text-on-primary transition-all hover:bg-primary-container"
             >
-              <span
-                className="material-symbols-outlined text-[20px]"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                {playing ? "stop" : "play_arrow"}
-              </span>
+              {playing ? <Icon.Stop size={18} /> : <Icon.Play size={18} />}
               {playing ? "Stop" : "Sound the Tala"}
             </button>
           </div>

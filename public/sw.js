@@ -1,13 +1,19 @@
 // Kathak Journal — minimal offline shell service worker.
-// Network-first for navigations (so fresh data wins when online),
-// falling back to cache when offline.
+//
+// Navigations are ALWAYS network-first and are never written back into the
+// cache: a Next.js page embeds server-action IDs that change every build, so a
+// cached HTML document quickly goes stale and causes "Server Action not found"
+// errors. Only content-hashed static assets (safe across builds) are cached.
 
-const CACHE = "kathak-v1";
-const OFFLINE_ASSETS = ["/", "/dashboard", "/icon.svg"];
+const CACHE = "kathak-v2";
+const OFFLINE_ASSETS = ["/icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(OFFLINE_ASSETS)).catch(() => {})
+    caches
+      .open(CACHE)
+      .then((cache) => cache.addAll(OFFLINE_ASSETS))
+      .catch(() => {})
   );
   self.skipWaiting();
 });
@@ -19,8 +25,8 @@ self.addEventListener("activate", (event) => {
       .then((keys) =>
         Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
       )
+      .then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
@@ -32,20 +38,14 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
   if (url.pathname.startsWith("/api")) return;
 
+  // Navigations: network-only (with a bare offline signal). Do not cache HTML.
   if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((cache) => cache.put(request, copy));
-          return res;
-        })
-        .catch(() => caches.match(request).then((r) => r || caches.match("/dashboard")))
-    );
+    event.respondWith(fetch(request).catch(() => new Response("", { status: 504 })));
     return;
   }
 
-  // Static assets: cache-first.
+  // Static, content-hashed assets: cache-first (filenames change per build, so
+  // this can never go stale the way HTML does).
   if (
     url.pathname.startsWith("/_next/static") ||
     url.pathname.endsWith(".svg") ||

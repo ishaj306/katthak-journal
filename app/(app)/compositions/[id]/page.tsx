@@ -10,6 +10,7 @@ import {
   type CompositionMedia,
   type MediaKind,
 } from "@/lib/db/types";
+import { Icon } from "@/components/manuscript/Icons";
 import { MediaSection } from "../_components/MediaSection";
 import { DeleteCompositionButton } from "../_components/DeleteCompositionButton";
 import { RichText } from "@/components/manuscript/RichText";
@@ -92,7 +93,7 @@ export default async function CompositionDetailPage({
         href="/compositions"
         className="inline-flex items-center gap-2 font-serif text-label-md uppercase tracking-widest text-secondary transition-colors hover:text-primary"
       >
-        <span className="material-symbols-outlined text-base">arrow_back</span>
+        <Icon.ArrowLeft size={16} />
         Back to the archive
       </Link>
 
@@ -113,22 +114,15 @@ export default async function CompositionDetailPage({
             .join("  ·  ") || "Self-Composition"}
         </p>
         {composition.difficulty ? (
-          <div className="mt-6 flex justify-center gap-1">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <span
-                key={i}
-                className="material-symbols-outlined text-2xl text-secondary"
-                style={{
-                  fontVariationSettings:
-                    i < (composition.difficulty ?? 0)
-                      ? "'FILL' 1"
-                      : "'FILL' 0",
-                  opacity: i < (composition.difficulty ?? 0) ? 1 : 0.3,
-                }}
-              >
-                notifications
-              </span>
-            ))}
+          <div className="mt-6 flex justify-center gap-1 text-secondary">
+            {Array.from({ length: 5 }).map((_, i) => {
+              const on = i < (composition.difficulty ?? 0);
+              return (
+                <span key={i} style={{ opacity: on ? 1 : 0.3 }}>
+                  <Icon.Ghungroo size={22} strokeWidth={on ? 1.7 : 1.1} />
+                </span>
+              );
+            })}
           </div>
         ) : null}
       </header>
@@ -209,7 +203,7 @@ export default async function CompositionDetailPage({
             href={`/compositions/${composition.id}/print`}
             className="inline-flex items-center gap-2 border border-secondary px-6 py-3 font-serif text-label-lg uppercase tracking-[0.2em] text-secondary transition-all hover:bg-secondary-fixed-dim"
           >
-            <span className="material-symbols-outlined text-base">print</span>
+            <Icon.Printer size={16} />
             Export PDF
           </Link>
           <Link

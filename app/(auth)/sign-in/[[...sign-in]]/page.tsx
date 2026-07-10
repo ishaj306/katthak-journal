@@ -1,4 +1,6 @@
 import { SignIn } from "@clerk/nextjs";
+import { Icon } from "@/components/manuscript/Icons";
+import { LotusBloom } from "@/components/manuscript/Ornaments";
 
 export const metadata = {
   title: "Sign In | Kathak Journal",
@@ -19,33 +21,20 @@ export default function SignInPage() {
           />
           <div className="relative z-10 flex h-full w-full items-center justify-center border border-secondary bg-white/10">
             <div className="absolute left-2 top-2 text-secondary opacity-60">
-              <span className="material-symbols-outlined text-[32px]">
-                filter_vintage
-              </span>
+              <Icon.Lotus size={30} />
             </div>
             <div className="absolute right-2 top-2 text-secondary opacity-60">
-              <span className="material-symbols-outlined text-[32px]">
-                filter_vintage
-              </span>
+              <Icon.Lotus size={30} />
             </div>
             <div className="absolute bottom-2 left-2 text-secondary opacity-60">
-              <span className="material-symbols-outlined text-[32px]">
-                filter_vintage
-              </span>
+              <Icon.Lotus size={30} />
             </div>
             <div className="absolute bottom-2 right-2 text-secondary opacity-60">
-              <span className="material-symbols-outlined text-[32px]">
-                filter_vintage
-              </span>
+              <Icon.Lotus size={30} />
             </div>
 
             <div className="flex h-4/5 w-4/5 flex-col items-center justify-center text-center text-secondary">
-              <span
-                className="material-symbols-outlined text-[96px]"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                self_improvement
-              </span>
+              <LotusBloom size={130} />
               <p className="mt-6 font-display text-[18px] italic opacity-70">
                 Welcome back, dancer
               </p>
@@ -84,7 +73,7 @@ export default function SignInPage() {
       </div>
       <footer className="mt-8 text-center opacity-40">
         <p className="font-serif text-[12px] italic uppercase tracking-widest">
-          © MMXXIV KATHAK JOURNAL. PRESERVING THE SACRED RHYTHM.
+          © MMXXVI KATHAK JOURNAL. PRESERVING THE SACRED RHYTHM.
         </p>
       </footer>
     </main>

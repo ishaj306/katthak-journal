@@ -7,6 +7,7 @@ import {
   groupPerformancesByYear,
 } from "@/lib/memory";
 import { EmptyState } from "@/components/manuscript/EmptyState";
+import { Icon } from "@/components/manuscript/Icons";
 
 export const metadata = {
   title: "Stage Journal | Kathak Journal",
@@ -38,7 +39,7 @@ export default async function PerformancesPage() {
           href="/performances/new"
           className="mt-6 inline-flex items-center gap-2 border border-primary px-6 py-2 font-serif text-label-md uppercase tracking-widest text-primary transition-all hover:bg-primary hover:text-on-primary md:mt-0"
         >
-          <span className="material-symbols-outlined text-base">add</span>
+          <Icon.Plus size={16} />
           New Performance
         </Link>
       </header>
@@ -61,7 +62,6 @@ export default async function PerformancesPage() {
           body="Every recital, every festival, every classroom showing — preserve them with photos, videos, and reflections."
           actionHref="/performances/new"
           actionLabel="Add First Performance"
-          actionIcon="add"
         />
       ) : (
         <div className="relative" id="journalContainer">
@@ -106,7 +106,7 @@ function TimelineEntry({
   const card = (
     <Link
       href={`/performances/${p.id}`}
-      className="relative block bg-surface p-2 transition-all duration-500 hover:-translate-y-1"
+      className="relative block bg-surface p-2 transition-colors duration-500 hover:bg-surface-container"
       style={{
         border: "1px solid #7e570d",
       }}

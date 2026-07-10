@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MEDIA_KINDS, type MediaKind } from "@/lib/db/types";
-import { MEDIA_CONFIG } from "@/lib/media-config";
+import { MediaIcon } from "@/components/manuscript/Icons";
 
 const tabLabels: Record<MediaKind | "all", string> = {
   all: "All",
@@ -28,7 +28,7 @@ export function ArchiveTabs({
         {tabLabels.all}
       </Link>
       {MEDIA_KINDS.map((k) => {
-        const cfg = MEDIA_CONFIG[k];
+        const KindIcon = MediaIcon[k];
         const active = activeKind === k;
         return (
           <Link
@@ -40,8 +40,8 @@ export function ArchiveTabs({
                 : "flex items-center gap-2 border-b-2 border-transparent pb-2 font-serif text-label-lg uppercase tracking-widest text-on-surface-variant transition-colors hover:text-primary"
             }
           >
-            <span className="material-symbols-outlined text-base">
-              {cfg.icon}
+            <span className="flex-none">
+              <KindIcon size={16} />
             </span>
             {tabLabels[k]}
           </Link>

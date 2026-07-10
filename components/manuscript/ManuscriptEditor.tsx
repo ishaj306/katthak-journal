@@ -3,10 +3,11 @@
 import { useEditor, EditorContent, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
+import { Icon } from "@/components/manuscript/Icons";
 
 type ToolButton = {
-  icon: string;
+  label: ReactNode;
   title: string;
   isActive?: (e: Editor) => boolean;
   run: (e: Editor) => void;
@@ -14,49 +15,49 @@ type ToolButton = {
 
 const TOOLS: ToolButton[] = [
   {
-    icon: "format_bold",
+    label: <span className="font-display text-[17px] font-bold">B</span>,
     title: "Bold",
     isActive: (e) => e.isActive("bold"),
     run: (e) => e.chain().focus().toggleBold().run(),
   },
   {
-    icon: "format_italic",
+    label: <span className="font-display text-[17px] italic">I</span>,
     title: "Italic",
     isActive: (e) => e.isActive("italic"),
     run: (e) => e.chain().focus().toggleItalic().run(),
   },
   {
-    icon: "title",
+    label: <span className="font-display text-[15px] font-semibold">H₂</span>,
     title: "Heading",
     isActive: (e) => e.isActive("heading", { level: 2 }),
     run: (e) => e.chain().focus().toggleHeading({ level: 2 }).run(),
   },
   {
-    icon: "subtitles",
+    label: <span className="font-display text-[15px] font-semibold">H₃</span>,
     title: "Subheading",
     isActive: (e) => e.isActive("heading", { level: 3 }),
     run: (e) => e.chain().focus().toggleHeading({ level: 3 }).run(),
   },
   {
-    icon: "format_list_bulleted",
+    label: <Icon.ListBullet size={18} />,
     title: "Bullet list",
     isActive: (e) => e.isActive("bulletList"),
     run: (e) => e.chain().focus().toggleBulletList().run(),
   },
   {
-    icon: "format_list_numbered",
+    label: <Icon.ListNumber size={18} />,
     title: "Numbered list",
     isActive: (e) => e.isActive("orderedList"),
     run: (e) => e.chain().focus().toggleOrderedList().run(),
   },
   {
-    icon: "format_quote",
+    label: <Icon.Quote size={18} />,
     title: "Quote",
     isActive: (e) => e.isActive("blockquote"),
     run: (e) => e.chain().focus().toggleBlockquote().run(),
   },
   {
-    icon: "horizontal_rule",
+    label: <Icon.Rule size={18} />,
     title: "Divider",
     run: (e) => e.chain().focus().setHorizontalRule().run(),
   },
@@ -98,7 +99,7 @@ export function ManuscriptEditor({
           const active = editor && tool.isActive ? tool.isActive(editor) : false;
           return (
             <button
-              key={tool.icon}
+              key={tool.title}
               type="button"
               title={tool.title}
               onClick={() => editor && tool.run(editor)}
@@ -108,9 +109,7 @@ export function ManuscriptEditor({
                   : "text-on-surface-variant hover:bg-surface-container-high hover:text-primary"
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">
-                {tool.icon}
-              </span>
+              {tool.label}
             </button>
           );
         })}

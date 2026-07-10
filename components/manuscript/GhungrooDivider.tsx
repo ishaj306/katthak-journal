@@ -1,12 +1,7 @@
 import { cn } from "@/lib/utils";
+import { Icon } from "./Icons";
 
-export function GhungrooDivider({
-  className,
-  icon = "notifications_active",
-}: {
-  className?: string;
-  icon?: string;
-}) {
+export function GhungrooDivider({ className }: { className?: string }) {
   return (
     <div
       className={cn("flex items-center justify-center gap-4 my-8", className)}
@@ -14,11 +9,8 @@ export function GhungrooDivider({
       aria-hidden
     >
       <span className="h-px flex-1 bg-[linear-gradient(to_right,transparent,#B8893E,transparent)]" />
-      <span
-        className="material-symbols-outlined text-secondary"
-        style={{ fontVariationSettings: "'FILL' 1" }}
-      >
-        {icon}
+      <span className="text-secondary">
+        <Icon.Ghungroo size={22} strokeWidth={1.5} />
       </span>
       <span className="h-px flex-1 bg-[linear-gradient(to_right,transparent,#B8893E,transparent)]" />
     </div>

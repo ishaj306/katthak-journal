@@ -11,6 +11,7 @@ import {
   type MediaKind,
 } from "@/lib/db/types";
 import { formatPerformanceDate } from "@/lib/memory";
+import { Icon, MediaIcon } from "@/components/manuscript/Icons";
 import { MEDIA_CONFIG, formatBytes, formatDuration } from "@/lib/media-config";
 import { AudioPlayer } from "../../compositions/_components/AudioPlayer";
 import { VideoPlayer } from "../../compositions/_components/VideoPlayer";
@@ -91,7 +92,7 @@ export default async function PerformanceDetailPage({
         href="/performances"
         className="inline-flex items-center gap-2 font-serif text-label-md uppercase tracking-widest text-secondary transition-colors hover:text-primary"
       >
-        <span className="material-symbols-outlined text-base">arrow_back</span>
+        <Icon.ArrowLeft size={16} />
         Back to the timeline
       </Link>
 
@@ -234,13 +235,14 @@ export default async function PerformanceDetailPage({
       <section className="space-y-12">
         {(MEDIA_KINDS as readonly MediaKind[]).map((kind) => {
           const cfg = MEDIA_CONFIG[kind];
+          const KindIcon = MediaIcon[kind];
           const items = grouped[kind];
           return (
             <div key={kind}>
               <div className="mb-6 flex items-end justify-between border-b border-outline-variant pb-2">
                 <h3 className="flex items-center gap-3 font-display text-headline-md text-primary">
-                  <span className="material-symbols-outlined text-secondary">
-                    {cfg.icon}
+                  <span className="flex-none text-secondary">
+                    <KindIcon size={24} />
                   </span>
                   {cfg.label}
                 </h3>
@@ -338,8 +340,8 @@ export default async function PerformanceDetailPage({
                         className="flex items-center justify-between gap-4 border border-secondary bg-surface-container-low p-4 transition-colors hover:bg-tertiary-fixed/30"
                       >
                         <div className="flex min-w-0 items-center gap-3">
-                          <span className="material-symbols-outlined text-secondary">
-                            picture_as_pdf
+                          <span className="flex-none text-secondary">
+                            <Icon.Document size={22} />
                           </span>
                           <p className="truncate font-serif text-body-md text-on-surface">
                             {m.title ?? "Document"}

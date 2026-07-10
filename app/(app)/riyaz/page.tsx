@@ -12,10 +12,29 @@ import { Heatmap } from "./_components/Heatmap";
 import { ManualSessionForm } from "./_components/ManualSessionForm";
 import { SessionList } from "./_components/SessionList";
 import { Metronome } from "./_components/Metronome";
+import Link from "next/link";
+import { Icon } from "@/components/manuscript/Icons";
 
 export const metadata = {
   title: "Riyaz | Kathak Journal",
 };
+
+const tools = [
+  {
+    href: "/riyaz/tihai",
+    deva: "तिहाई",
+    title: "Tihai Builder",
+    body: "Find the rest that lands a thrice-spoken phrase on sam.",
+    Icon: Icon.Ghungroo,
+  },
+  {
+    href: "/riyaz/layakari",
+    deva: "लयकारी",
+    title: "Layakari Calculator",
+    body: "See how a phrase breathes across the speeds, thaah to athgun.",
+    Icon: Icon.Tabla,
+  },
+];
 
 export default async function RiyazPage() {
   const supabase = await createClient();
@@ -68,6 +87,34 @@ export default async function RiyazPage() {
       <div className="mt-gutter">
         <Metronome />
       </div>
+
+      <section className="mt-section-gap">
+        <h2 className="mb-8 text-center font-serif text-label-lg uppercase tracking-[0.3em] text-secondary">
+          Practice Tools
+        </h2>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {tools.map((t) => (
+            <Link
+              key={t.href}
+              href={t.href}
+              className="group flex items-start gap-5 border border-outline-variant bg-surface-container-lowest p-6 transition-colors hover:border-secondary"
+            >
+              <span className="mt-1 flex-none text-secondary">
+                <t.Icon size={36} />
+              </span>
+              <div>
+                <p className="font-deva text-body-lg text-secondary">{t.deva}</p>
+                <h3 className="mt-0.5 font-display text-headline-md text-primary">
+                  {t.title}
+                </h3>
+                <p className="mt-1 font-serif text-body-md text-on-surface-variant">
+                  {t.body}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       <div
         className="relative my-section-gap h-px"

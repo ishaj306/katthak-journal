@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { startRiyaz, stopRiyaz, cancelRiyaz } from "@/app/actions/riyaz";
 import { formatTimer } from "@/lib/riyaz";
+import { Icon } from "@/components/manuscript/Icons";
 
 export function RiyazTimer({
   openSessionStartedAt,
@@ -93,11 +94,8 @@ export function RiyazTimer({
               {formatTimer(elapsedSec)}
             </div>
           </div>
-          <span
-            className="material-symbols-outlined text-5xl text-secondary opacity-50"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            history_edu
+          <span className="text-secondary opacity-50">
+            <Icon.Scroll size={44} />
           </span>
         </div>
 

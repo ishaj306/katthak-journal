@@ -1,4 +1,5 @@
 import { CompositionForm } from "../_components/CompositionForm";
+import { Icon } from "@/components/manuscript/Icons";
 
 export const metadata = {
   title: "Add to Manuscript | Kathak Journal",
@@ -8,10 +9,8 @@ export default function NewCompositionPage() {
   return (
     <main className="mx-auto max-w-4xl px-margin-mobile py-section-gap md:px-margin-page">
       <header className="relative mb-16 text-center">
-        <div className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 opacity-20">
-          <span className="material-symbols-outlined text-[120px] text-secondary">
-            auto_stories
-          </span>
+        <div className="pointer-events-none absolute -top-6 left-1/2 -translate-x-1/2 text-secondary opacity-20">
+          <Icon.Book size={96} />
         </div>
         <h1 className="font-display text-display-lg-mobile text-primary md:text-display-lg">
           Add to your manuscript

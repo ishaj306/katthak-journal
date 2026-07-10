@@ -8,6 +8,7 @@ import {
   MILESTONES,
   milestoneState,
 } from "@/lib/riyaz";
+import { Icon } from "@/components/manuscript/Icons";
 
 export const metadata = {
   title: "Ghungroo Hours | Kathak Journal",
@@ -41,6 +42,14 @@ export default async function GhungrooPage() {
 
   return (
     <main className="mx-auto max-w-6xl px-margin-mobile py-12 md:px-margin-page">
+      <div className="mb-8 flex justify-end">
+        <Link
+          href="/ghungroo/diary"
+          className="border border-outline-variant px-4 py-2 font-serif text-label-md uppercase tracking-widest text-secondary transition-colors hover:border-secondary hover:text-primary"
+        >
+          Ghungroo Diary →
+        </Link>
+      </div>
       <div
         className="relative border border-secondary bg-surface-container-low p-2 shadow-2xl"
         style={{ padding: "8px" }}
@@ -96,12 +105,14 @@ export default async function GhungrooPage() {
                       className={`relative ${b.state === "future" ? "opacity-30" : ""}`}
                     >
                       <span
-                        className={`material-symbols-outlined ${b.state === "current" ? "text-6xl text-primary" : "text-5xl text-secondary"}`}
-                        style={{ fontVariationSettings: "'FILL' 1" }}
+                        className={
+                          b.state === "current" ? "text-primary" : "text-secondary"
+                        }
                       >
-                        {b.state === "current"
-                          ? "notifications_active"
-                          : "notifications"}
+                        <Icon.Ghungroo
+                          size={b.state === "current" ? 46 : 38}
+                          strokeWidth={1.6}
+                        />
                       </span>
                       {b.state === "current" ? (
                         <div className="absolute -right-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-primary" />
@@ -181,12 +192,19 @@ export default async function GhungrooPage() {
                         }`}
                       >
                         <span
-                          className={`material-symbols-outlined ${achieved ? "text-4xl text-primary md:text-5xl" : isNext ? "text-5xl text-secondary md:text-6xl" : "text-3xl text-outline md:text-4xl"}`}
-                          style={{
-                            fontVariationSettings: achieved ? "'FILL' 1" : "'FILL' 0",
-                          }}
+                          className={
+                            achieved
+                              ? "text-primary"
+                              : isNext
+                                ? "text-secondary"
+                                : "text-outline"
+                          }
                         >
-                          {achieved ? m.icon : isNext ? m.icon : "lock"}
+                          {achieved || isNext ? (
+                            <Icon.Ghungroo size={44} strokeWidth={1.6} />
+                          ) : (
+                            <Icon.Lock size={34} />
+                          )}
                         </span>
                         <div
                           className={`absolute -bottom-2 -right-2 px-2 py-1 font-serif text-[10px] font-bold uppercase tracking-widest ${achieved ? "bg-primary text-on-primary" : isNext ? "bg-on-surface-variant text-on-primary" : "bg-outline text-on-primary"}`}

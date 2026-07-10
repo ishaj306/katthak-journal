@@ -29,7 +29,10 @@ export function SiteFooter() {
       </div>
       <ManuscriptBreak className="w-1/3 opacity-30" />
       <div className="font-serif text-[16px] italic text-on-surface opacity-80">
-        © MMXXIV KATHAK JOURNAL. PRESERVING THE SACRED RHYTHM.
+        © MMXXVI KATHAK JOURNAL. PRESERVING THE SACRED RHYTHM.
+      </div>
+      <div className="font-serif text-[15px] italic text-secondary">
+        Made by Isha
       </div>
     </footer>
   );

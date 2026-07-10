@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Icon } from "@/components/manuscript/Icons";
 
 export function GhungrooRating({
   name = "difficulty",
@@ -24,16 +25,9 @@ export function GhungrooRating({
             aria-checked={value === n}
             onClick={() => setValue(n === value ? 0 : n)}
             className="cursor-pointer transition-colors"
+            style={{ color: active ? "#7e570d" : "#dac0c1" }}
           >
-            <span
-              className="material-symbols-outlined text-2xl"
-              style={{
-                color: active ? "#7e570d" : "#dac0c1",
-                fontVariationSettings: active ? "'FILL' 1" : "'FILL' 0",
-              }}
-            >
-              notifications
-            </span>
+            <Icon.Ghungroo size={24} strokeWidth={active ? 1.7 : 1.2} />
           </button>
         );
       })}

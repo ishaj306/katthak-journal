@@ -4,6 +4,7 @@ import type { JournalEntry } from "@/lib/db/types";
 import { excerpt, formatJournalDate } from "@/lib/memory";
 import { CalendarStrip } from "./_components/CalendarStrip";
 import { EmptyState } from "@/components/manuscript/EmptyState";
+import { Icon } from "@/components/manuscript/Icons";
 
 export const metadata = {
   title: "Private Pages | Kathak Journal",
@@ -40,10 +41,8 @@ export default async function JournalPage({
   return (
     <main className="mx-auto max-w-4xl px-margin-mobile py-12 md:px-margin-page">
       <header className="mb-12 text-center">
-        <span className="font-serif text-label-md uppercase tracking-widest text-secondary">
-          <span className="material-symbols-outlined align-middle text-base">
-            lock
-          </span>{" "}
+        <span className="inline-flex items-center gap-2 font-serif text-label-md uppercase tracking-widest text-secondary">
+          <Icon.Lock size={15} />
           Private Pages
         </span>
         <h1 className="mt-2 font-display text-display-lg-mobile text-primary md:text-display-lg">
@@ -97,7 +96,7 @@ export default async function JournalPage({
           href="/journal/new"
           className="inline-flex items-center gap-2 bg-primary px-6 py-2 font-serif text-label-md uppercase tracking-widest text-on-primary transition-all hover:bg-primary-container"
         >
-          <span className="material-symbols-outlined text-base">edit_note</span>
+          <Icon.Quill size={16} />
           Write New Page
         </Link>
       </div>
@@ -127,18 +126,15 @@ export default async function JournalPage({
             <li key={e.id}>
               <Link
                 href={`/journal/${e.id}`}
-                className="block border border-outline-variant bg-surface p-6 transition-all hover:-translate-y-1 hover:border-secondary"
+                className="block border border-outline-variant bg-surface p-6 transition-colors hover:border-secondary hover:bg-surface-container"
               >
                 <div className="flex items-center justify-between gap-4">
                   <p className="font-serif text-label-md uppercase tracking-widest text-secondary">
                     {formatJournalDate(e.entry_date)}
                   </p>
                   {e.is_private ? (
-                    <span
-                      className="material-symbols-outlined text-base text-secondary"
-                      title="Private"
-                    >
-                      lock
+                    <span className="text-secondary" title="Private">
+                      <Icon.Lock size={15} />
                     </span>
                   ) : null}
                 </div>

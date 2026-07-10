@@ -114,6 +114,31 @@ export async function addManualSession(
   return initialState;
 }
 
+/**
+ * Press the daily seal — witness today's riyaz. Records a completed session
+ * ending now and running back `durationMinutes`. Framed as presence, not score.
+ */
+export async function sealDay(
+  durationMinutes: number
+): Promise<RiyazFormState> {
+  const { supabase, userId } = await getUser();
+  const minutes = Math.min(Math.max(Math.round(durationMinutes), 1), 24 * 60);
+  const endedAt = new Date();
+  const startedAt = new Date(endedAt.getTime() - minutes * 60 * 1000);
+
+  const { error } = await supabase.from("riyaz_sessions").insert({
+    user_id: userId,
+    started_at: startedAt.toISOString(),
+    ended_at: endedAt.toISOString(),
+  });
+  if (error) return { error: error.message };
+
+  revalidatePath("/dashboard");
+  revalidatePath("/riyaz");
+  revalidatePath("/ghungroo");
+  return initialState;
+}
+
 export async function deleteSession(id: string): Promise<void> {
   const { supabase } = await getUser();
   await supabase.from("riyaz_sessions").delete().eq("id", id);

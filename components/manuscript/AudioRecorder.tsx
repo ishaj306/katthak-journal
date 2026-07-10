@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSupabase } from "@/lib/supabase/client";
 import { useToast } from "@/components/manuscript/Toast";
 import { formatDuration } from "@/lib/media-config";
+import { Icon } from "@/components/manuscript/Icons";
 
 type RecorderState = "idle" | "recording" | "preview" | "saving";
 
@@ -135,7 +136,9 @@ export function AudioRecorder({
   return (
     <div className="border border-dashed border-secondary/60 bg-[rgba(232,217,184,0.06)] p-5">
       <div className="mb-3 flex items-center gap-2">
-        <span className="material-symbols-outlined text-secondary">mic</span>
+        <span className="text-secondary">
+          <Icon.Mic size={20} />
+        </span>
         <span className="font-serif text-label-md uppercase tracking-widest text-secondary">
           Record here
         </span>
@@ -147,9 +150,7 @@ export function AudioRecorder({
           onClick={startRecording}
           className="flex items-center gap-3 border border-primary bg-surface px-6 py-3 font-serif text-label-md uppercase tracking-widest text-primary transition-all hover:bg-primary hover:text-on-primary"
         >
-          <span className="material-symbols-outlined text-[20px]">
-            fiber_manual_record
-          </span>
+          <span className="inline-block h-3 w-3 rounded-full bg-error" />
           Begin Recording
         </button>
       ) : null}
@@ -165,7 +166,7 @@ export function AudioRecorder({
             onClick={stopRecording}
             className="flex items-center gap-2 border border-primary bg-primary px-6 py-3 font-serif text-label-md uppercase tracking-widest text-on-primary transition-all hover:bg-primary-container"
           >
-            <span className="material-symbols-outlined text-[20px]">stop</span>
+            <Icon.Stop size={18} />
             Stop
           </button>
         </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Icon } from "@/components/manuscript/Icons";
 import {
   COMPOSITION_TYPE_LABELS,
   GHARANA_LABELS,
@@ -30,16 +31,11 @@ export function CompositionCard({
   return (
     <Link
       href={`/compositions/${c.id}`}
-      className="group relative flex h-full flex-col overflow-hidden border border-secondary bg-surface-container-lowest p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      className="group relative flex h-full flex-col overflow-hidden border border-secondary bg-surface-container-lowest p-8 transition-colors duration-300 hover:bg-surface-container"
       style={{ boxShadow: "inset 0 0 40px rgba(184, 137, 62, 0.05)" }}
     >
-      <div className="pointer-events-none absolute right-0 top-0 h-16 w-16 opacity-5">
-        <span
-          className="material-symbols-outlined text-[64px] text-primary"
-          style={{ fontVariationSettings: "'FILL' 1" }}
-        >
-          spa
-        </span>
+      <div className="pointer-events-none absolute right-2 top-2 text-primary opacity-[0.06]">
+        <Icon.Lotus size={64} />
       </div>
 
       <div className="mb-6 flex items-start justify-between">
@@ -48,22 +44,17 @@ export function CompositionCard({
         </span>
         {c.difficulty ? (
           <div
-            className="flex gap-0.5"
+            className="flex gap-1 text-secondary"
             aria-label={`Difficulty ${c.difficulty} of 5`}
           >
-            {Array.from({ length: 5 }).map((_, i) => (
-              <span
-                key={i}
-                className="material-symbols-outlined text-lg text-secondary"
-                style={{
-                  fontVariationSettings:
-                    i < (c.difficulty ?? 0) ? "'FILL' 1" : "'FILL' 0",
-                  opacity: i < (c.difficulty ?? 0) ? 1 : 0.3,
-                }}
-              >
-                notifications
-              </span>
-            ))}
+            {Array.from({ length: 5 }).map((_, i) => {
+              const on = i < (c.difficulty ?? 0);
+              return (
+                <span key={i} style={{ opacity: on ? 1 : 0.25 }}>
+                  <Icon.Ghungroo size={16} strokeWidth={on ? 1.7 : 1.1} />
+                </span>
+              );
+            })}
           </div>
         ) : null}
       </div>

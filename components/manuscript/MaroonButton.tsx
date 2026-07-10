@@ -2,13 +2,14 @@
 
 import { cn } from "@/lib/utils";
 import { forwardRef, type ButtonHTMLAttributes } from "react";
+import { Icon } from "./Icons";
 
 type Variant = "filled" | "outline";
 
 export interface MaroonButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
-  trailingIcon?: string;
+  trailingIcon?: boolean;
 }
 
 export const MaroonButton = forwardRef<HTMLButtonElement, MaroonButtonProps>(
@@ -32,8 +33,8 @@ export const MaroonButton = forwardRef<HTMLButtonElement, MaroonButtonProps>(
       >
         <span>{children}</span>
         {trailingIcon ? (
-          <span className="material-symbols-outlined text-[20px] transition-transform duration-300 group-hover:translate-x-2">
-            {trailingIcon}
+          <span className="transition-transform duration-300 group-hover:translate-x-2">
+            <Icon.ArrowRight size={20} />
           </span>
         ) : null}
       </button>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { Icon } from "@/components/manuscript/Icons";
 import type {
   Composition,
   Performance,
@@ -78,8 +79,8 @@ export default async function SearchPage({
           method="get"
           className="relative mx-auto mt-8 max-w-2xl"
         >
-          <span className="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-secondary">
-            search
+          <span className="absolute left-0 top-1/2 -translate-y-1/2 text-secondary">
+            <Icon.Search size={20} />
           </span>
           <input
             name="q"

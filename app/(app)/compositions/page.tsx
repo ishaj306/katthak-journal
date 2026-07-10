@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { CompositionTypeFilter } from "./_components/CompositionTypeFilter";
 import { CompositionCard } from "./_components/CompositionCard";
 import { EmptyState } from "@/components/manuscript/EmptyState";
+import { Icon } from "@/components/manuscript/Icons";
 import {
   COMPOSITION_TYPES,
   type CompositionType,
@@ -70,8 +71,8 @@ export default async function CompositionsPage({
         >
           {type ? <input type="hidden" name="type" value={type} /> : null}
           <div className="relative w-full md:w-1/2">
-            <span className="material-symbols-outlined absolute bottom-2 left-0 text-secondary">
-              search
+            <span className="absolute bottom-2 left-0 text-secondary">
+              <Icon.Search size={20} />
             </span>
             <input
               name="q"
@@ -139,7 +140,7 @@ export default async function CompositionsPage({
           href="/compositions/new"
           className="fixed bottom-8 right-8 z-30 flex items-center gap-3 bg-primary px-6 py-4 font-serif text-label-md uppercase tracking-[0.2em] text-on-primary shadow-lg transition-all hover:bg-primary-container"
         >
-          <span className="material-symbols-outlined">edit_note</span>
+          <Icon.Quill size={20} />
           New Composition
         </Link>
       ) : null}

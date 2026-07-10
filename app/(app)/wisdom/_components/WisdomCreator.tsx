@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { WisdomForm } from "./WisdomForm";
+import { Icon } from "@/components/manuscript/Icons";
 
 export function WisdomCreator() {
   const [open, setOpen] = useState(false);
@@ -13,7 +14,7 @@ export function WisdomCreator() {
         onClick={() => setOpen(true)}
         className="mx-auto flex items-center gap-2 border border-primary px-6 py-2 font-serif text-label-md uppercase tracking-widest text-primary transition-all hover:bg-primary hover:text-on-primary"
       >
-        <span className="material-symbols-outlined text-base">edit_note</span>
+        <Icon.Quill size={16} />
         Capture New Wisdom
       </button>
     );

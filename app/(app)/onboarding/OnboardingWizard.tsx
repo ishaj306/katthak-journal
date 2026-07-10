@@ -4,6 +4,7 @@ import { useActionState, useState } from "react";
 import { completeOnboarding, type ProfileFormState } from "@/app/actions/profile";
 import { GHARANAS, GHARANA_LABELS } from "@/lib/db/types";
 import { GhungrooMandala, LotusMotif, CypressTree } from "@/components/manuscript/Ornaments";
+import { Icon } from "@/components/manuscript/Icons";
 
 const initial: ProfileFormState = {};
 
@@ -28,14 +29,8 @@ export function OnboardingWizard() {
         {STEPS.map((label, i) => (
           <div key={label} className="flex items-center gap-3">
             <div className="flex flex-col items-center gap-1">
-              <span
-                className="material-symbols-outlined text-[22px]"
-                style={{
-                  color: i <= step ? "#7e570d" : "#dac0c1",
-                  fontVariationSettings: i <= step ? "'FILL' 1" : "'FILL' 0",
-                }}
-              >
-                notifications
+              <span style={{ color: i <= step ? "#7e570d" : "#dac0c1" }}>
+                <Icon.Ghungroo size={22} strokeWidth={i <= step ? 1.7 : 1.1} />
               </span>
               <span
                 className={`font-serif text-[10px] uppercase tracking-widest ${i === step ? "text-primary" : "text-on-surface-variant opacity-50"}`}

@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { deleteWisdom, togglePin } from "@/app/actions/wisdom";
 import { WISDOM_CATEGORY_LABELS, type GuruWisdom } from "@/lib/db/types";
 import { WisdomForm } from "./WisdomForm";
+import { Icon } from "@/components/manuscript/Icons";
 
 const TILTS = ["rotate-1", "-rotate-1", "rotate-2", "-rotate-2", "rotate-0"];
 
@@ -28,7 +29,7 @@ export function WisdomCard({
 
   return (
     <article
-      className={`relative ${tilt} border border-primary/10 bg-surface p-6 shadow-sm transition-all hover:rotate-0 hover:shadow-lg md:p-8`}
+      className={`relative ${tilt} border border-primary/10 bg-surface p-6 shadow-sm transition-all hover:rotate-0 hover:border-secondary md:p-8`}
     >
       <div className="mb-4 flex items-start justify-between gap-2">
         <span className="font-serif text-label-md italic text-on-surface-variant">
@@ -40,12 +41,11 @@ export function WisdomCard({
           onClick={() =>
             startTransition(() => togglePin(wisdom.id, !wisdom.pinned))
           }
-          className={`material-symbols-outlined scale-75 transition-colors ${wisdom.pinned ? "text-primary" : "text-secondary/30 hover:text-secondary"}`}
-          style={{ fontVariationSettings: wisdom.pinned ? "'FILL' 1" : "'FILL' 0" }}
+          className={`transition-colors ${wisdom.pinned ? "text-primary" : "text-secondary/30 hover:text-secondary"}`}
           aria-label={wisdom.pinned ? "Unpin" : "Pin"}
           title={wisdom.pinned ? "Unpin" : "Pin"}
         >
-          push_pin
+          <Icon.Pin size={18} strokeWidth={wisdom.pinned ? 1.8 : 1.2} />
         </button>
       </div>
 

@@ -21,8 +21,26 @@ const config: Config = {
           DEFAULT: "#B8893E",
           antique: "#B8893E",
           light: "#D4B07A",
+          leaf: "#A9802F",
         },
         sandstone: "#E8D9B8",
+
+        // Manuscript semantic tokens (the redesign vocabulary). Gold is reserved
+        // for the sacred and the earned; vermilion for the live/now; indigo,
+        // rarely, for the guru's own hand.
+        paper: {
+          DEFAULT: "#F1E9D6",
+          deep: "#EAE0C8",
+          warm: "#F4EEDD",
+        },
+        ink: {
+          DEFAULT: "#2A1A17",
+          soft: "#6E5A54",
+        },
+        vermilion: "#C1440E",
+        indigo: {
+          manuscript: "#2E3A63",
+        },
 
         // Material tokens (kept for direct Stitch HTML compatibility)
         "surface-container-low": "#f7f3e9",
@@ -79,6 +97,12 @@ const config: Config = {
           "var(--font-cormorant)",
           "Cormorant Garamond",
           "EB Garamond",
+          "serif",
+        ],
+        deva: [
+          "var(--font-deva)",
+          "Tiro Devanagari Hindi",
+          "Nirmala UI",
           "serif",
         ],
       },

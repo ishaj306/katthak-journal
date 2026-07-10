@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { EB_Garamond, Cormorant_Garamond } from "next/font/google";
+import {
+  EB_Garamond,
+  Cormorant_Garamond,
+  Tiro_Devanagari_Hindi,
+} from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ServiceWorkerRegistrar } from "@/components/ServiceWorkerRegistrar";
 import "./globals.css";
@@ -16,6 +20,16 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
   variable: "--font-cormorant",
   weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+});
+
+// Devanagari display face — the tradition's own script, used for numerals,
+// section marks, and sacred nouns. Latin reads the prose; Devanagari the soul.
+const tiroDevanagari = Tiro_Devanagari_Hindi({
+  subsets: ["devanagari", "latin"],
+  display: "swap",
+  variable: "--font-deva",
+  weight: ["400"],
   style: ["normal", "italic"],
 });
 
@@ -77,13 +91,9 @@ export default function RootLayout({
     >
       <html
         lang="en"
-        className={`${ebGaramond.variable} ${cormorant.variable}`}
+        className={`${ebGaramond.variable} ${cormorant.variable} ${tiroDevanagari.variable}`}
       >
         <body>
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          />
           {children}
           <ServiceWorkerRegistrar />
         </body>

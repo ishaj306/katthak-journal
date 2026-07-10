@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { deleteMedia } from "@/app/actions/media";
+import { Icon } from "@/components/manuscript/Icons";
 
 export function MediaDeleteButton({ id }: { id: string }) {
   const [confirming, setConfirming] = useState(false);
@@ -16,7 +17,7 @@ export function MediaDeleteButton({ id }: { id: string }) {
         aria-label="Remove"
         title="Remove"
       >
-        <span className="material-symbols-outlined text-lg">delete</span>
+        <Icon.Trash size={18} />
       </button>
     );
   }

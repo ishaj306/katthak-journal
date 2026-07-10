@@ -66,6 +66,54 @@ export function LotusMotif({ className, size = 80 }: OrnProps) {
   );
 }
 
+export function LotusBloom({ className, size = 120 }: OrnProps) {
+  const outer = "M60 60 C50 38 50 22 60 8 C70 22 70 38 60 60Z";
+  const middle = "M60 60 C53 44 53 32 60 22 C67 32 67 44 60 60Z";
+  return (
+    <svg
+      className={className}
+      width={size}
+      height={size}
+      viewBox="0 0 120 120"
+      fill="none"
+      stroke="currentColor"
+      aria-hidden
+    >
+      {Array.from({ length: 8 }).map((_, i) => (
+        <path
+          key={`o${i}`}
+          d={outer}
+          strokeWidth="1.1"
+          transform={`rotate(${i * 45} 60 60)`}
+        />
+      ))}
+      {Array.from({ length: 8 }).map((_, i) => (
+        <path
+          key={`m${i}`}
+          d={middle}
+          strokeWidth="1"
+          opacity="0.85"
+          transform={`rotate(${i * 45 + 22.5} 60 60)`}
+        />
+      ))}
+      <circle cx="60" cy="60" r="7" strokeWidth="1.1" />
+      {Array.from({ length: 6 }).map((_, i) => {
+        const a = (i / 6) * Math.PI * 2;
+        return (
+          <circle
+            key={`d${i}`}
+            cx={60 + Math.cos(a) * 3.5}
+            cy={60 + Math.sin(a) * 3.5}
+            r="0.9"
+            fill="currentColor"
+            stroke="none"
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
 export function CypressTree({ className, size = 60 }: OrnProps) {
   return (
     <svg

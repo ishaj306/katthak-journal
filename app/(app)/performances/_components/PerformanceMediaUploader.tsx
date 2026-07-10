@@ -4,7 +4,16 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useSupabase } from "@/lib/supabase/client";
 import { MEDIA_CONFIG, formatBytes } from "@/lib/media-config";
+import { UploadProgress } from "@/components/manuscript/UploadProgress";
+import { Icon, MediaIcon } from "@/components/manuscript/Icons";
 import type { MediaKind } from "@/lib/db/types";
+
+type UploadState = {
+  name: string;
+  size: number;
+  done: number;
+  total: number;
+} | null;
 
 async function probeDuration(file: File): Promise<number | null> {
   return new Promise((resolve) => {
@@ -43,8 +52,9 @@ export function PerformanceMediaUploader({
   const supabase = useSupabase();
   const inputRef = useRef<HTMLInputElement>(null);
   const cfg = MEDIA_CONFIG[kind];
+  const KindIcon = MediaIcon[kind];
   const [busy, setBusy] = useState(false);
-  const [progress, setProgress] = useState<string | null>(null);
+  const [upload, setUpload] = useState<UploadState>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function handleFiles(files: FileList | null) {
@@ -57,7 +67,7 @@ export function PerformanceMediaUploader({
       let done = 0;
       for (const file of Array.from(files)) {
         done += 1;
-        setProgress(`Inscribing ${done} of ${total}: ${file.name}`);
+        setUpload({ name: file.name, size: file.size, done, total });
 
         if (file.size > cfg.maxBytes) {
           throw new Error(
@@ -100,7 +110,7 @@ export function PerformanceMediaUploader({
       setError(e instanceof Error ? e.message : "Upload failed");
     } finally {
       setBusy(false);
-      setProgress(null);
+      setUpload(null);
       if (inputRef.current) inputRef.current.value = "";
     }
   }
@@ -121,16 +131,24 @@ export function PerformanceMediaUploader({
         disabled={busy}
         className="group block w-full cursor-pointer border-2 border-dashed border-outline-variant p-8 text-center transition-colors hover:border-secondary disabled:opacity-60"
       >
-        <span className="material-symbols-outlined mb-2 text-4xl text-outline-variant group-hover:text-secondary">
-          {busy ? "hourglass_top" : cfg.icon}
+        <span className="mb-2 flex justify-center text-outline-variant group-hover:text-secondary">
+          {busy ? <Icon.Ghungroo size={34} /> : <KindIcon size={34} />}
         </span>
         <p className="font-serif text-label-lg uppercase tracking-widest text-on-surface-variant group-hover:text-primary">
-          {busy ? (progress ?? "Inscribing…") : cfg.uploaderLabel}
+          {busy ? "Inscribing…" : cfg.uploaderLabel}
         </p>
         <p className="mt-2 text-[10px] uppercase tracking-widest text-outline">
           Max {formatBytes(cfg.maxBytes)} per file
         </p>
       </button>
+      {busy && upload ? (
+        <UploadProgress
+          fileName={upload.name}
+          fileSize={upload.size}
+          done={upload.done}
+          total={upload.total}
+        />
+      ) : null}
       {error ? (
         <p className="mt-3 font-serif text-body-md italic text-error">{error}</p>
       ) : null}

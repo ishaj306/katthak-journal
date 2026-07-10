@@ -11,6 +11,7 @@ import { AudioPlayer } from "../compositions/_components/AudioPlayer";
 import { VideoPlayer } from "../compositions/_components/VideoPlayer";
 import { MediaDeleteButton } from "../compositions/_components/MediaDeleteButton";
 import { ArchiveTabs } from "./_components/ArchiveTabs";
+import { Icon } from "@/components/manuscript/Icons";
 
 export const metadata = {
   title: "Memory Vault | Kathak Journal",
@@ -129,11 +130,8 @@ export default async function ArchivePage({
 
       {enriched.length === 0 ? (
         <div className="mx-auto max-w-xl border border-outline-variant bg-surface-container-low p-12 text-center">
-          <span
-            className="material-symbols-outlined text-6xl text-secondary"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            inventory_2
+          <span className="mx-auto flex w-fit text-secondary">
+            <Icon.Archive size={56} />
           </span>
           <h2 className="mt-4 font-display text-headline-md text-primary">
             The vault is silent
@@ -318,8 +316,8 @@ function ArchivePdfCard({ m }: { m: ArchiveMediaRow }) {
       className="flex items-center justify-between gap-4 border border-secondary bg-surface-container-low p-4 transition-colors hover:bg-tertiary-fixed/30"
     >
       <div className="flex min-w-0 items-center gap-3">
-        <span className="material-symbols-outlined text-secondary">
-          picture_as_pdf
+        <span className="flex-none text-secondary">
+          <Icon.Document size={22} />
         </span>
         <div className="min-w-0">
           <p className="truncate font-serif text-body-md text-on-surface">

@@ -3,38 +3,29 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-
-const links = [
-  { label: "Folio", href: "/dashboard", icon: "home" },
-  { label: "Compositions", href: "/compositions", icon: "auto_stories" },
-  { label: "Memory Vault", href: "/archive", icon: "inventory_2" },
-  { label: "Riyaz", href: "/riyaz", icon: "history_toggle_off" },
-  { label: "Ghungroo Hours", href: "/ghungroo", icon: "notifications_active" },
-  { label: "Stage Journal", href: "/performances", icon: "theater_comedy" },
-  { label: "Guru Wisdom", href: "/wisdom", icon: "format_quote" },
-  { label: "Private Pages", href: "/journal", icon: "menu_book" },
-  { label: "Your Journey", href: "/timeline", icon: "timeline" },
-  { label: "Quotes", href: "/quotes", icon: "format_quote" },
-  { label: "Search", href: "/search", icon: "search" },
-  { label: "Profile", href: "/profile", icon: "account_circle" },
-];
+import { Icon } from "./Icons";
+import { HOME, NAV_GROUPS, FOOTER_NAV, activeHref } from "./navConfig";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const active = activeHref(pathname);
 
-  // Close the drawer whenever the route changes.
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  useEffect(() => setOpen(false), [pathname]);
 
-  // Lock body scroll while the drawer is open.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  const itemCls = (href: string) =>
+    `flex items-center gap-4 px-6 py-3 font-serif text-body-md transition-colors ${
+      active === href
+        ? "border-l-4 border-primary bg-secondary-fixed/20 text-primary"
+        : "text-on-surface-variant hover:bg-secondary-fixed/10 hover:text-primary"
+    }`;
 
   return (
     <div className="md:hidden">
@@ -44,7 +35,7 @@ export function MobileNav() {
         className="p-2 text-primary"
         aria-label="Open menu"
       >
-        <span className="material-symbols-outlined align-middle">menu</span>
+        <Icon.Menu size={24} />
       </button>
 
       {open ? (
@@ -65,33 +56,47 @@ export function MobileNav() {
                 className="p-1 text-primary"
                 aria-label="Close menu"
               >
-                <span className="material-symbols-outlined align-middle">
-                  close
-                </span>
+                <Icon.Close size={22} />
               </button>
             </div>
-            <div className="flex flex-col py-2">
-              {links.map((link) => {
-                const active =
-                  pathname === link.href ||
-                  pathname.startsWith(link.href + "/");
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`flex items-center gap-4 px-6 py-3 font-serif text-body-md transition-colors ${
-                      active
-                        ? "border-l-4 border-primary bg-secondary-fixed/20 font-bold text-primary"
-                        : "text-on-surface-variant hover:bg-secondary-fixed/10 hover:text-primary"
-                    }`}
-                  >
-                    <span className="material-symbols-outlined text-[20px] text-secondary">
-                      {link.icon}
+
+            <div className="py-2">
+              <Link href={HOME.href} className={itemCls(HOME.href)}>
+                <span className="flex-none text-secondary">
+                  <HOME.Icon size={20} />
+                </span>
+                {HOME.label}
+              </Link>
+
+              {NAV_GROUPS.map((group) => (
+                <div key={group.key} className="mt-4">
+                  <p className="flex items-baseline gap-2 px-6 pb-1 font-serif text-label-md uppercase tracking-[0.2em] text-secondary">
+                    <span className="font-deva text-body-md normal-case tracking-normal">
+                      {group.deva}
                     </span>
-                    {link.label}
+                    {group.label}
+                  </p>
+                  {group.items.map((item) => (
+                    <Link key={item.href} href={item.href} className={itemCls(item.href)}>
+                      <span className="flex-none text-secondary">
+                        <item.Icon size={20} />
+                      </span>
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+
+              <div className="mt-4 border-t border-outline-variant pt-2">
+                {FOOTER_NAV.map((item) => (
+                  <Link key={item.href} href={item.href} className={itemCls(item.href)}>
+                    <span className="flex-none text-secondary">
+                      <item.Icon size={20} />
+                    </span>
+                    {item.label}
                   </Link>
-                );
-              })}
+                ))}
+              </div>
             </div>
           </nav>
         </div>

@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import { deleteSession } from "@/app/actions/riyaz";
 import { formatHours } from "@/lib/riyaz";
+import { Icon } from "@/components/manuscript/Icons";
 import type { RiyazSession } from "@/lib/db/types";
 
 function formatDateTime(iso: string): string {
@@ -57,7 +58,7 @@ export function SessionList({ sessions }: { sessions: RiyazSession[] }) {
             aria-label="Delete session"
             title="Delete session"
           >
-            <span className="material-symbols-outlined text-lg">delete</span>
+            <Icon.Trash size={18} />
           </button>
         </li>
       ))}

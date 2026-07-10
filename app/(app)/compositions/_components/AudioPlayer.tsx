@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type WaveSurferType from "wavesurfer.js";
 import { formatDuration } from "@/lib/media-config";
+import { Icon } from "@/components/manuscript/Icons";
 
 export function AudioPlayer({ url }: { url: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -83,12 +84,7 @@ export function AudioPlayer({ url }: { url: string }) {
         className="flex h-12 w-12 flex-none items-center justify-center border border-secondary bg-surface text-primary transition-colors hover:bg-secondary-fixed-dim disabled:opacity-50"
         aria-label={playing ? "Pause" : "Play"}
       >
-        <span
-          className="material-symbols-outlined text-2xl"
-          style={{ fontVariationSettings: "'FILL' 1" }}
-        >
-          {playing ? "pause" : "play_arrow"}
-        </span>
+        {playing ? <Icon.Pause size={22} /> : <Icon.Play size={22} />}
       </button>
       <div className="flex-grow">
         <div ref={containerRef} className="w-full" />

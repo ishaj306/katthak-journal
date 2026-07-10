@@ -8,6 +8,7 @@ import {
 } from "@/lib/db/types";
 import { WisdomCard } from "./_components/WisdomCard";
 import { WisdomCreator } from "./_components/WisdomCreator";
+import { Icon } from "@/components/manuscript/Icons";
 import { EmptyState } from "@/components/manuscript/EmptyState";
 
 export const metadata = {
@@ -58,8 +59,8 @@ export default async function WisdomPage({
           {category ? (
             <input type="hidden" name="category" value={category} />
           ) : null}
-          <span className="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-secondary">
-            search
+          <span className="absolute left-0 top-1/2 -translate-y-1/2 text-secondary">
+            <Icon.Search size={20} />
           </span>
           <input
             name="q"

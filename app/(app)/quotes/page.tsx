@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { createClient } from "@/lib/supabase/server";
 import type { KathakQuote } from "@/lib/db/types";
 import { QuoteFavoriteButton } from "./_components/QuoteFavoriteButton";
+import { Icon } from "@/components/manuscript/Icons";
 
 export const metadata = {
   title: "Words of the Masters | Kathak Journal",
@@ -108,8 +109,8 @@ export default async function QuotesPage({
           {category ? (
             <input type="hidden" name="category" value={category} />
           ) : null}
-          <span className="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-secondary">
-            search
+          <span className="absolute left-0 top-1/2 -translate-y-1/2 text-secondary">
+            <Icon.Search size={20} />
           </span>
           <input
             name="q"

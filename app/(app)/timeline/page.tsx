@@ -20,9 +20,17 @@ import {
 } from "@/lib/lineage";
 import { excerpt, formatPerformanceDate } from "@/lib/memory";
 import { formatHours } from "@/lib/riyaz";
+import { Icon } from "@/components/manuscript/Icons";
 
 export const metadata = {
   title: "Your Journey | Kathak Journal",
+};
+
+const KIND_ICON: Record<TimelineEvent["kind"], typeof Icon.Scroll> = {
+  composition: Icon.Scroll,
+  performance: Icon.Mask,
+  wisdom: Icon.Quote,
+  journal: Icon.Quill,
 };
 
 export default async function TimelinePage() {
@@ -68,11 +76,8 @@ export default async function TimelinePage() {
 
       {events.length === 0 ? (
         <div className="mx-auto max-w-xl border border-outline-variant bg-surface-container-low p-12 text-center">
-          <span
-            className="material-symbols-outlined text-6xl text-secondary"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            timeline
+          <span className="mx-auto flex w-fit text-secondary">
+            <Icon.Calendar size={56} />
           </span>
           <h2 className="mt-4 font-display text-headline-md text-primary">
             The first chapter awaits
@@ -196,18 +201,13 @@ function TimelineRow({
   leftAligned: boolean;
 }) {
   const meta = eventIconAndLabel(event.kind);
+  const DotIcon = KIND_ICON[event.kind];
   const card = <EventCard event={event} />;
 
   const dot = (
     <div className="absolute left-1/2 z-10 hidden h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-2 border-secondary bg-surface md:flex">
-      <span
-        className="material-symbols-outlined text-sm"
-        style={{
-          color: meta.color,
-          fontVariationSettings: "'FILL' 1",
-        }}
-      >
-        {meta.icon}
+      <span style={{ color: meta.color }}>
+        <DotIcon size={15} />
       </span>
     </div>
   );
@@ -239,6 +239,7 @@ function TimelineRow({
 
 function EventCard({ event }: { event: TimelineEvent }) {
   const meta = eventIconAndLabel(event.kind);
+  const CardIcon = KIND_ICON[event.kind];
   const dateLabel = formatPerformanceDate(event.date);
 
   let title = "";
@@ -279,7 +280,7 @@ function EventCard({ event }: { event: TimelineEvent }) {
   return (
     <Link
       href={href}
-      className="relative block bg-surface p-2 transition-all duration-500 hover:-translate-y-1"
+      className="relative block bg-surface p-2 transition-colors duration-500 hover:bg-surface-container"
       style={{ border: "1px solid #7e570d" }}
     >
       <div
@@ -299,9 +300,7 @@ function EventCard({ event }: { event: TimelineEvent }) {
             className="flex items-center gap-2 font-serif text-label-md uppercase tracking-widest"
             style={{ color: meta.color }}
           >
-            <span className="material-symbols-outlined text-base">
-              {meta.icon}
-            </span>
+            <CardIcon size={16} />
             {meta.label}
           </span>
           <span className="font-serif text-label-md italic text-on-surface-variant">

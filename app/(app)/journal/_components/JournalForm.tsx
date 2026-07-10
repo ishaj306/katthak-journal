@@ -10,6 +10,7 @@ import {
 import { todayIso } from "@/lib/memory";
 import type { JournalEntry } from "@/lib/db/types";
 import { ManuscriptEditor } from "@/components/manuscript/ManuscriptEditor";
+import { Icon } from "@/components/manuscript/Icons";
 
 const initial: JournalFormState = {};
 
@@ -44,8 +45,8 @@ export function JournalForm({ existing }: { existing?: JournalEntry }) {
             className="h-4 w-4 accent-primary"
           />
           <span className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-base text-secondary">
-              {isPrivate ? "lock" : "lock_open"}
+            <span className="text-secondary">
+              {isPrivate ? <Icon.Lock size={16} /> : <Icon.Unlock size={16} />}
             </span>
             {isPrivate ? "Private to you" : "Visible to you only (placeholder)"}
           </span>

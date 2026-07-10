@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { Icon } from "./Icons";
 
 type ToastTone = "success" | "error" | "info";
 
@@ -22,10 +23,10 @@ type ToastContextValue = {
 
 const ToastContext = createContext<ToastContextValue | null>(null);
 
-const TONE_ICON: Record<ToastTone, string> = {
-  success: "check_circle",
-  error: "error",
-  info: "auto_stories",
+const TONE_ICON: Record<ToastTone, (p: { size?: number }) => ReactNode> = {
+  success: Icon.Check,
+  error: Icon.Alert,
+  info: Icon.Book,
 };
 
 let counter = 0;
@@ -55,13 +56,10 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             }}
           >
             <span
-              className="material-symbols-outlined text-[20px]"
-              style={{
-                color: t.tone === "error" ? "#ba1a1a" : "#7e570d",
-                fontVariationSettings: "'FILL' 1",
-              }}
+              className="flex-none"
+              style={{ color: t.tone === "error" ? "#ba1a1a" : "#7e570d" }}
             >
-              {TONE_ICON[t.tone]}
+              {TONE_ICON[t.tone]({ size: 20 })}
             </span>
             <span className="font-serif text-body-md text-on-surface">
               {t.message}

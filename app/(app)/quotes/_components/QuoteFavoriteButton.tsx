@@ -2,6 +2,7 @@
 
 import { useTransition, useState } from "react";
 import { toggleQuoteFavorite } from "@/app/actions/quotes";
+import { Icon } from "@/components/manuscript/Icons";
 
 export function QuoteFavoriteButton({
   quoteId,
@@ -25,12 +26,7 @@ export function QuoteFavoriteButton({
       aria-pressed={favorite}
       aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
     >
-      <span
-        className="material-symbols-outlined text-lg"
-        style={{ fontVariationSettings: favorite ? "'FILL' 1" : "'FILL' 0" }}
-      >
-        bookmark
-      </span>
+      <Icon.Star size={18} strokeWidth={favorite ? 1.8 : 1.2} />
       {favorite ? "Saved" : "Save"}
     </button>
   );
