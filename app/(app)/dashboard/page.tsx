@@ -62,7 +62,14 @@ const secondary = [
   { label: "Ghungroo", href: "/ghungroo" },
 ];
 
-function resurfaceMemory(entries: JournalEntry[]): JournalEntry | null {
+/**
+ * The stub carries only what's needed to *choose* a memory. The chosen entry's
+ * body is fetched separately, so opening the Daily Folio never downloads the
+ * full rich-text of every journal entry the dancer has ever written.
+ */
+type MemoryStub = Pick<JournalEntry, "id" | "entry_date" | "title">;
+
+function resurfaceMemory(entries: MemoryStub[]): MemoryStub | null {
   if (entries.length === 0) return null;
   const now = new Date();
   const md = `${String(now.getMonth() + 1).padStart(2, "0")}-${String(
@@ -90,15 +97,23 @@ export default async function DailyFolioPage() {
   let inProgress: Composition | null = null;
   let recentSessionIso: string[] = [];
   let practiceDays = 0;
-  let memory: JournalEntry | null = null;
+  let memory: MemoryStub | null = null;
+  let memoryBody: string | null = null;
   let teaching: GuruWisdom | null = null;
 
   if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
     const { userId } = await auth();
     if (userId) {
       const supabase = await createClient();
-      const [profile, quotesRes, compRes, sessionsRes, journalRes, wisdomRes] =
-        await Promise.all([
+      const [
+        profile,
+        quotesRes,
+        compRes,
+        sessionsRes,
+        dayCountRes,
+        journalRes,
+        wisdomRes,
+      ] = await Promise.all([
           getOrCreateProfile(userId),
           supabase.from("kathak_quotes").select("*"),
           supabase
@@ -106,14 +121,16 @@ export default async function DailyFolioPage() {
             .select("id, title, type, guru_name, updated_at")
             .order("updated_at", { ascending: false })
             .limit(1),
+          // Only the handful the seal actually draws.
           supabase
             .from("riyaz_sessions")
             .select("started_at")
             .order("started_at", { ascending: false })
-            .limit(400),
+            .limit(5),
+          supabase.rpc("riyaz_practice_day_count"),
           supabase
             .from("journal_entries")
-            .select("id, entry_date, title, body, user_id, is_private, created_at, updated_at")
+            .select("id, entry_date, title")
             .order("entry_date", { ascending: false })
             .limit(400),
           supabase
@@ -130,13 +147,34 @@ export default async function DailyFolioPage() {
       quoteOfDay = pickQuoteOfDay((quotesRes.data ?? []) as KathakQuote[]);
       inProgress = (compRes.data?.[0] as Composition | undefined) ?? null;
 
-      const sessions = (sessionsRes.data ?? []) as { started_at: string }[];
-      recentSessionIso = sessions.slice(0, 5).map((s) => s.started_at);
-      practiceDays = new Set(
-        sessions.map((s) => new Date(s.started_at).toDateString())
-      ).size;
+      recentSessionIso = ((sessionsRes.data ?? []) as { started_at: string }[])
+        .map((s) => s.started_at);
 
-      memory = resurfaceMemory((journalRes.data ?? []) as JournalEntry[]);
+      if (!dayCountRes.error && typeof dayCountRes.data === "number") {
+        practiceDays = dayCountRes.data;
+      } else {
+        // Migration 0009 not applied yet — fall back to counting in Node.
+        const { data: allSessions } = await supabase
+          .from("riyaz_sessions")
+          .select("started_at")
+          .order("started_at", { ascending: false })
+          .limit(2000);
+        practiceDays = new Set(
+          ((allSessions ?? []) as { started_at: string }[]).map((s) =>
+            new Date(s.started_at).toDateString()
+          )
+        ).size;
+      }
+
+      memory = resurfaceMemory((journalRes.data ?? []) as MemoryStub[]);
+      if (memory) {
+        const { data: bodyRow } = await supabase
+          .from("journal_entries")
+          .select("body")
+          .eq("id", memory.id)
+          .maybeSingle<{ body: string | null }>();
+        memoryBody = bodyRow?.body ?? null;
+      }
       teaching = (wisdomRes.data?.[0] as GuruWisdom | undefined) ?? null;
     }
   }
@@ -273,7 +311,7 @@ export default async function DailyFolioPage() {
                   </h3>
                 ) : null}
                 <p className="mt-3 font-serif text-body-lg italic leading-relaxed text-on-surface-variant opacity-90">
-                  &ldquo;{excerpt(memory.body)}&rdquo;
+                  &ldquo;{excerpt(memoryBody)}&rdquo;
                 </p>
               </Link>
             </section>

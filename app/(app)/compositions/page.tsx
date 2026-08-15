@@ -9,13 +9,70 @@ import {
   type CompositionType,
   type Composition,
 } from "@/lib/db/types";
+import { TALAS, talaById, talaLabel } from "@/lib/talas";
 
 export const metadata = {
   title: "My Compositions | Kathak Journal",
 };
 
+/** Built-in taals sort in their canonical order before any custom taal. */
+const TALA_ORDER: string[] = TALAS.map((t) => t.id);
+
 function isCompositionType(v: string | undefined): v is CompositionType {
   return !!v && (COMPOSITION_TYPES as readonly string[]).includes(v);
+}
+
+/** A taal and the compositions set in it. */
+type TaalGroup = {
+  key: string;
+  name: string;
+  matras: number | null;
+  items: Composition[];
+};
+
+/**
+ * Groups the archive the way a dancer holds it in their head — "my Teentaal
+ * todas" — rather than as one flat list. Built-in taals sort first in the order
+ * they appear in lib/talas.ts, then custom taals alphabetically, and finally
+ * compositions with no taal recorded yet.
+ */
+function groupByTaal(compositions: Composition[]): {
+  groups: TaalGroup[];
+  untaaled: Composition[];
+} {
+  const byKey = new Map<string, TaalGroup>();
+  const untaaled: Composition[] = [];
+
+  for (const c of compositions) {
+    const label = talaLabel(c.tala_id, c.tala_name);
+    if (!label) {
+      untaaled.push(c);
+      continue;
+    }
+    const key = c.tala_id ?? `custom:${label.toLowerCase()}`;
+    let group = byKey.get(key);
+    if (!group) {
+      group = {
+        key,
+        name: label,
+        matras: talaById(c.tala_id)?.matras ?? c.matras ?? null,
+        items: [],
+      };
+      byKey.set(key, group);
+    }
+    group.items.push(c);
+  }
+
+  const groups = Array.from(byKey.values()).sort((a, b) => {
+    const ai = TALA_ORDER.indexOf(a.key);
+    const bi = TALA_ORDER.indexOf(b.key);
+    if (ai !== -1 && bi !== -1) return ai - bi;
+    if (ai !== -1) return -1;
+    if (bi !== -1) return 1;
+    return a.name.localeCompare(b.name);
+  });
+
+  return { groups, untaaled };
 }
 
 export default async function CompositionsPage({
@@ -50,6 +107,7 @@ export default async function CompositionsPage({
 
   const { data, error } = await query;
   const compositions = (data ?? []) as Composition[];
+  const { groups, untaaled } = groupByTaal(compositions);
 
   return (
     <main className="mx-auto max-w-7xl px-margin-mobile pt-12 md:px-margin-page">
@@ -128,10 +186,33 @@ export default async function CompositionsPage({
           actionLabel="Add Your First Composition"
         />
       ) : (
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {compositions.map((c) => (
-            <CompositionCard key={c.id} composition={c} />
+        <div className="space-y-section-gap">
+          {groups.map((g) => (
+            <TaalSection
+              key={g.key}
+              id={g.key}
+              name={g.name}
+              matras={g.matras}
+              count={g.items.length}
+            >
+              {g.items.map((c) => (
+                <CompositionCard key={c.id} composition={c} />
+              ))}
+            </TaalSection>
           ))}
+
+          {untaaled.length > 0 ? (
+            <TaalSection
+              name="Taal not yet recorded"
+              matras={null}
+              count={untaaled.length}
+              muted
+            >
+              {untaaled.map((c) => (
+                <CompositionCard key={c.id} composition={c} />
+              ))}
+            </TaalSection>
+          ) : null}
         </div>
       )}
 
@@ -145,5 +226,54 @@ export default async function CompositionsPage({
         </Link>
       ) : null}
     </main>
+  );
+}
+
+/**
+ * One taal and everything set in it. Follows the same header treatment as the
+ * sections on /search and /archive so the archive reads as one product.
+ */
+function TaalSection({
+  id,
+  name,
+  matras,
+  count,
+  muted,
+  children,
+}: {
+  id?: string;
+  name: string;
+  matras: number | null;
+  count: number;
+  muted?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="scroll-mt-24">
+      <div className="mb-8 flex items-end justify-between gap-4 border-b border-outline-variant pb-2">
+        <div className="flex items-baseline gap-3">
+          <h2
+            className={
+              muted
+                ? "font-display text-headline-md italic text-on-surface-variant"
+                : "font-display text-headline-md text-primary"
+            }
+          >
+            {name}
+          </h2>
+          {matras ? (
+            <span className="font-serif text-label-md italic text-secondary">
+              {matras} matras
+            </span>
+          ) : null}
+        </div>
+        <span className="flex-none font-serif text-label-md uppercase tracking-widest text-on-surface-variant">
+          {count}
+        </span>
+      </div>
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {children}
+      </div>
+    </section>
   );
 }

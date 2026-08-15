@@ -6,7 +6,7 @@ import { useSupabase } from "@/lib/supabase/client";
 import { MEDIA_CONFIG, formatBytes } from "@/lib/media-config";
 import { UploadProgress } from "@/components/manuscript/UploadProgress";
 import { Icon, MediaIcon } from "@/components/manuscript/Icons";
-import type { MediaKind } from "@/lib/db/types";
+import type { MediaKind, PerformanceStage } from "@/lib/db/types";
 
 type UploadState = {
   name: string;
@@ -43,10 +43,12 @@ export function PerformanceMediaUploader({
   performanceId,
   userId,
   kind,
+  stage = "performance",
 }: {
   performanceId: string;
   userId: string;
   kind: MediaKind;
+  stage?: PerformanceStage;
 }) {
   const router = useRouter();
   const supabase = useSupabase();
@@ -97,13 +99,17 @@ export function PerformanceMediaUploader({
             performance_id: performanceId,
             user_id: userId,
             kind,
+            stage,
             storage_path: path,
             title: file.name,
             mime_type: file.type || null,
             file_size: file.size,
             duration_sec: duration,
           });
-        if (insErr) throw insErr;
+        if (insErr) {
+          await supabase.storage.from("performance-media").remove([path]);
+          throw insErr;
+        }
       }
       router.refresh();
     } catch (e) {

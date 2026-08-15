@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import type {
-  Composition,
-  Performance,
-  GuruWisdom,
-  JournalEntry,
-  RiyazSession,
-} from "@/lib/db/types";
+import type { RiyazSession } from "@/lib/db/types";
 import {
   COMPOSITION_TYPE_LABELS,
   PERFORMANCE_TYPE_LABELS,
@@ -16,7 +10,12 @@ import {
   computeYearStats,
   eventIconAndLabel,
   groupByYear,
+  TIMELINE_COLUMNS,
   type TimelineEvent,
+  type TimelineComposition,
+  type TimelinePerformance,
+  type TimelineWisdom,
+  type TimelineJournal,
 } from "@/lib/lineage";
 import { excerpt, formatPerformanceDate } from "@/lib/memory";
 import { formatHours } from "@/lib/riyaz";
@@ -37,10 +36,10 @@ export default async function TimelinePage() {
   const supabase = await createClient();
 
   const [comp, perf, wis, jrn, ses] = await Promise.all([
-    supabase.from("compositions").select("*"),
-    supabase.from("performances").select("*"),
-    supabase.from("guru_wisdom").select("*"),
-    supabase.from("journal_entries").select("*"),
+    supabase.from("compositions").select(TIMELINE_COLUMNS.compositions),
+    supabase.from("performances").select(TIMELINE_COLUMNS.performances),
+    supabase.from("guru_wisdom").select(TIMELINE_COLUMNS.wisdom),
+    supabase.from("journal_entries").select(TIMELINE_COLUMNS.journal),
     supabase
       .from("riyaz_sessions")
       .select("started_at, duration_seconds")
@@ -48,10 +47,10 @@ export default async function TimelinePage() {
   ]);
 
   const events = buildTimeline({
-    compositions: (comp.data ?? []) as Composition[],
-    performances: (perf.data ?? []) as Performance[],
-    wisdom: (wis.data ?? []) as GuruWisdom[],
-    journal: (jrn.data ?? []) as JournalEntry[],
+    compositions: (comp.data ?? []) as unknown as TimelineComposition[],
+    performances: (perf.data ?? []) as unknown as TimelinePerformance[],
+    wisdom: (wis.data ?? []) as unknown as TimelineWisdom[],
+    journal: (jrn.data ?? []) as unknown as TimelineJournal[],
   });
 
   const sessions = (ses.data ?? []) as Pick<

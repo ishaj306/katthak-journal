@@ -26,6 +26,9 @@ function rawFromForm(formData: FormData): Record<string, unknown> {
     type: get("type"),
     costume_notes: get("costume_notes"),
     makeup_notes: get("makeup_notes"),
+    prep_notes: get("prep_notes"),
+    rehearsal_notes: get("rehearsal_notes"),
+    costume_id: get("costume_id"),
     reflection_well: get("reflection_well"),
     reflection_mistakes: get("reflection_mistakes"),
     reflection_learned: get("reflection_learned"),
@@ -78,11 +81,15 @@ export async function updatePerformance(
     return { error: "Please fix the fields below", fieldErrors };
   }
 
+  const { userId } = await auth();
+  if (!userId) return { error: "Not signed in" };
+
   const supabase = await createClient();
   const { error } = await supabase
     .from("performances")
     .update(parsed.data)
-    .eq("id", id);
+    .eq("id", id)
+    .eq("user_id", userId);
   if (error) return { error: error.message };
 
   revalidatePath("/performances");
@@ -91,8 +98,28 @@ export async function updatePerformance(
 }
 
 export async function deletePerformance(id: string) {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Not signed in");
+
   const supabase = await createClient();
-  const { error } = await supabase.from("performances").delete().eq("id", id);
+
+  // Clear Storage before the cascade drops performance_media rows.
+  const { data: mediaRows } = await supabase
+    .from("performance_media")
+    .select("storage_path")
+    .eq("performance_id", id);
+  const paths = ((mediaRows ?? []) as { storage_path: string }[]).map(
+    (m) => m.storage_path
+  );
+  if (paths.length > 0) {
+    await supabase.storage.from("performance-media").remove(paths);
+  }
+
+  const { error } = await supabase
+    .from("performances")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", userId);
   if (error) throw new Error(error.message);
   revalidatePath("/performances");
   redirect("/performances");
@@ -107,11 +134,60 @@ export async function deletePerformanceMedia(mediaId: string) {
     .from("performance_media")
     .select("storage_path, performance_id")
     .eq("id", mediaId)
+    .eq("user_id", userId)
     .maybeSingle<{ storage_path: string; performance_id: string }>();
   if (!row) return;
 
-  await supabase.storage.from("performance-media").remove([row.storage_path]);
-  await supabase.from("performance_media").delete().eq("id", mediaId);
+  const { error: rmErr } = await supabase.storage
+    .from("performance-media")
+    .remove([row.storage_path]);
+  // Only drop the row once the object is gone, so a failed removal doesn't
+  // leave an orphaned file with no record pointing at it.
+  if (rmErr) throw new Error(rmErr.message);
+  await supabase
+    .from("performance_media")
+    .delete()
+    .eq("id", mediaId)
+    .eq("user_id", userId);
 
   revalidatePath(`/performances/${row.performance_id}`);
+}
+
+// ---- compositions being performed ----------------------------------------
+
+export async function addPerformanceComposition(
+  performanceId: string,
+  compositionId: string
+) {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Not signed in");
+  if (!compositionId) return;
+
+  const supabase = await createClient();
+  const { error } = await supabase.from("performance_compositions").insert({
+    performance_id: performanceId,
+    composition_id: compositionId,
+    user_id: userId,
+  });
+  // A duplicate simply means it's already on the programme — not an error.
+  if (error && !/duplicate key/i.test(error.message)) {
+    throw new Error(error.message);
+  }
+  revalidatePath(`/performances/${performanceId}`);
+}
+
+export async function removePerformanceComposition(
+  id: string,
+  performanceId: string
+) {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Not signed in");
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("performance_compositions")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", userId);
+  if (error) throw new Error(error.message);
+  revalidatePath(`/performances/${performanceId}`);
 }

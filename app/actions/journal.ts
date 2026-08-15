@@ -62,11 +62,15 @@ export async function updateJournalEntry(
     return { error: "Please fix the fields below" };
   }
 
+  const { userId } = await auth();
+  if (!userId) return { error: "Not signed in" };
+
   const supabase = await createClient();
   const { error } = await supabase
     .from("journal_entries")
     .update(parsed.data)
-    .eq("id", id);
+    .eq("id", id)
+    .eq("user_id", userId);
   if (error) return { error: error.message };
 
   revalidatePath("/journal");
@@ -75,8 +79,15 @@ export async function updateJournalEntry(
 }
 
 export async function deleteJournalEntry(id: string) {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Not signed in");
   const supabase = await createClient();
-  await supabase.from("journal_entries").delete().eq("id", id);
+  const { error } = await supabase
+    .from("journal_entries")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", userId);
+  if (error) throw new Error(error.message);
   revalidatePath("/journal");
   redirect("/journal");
 }

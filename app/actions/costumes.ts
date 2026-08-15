@@ -21,6 +21,7 @@ export async function addCostume(
   const parsed = costumeInputSchema.safeParse({
     name: formData.get("name"),
     kind: formData.get("kind"),
+    context: formData.get("context") || null,
     color: formData.get("color") || null,
     fabric: formData.get("fabric") || null,
     occasion: formData.get("occasion") || null,
@@ -36,6 +37,7 @@ export async function addCostume(
     user_id: userId,
     name: parsed.data.name,
     kind: parsed.data.kind,
+    context: parsed.data.context ?? null,
     color: parsed.data.color ?? null,
     fabric: parsed.data.fabric ?? null,
     occasion: parsed.data.occasion ?? null,
@@ -49,7 +51,7 @@ export async function addCostume(
 }
 
 export async function deleteCostume(id: string): Promise<void> {
-  const { supabase } = await getUser();
-  await supabase.from("costumes").delete().eq("id", id);
+  const { supabase, userId } = await getUser();
+  await supabase.from("costumes").delete().eq("id", id).eq("user_id", userId);
   revalidatePath("/costumes");
 }

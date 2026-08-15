@@ -415,6 +415,43 @@ function Rule(p: IconProps) {
   );
 }
 
+function Volume(p: IconProps) {
+  return (
+    <svg {...base(p)}>
+      <path d="M4 9v6h3l5 4V5L7 9H4Z" />
+      <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+      <path d="M18 6a8 8 0 0 1 0 12" />
+    </svg>
+  );
+}
+
+function VolumeMute(p: IconProps) {
+  return (
+    <svg {...base(p)}>
+      <path d="M4 9v6h3l5 4V5L7 9H4Z" />
+      <path d="M22 9.5l-5 5M17 9.5l5 5" />
+    </svg>
+  );
+}
+
+function SkipNext(p: IconProps) {
+  return (
+    <svg {...base(p)}>
+      <path d="M6 5l9 7-9 7V5Z" />
+      <path d="M18 5v14" />
+    </svg>
+  );
+}
+
+function SkipPrevious(p: IconProps) {
+  return (
+    <svg {...base(p)}>
+      <path d="M18 5l-9 7 9 7V5Z" />
+      <path d="M6 5v14" />
+    </svg>
+  );
+}
+
 export const Icon = {
   Lotus,
   Ghungroo,
@@ -442,6 +479,10 @@ export const Icon = {
   Play,
   Pause,
   Stop,
+  Volume,
+  VolumeMute,
+  SkipNext,
+  SkipPrevious,
   Mic,
   Trash,
   Plus,

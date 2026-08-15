@@ -15,12 +15,15 @@ export function AudioRecorder({
   parentColumn,
   parentId,
   userId,
+  extraInsert,
 }: {
   bucket: string;
   table: string;
   parentColumn: string;
   parentId: string;
   userId: string;
+  /** Extra columns merged into the inserted row (e.g. a performance stage). */
+  extraInsert?: Record<string, unknown>;
 }) {
   const router = useRouter();
   const supabase = useSupabase();
@@ -30,6 +33,7 @@ export function AudioRecorder({
   const [seconds, setSeconds] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [name, setName] = useState("");
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -89,6 +93,7 @@ export function AudioRecorder({
     blobRef.current = null;
     setState("idle");
     setSeconds(0);
+    setName("");
   }
 
   async function save() {
@@ -101,7 +106,9 @@ export function AudioRecorder({
         .toISOString()
         .slice(0, 16)
         .replace(/[:T]/g, "-");
-      const filename = `riyaz-recording-${stamp}.${ext}`;
+      // The dancer's own name is the title — that's what shows up when picking
+      // this take in the Riyaaz sequence. Fall back to a timestamp if blank.
+      const title = name.trim() || `Recording ${stamp}`;
       const path = `${userId}/${parentId}/${crypto.randomUUID()}.${ext}`;
 
       const { error: upErr } = await supabase.storage
@@ -117,12 +124,16 @@ export function AudioRecorder({
         user_id: userId,
         kind: "audio",
         storage_path: path,
-        title: filename,
+        title,
         mime_type: blobRef.current.type,
         file_size: blobRef.current.size,
         duration_sec: seconds,
+        ...extraInsert,
       });
-      if (insErr) throw insErr;
+      if (insErr) {
+        await supabase.storage.from(bucket).remove([path]);
+        throw insErr;
+      }
 
       toast("Recording preserved in your vault");
       discard();
@@ -177,6 +188,23 @@ export function AudioRecorder({
           {previewUrl ? (
             <audio controls src={previewUrl} className="w-full" />
           ) : null}
+          <div>
+            <label
+              htmlFor="recording-name"
+              className="mb-1 block font-serif text-label-md uppercase tracking-widest text-secondary"
+            >
+              Name this recording
+            </label>
+            <input
+              id="recording-name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={state === "saving"}
+              placeholder="e.g. Paran — slow tempo"
+              className="w-full border-0 border-b border-primary bg-transparent py-2 font-serif text-body-md text-primary placeholder:italic placeholder:text-outline-variant focus:outline-none focus:border-b-2"
+            />
+          </div>
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"

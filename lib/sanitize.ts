@@ -1,18 +1,25 @@
+import DOMPurify from "isomorphic-dompurify";
+
 /**
- * Minimal HTML scrub for user-authored rich text.
- * Content is private (single-user) and produced by Tiptap's StarterKit,
- * which only emits a known-safe tag set. This strips the few vectors that
- * could still sneak in (scripts, event handlers, javascript: URLs).
+ * Sanitises user-authored rich text before it is rendered with
+ * dangerouslySetInnerHTML. Uses DOMPurify (isomorphic — runs under Node during
+ * SSR and in the browser) rather than hand-rolled regex, which is reliably
+ * bypassable. Restricted to the tag/attribute set Tiptap's StarterKit emits.
  */
+const ALLOWED_TAGS = [
+  "p", "br", "strong", "em", "u", "s", "a", "ul", "ol", "li",
+  "blockquote", "code", "pre", "h1", "h2", "h3", "h4", "span",
+];
+const ALLOWED_ATTR = ["href", "target", "rel"];
+
 export function sanitizeHtml(html: string | null | undefined): string {
   if (!html) return "";
-  return html
-    .replace(/<\s*script[^>]*>[\s\S]*?<\s*\/\s*script\s*>/gi, "")
-    .replace(/<\s*style[^>]*>[\s\S]*?<\s*\/\s*style\s*>/gi, "")
-    .replace(/\son\w+\s*=\s*"[^"]*"/gi, "")
-    .replace(/\son\w+\s*=\s*'[^']*'/gi, "")
-    .replace(/\son\w+\s*=\s*[^\s>]+/gi, "")
-    .replace(/javascript:/gi, "");
+  return DOMPurify.sanitize(html, {
+    ALLOWED_TAGS,
+    ALLOWED_ATTR,
+    // Never allow javascript:/data: URIs on links.
+    ALLOWED_URI_REGEXP: /^(?:https?|mailto|tel):/i,
+  });
 }
 
 /** True when the HTML has no visible text (used to decide "empty" states). */

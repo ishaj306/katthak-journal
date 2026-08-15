@@ -10,8 +10,12 @@ import {
 import {
   PERFORMANCE_TYPES,
   PERFORMANCE_TYPE_LABELS,
+  COSTUME_CONTEXT_LABELS,
   type Performance,
+  type Costume,
 } from "@/lib/db/types";
+
+export type CostumeOption = Pick<Costume, "id" | "name" | "context">;
 
 const initial: PerformanceFormState = {};
 
@@ -29,7 +33,13 @@ function Label({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function PerformanceForm({ existing }: { existing?: Performance }) {
+export function PerformanceForm({
+  existing,
+  costumes = [],
+}: {
+  existing?: Performance;
+  costumes?: CostumeOption[];
+}) {
   const action = existing
     ? updatePerformance.bind(null, existing.id)
     : createPerformance;
@@ -84,6 +94,48 @@ export function PerformanceForm({ existing }: { existing?: Performance }) {
               </option>
             ))}
           </select>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="mb-4 text-center font-serif text-label-lg uppercase tracking-[0.3em] text-secondary">
+          Preparation &amp; Rehearsal
+        </h3>
+        <div className="mb-6">
+          <Label>Planned costume</Label>
+          <select
+            name="costume_id"
+            defaultValue={existing?.costume_id ?? ""}
+            className={inputClass + " text-body-md"}
+          >
+            <option value="">— from your wardrobe —</option>
+            {costumes.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+                {c.context ? ` · ${COSTUME_CONTEXT_LABELS[c.context]}` : ""}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="grid grid-cols-1 gap-x-gutter gap-y-stack-md md:grid-cols-2">
+          <div>
+            <Label>Preparation notes</Label>
+            <textarea
+              name="prep_notes"
+              defaultValue={existing?.prep_notes ?? ""}
+              placeholder="What you're performing, the intent, what to prepare…"
+              className={textareaClass}
+            />
+          </div>
+          <div>
+            <Label>Rehearsal notes</Label>
+            <textarea
+              name="rehearsal_notes"
+              defaultValue={existing?.rehearsal_notes ?? ""}
+              placeholder="How run-throughs went, sections to tighten…"
+              className={textareaClass}
+            />
+          </div>
         </div>
       </div>
 

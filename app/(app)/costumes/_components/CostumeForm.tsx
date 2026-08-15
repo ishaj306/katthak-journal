@@ -2,7 +2,12 @@
 
 import { useActionState, useEffect, useRef } from "react";
 import { addCostume, type CostumeFormState } from "@/app/actions/costumes";
-import { COSTUME_KINDS, COSTUME_KIND_LABELS } from "@/lib/db/types";
+import {
+  COSTUME_KINDS,
+  COSTUME_KIND_LABELS,
+  COSTUME_CONTEXTS,
+  COSTUME_CONTEXT_LABELS,
+} from "@/lib/db/types";
 
 const initial: CostumeFormState = {};
 
@@ -44,6 +49,19 @@ export function CostumeForm() {
               {COSTUME_KINDS.map((k) => (
                 <option key={k} value={k}>
                   {COSTUME_KIND_LABELS[k]}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block font-serif text-label-md italic text-primary">
+              Context (optional)
+            </label>
+            <select name="context" defaultValue="" className={inputCls}>
+              <option value="">—</option>
+              {COSTUME_CONTEXTS.map((c) => (
+                <option key={c} value={c}>
+                  {COSTUME_CONTEXT_LABELS[c]}
                 </option>
               ))}
             </select>

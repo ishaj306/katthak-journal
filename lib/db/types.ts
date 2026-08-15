@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { LAYA_VALUES, TALAS, type Laya } from "@/lib/talas";
 
 export const COMPOSITION_TYPES = [
   "vandana",
@@ -81,6 +82,12 @@ export type Composition = {
   meaning: string | null;
   instructions: string | null;
   corrections: string | null;
+  /** Built-in taal id from lib/talas.ts, e.g. "teentaal". */
+  tala_id: string | null;
+  /** Free-text taal name, for taals outside the built-in list. */
+  tala_name: string | null;
+  matras: number | null;
+  lay: Laya | null;
   created_at: string;
   updated_at: string;
 };
@@ -111,13 +118,98 @@ export const compositionInputSchema = z.object({
     .optional()
     .or(z.literal("").transform(() => null)),
   difficulty: z.coerce.number().int().min(1).max(5).nullable().optional(),
-  bols: z.string().nullable().optional(),
-  meaning: z.string().nullable().optional(),
-  instructions: z.string().nullable().optional(),
-  corrections: z.string().nullable().optional(),
+  tala_id: z
+    .string()
+    .nullable()
+    .optional()
+    .refine(
+      (v) => v == null || TALAS.some((t) => t.id === v),
+      "Unknown taal"
+    ),
+  tala_name: z.string().trim().max(120).nullable().optional(),
+  matras: z.coerce.number().int().min(1).max(128).nullable().optional(),
+  lay: z.enum(LAYA_VALUES).nullable().optional(),
+  bols: z.string().max(20_000).nullable().optional(),
+  meaning: z.string().max(50_000).nullable().optional(),
+  instructions: z.string().max(50_000).nullable().optional(),
+  corrections: z.string().max(50_000).nullable().optional(),
 });
 
 export type CompositionInput = z.infer<typeof compositionInputSchema>;
+
+// ============================================================
+// Exam-level context — a composition's place in the syllabus
+// ============================================================
+
+export const EXAM_RELATIONS = [
+  "learned_for",
+  "revisited",
+  "performed_for",
+] as const;
+
+export type ExamRelation = (typeof EXAM_RELATIONS)[number];
+
+export const EXAM_RELATION_LABELS: Record<ExamRelation, string> = {
+  learned_for: "Learned for",
+  revisited: "Revisited for",
+  performed_for: "Performed for",
+};
+
+/** Suggested levels — a datalist, not a fixed set; any board's syllabus fits. */
+export const EXAM_LEVEL_SUGGESTIONS = [
+  "Level 1",
+  "Level 2",
+  "Level 3",
+  "Level 4",
+  "Level 5",
+  "Level 6",
+  "Prarambhik",
+  "Praveshika",
+  "Madhyama",
+  "Visharad",
+  "Alankar",
+] as const;
+
+export type RiyazRecording = {
+  id: string;
+  user_id: string;
+  composition_id: string | null;
+  storage_path: string;
+  title: string;
+  mime_type: string | null;
+  file_size: number | null;
+  duration_sec: number | null;
+  notes: string | null;
+  recorded_at: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CompositionExamLevel = {
+  id: string;
+  user_id: string;
+  composition_id: string;
+  level: string;
+  relation: ExamRelation;
+  noted_on: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export const examLevelInputSchema = z.object({
+  level: z.string().trim().min(1, "A level is required").max(80),
+  relation: z.enum(EXAM_RELATIONS),
+  noted_on: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Use YYYY-MM-DD")
+    .nullable()
+    .optional()
+    .or(z.literal("").transform(() => null)),
+  notes: z.string().trim().max(2000).nullable().optional(),
+});
+
+export type ExamLevelInput = z.infer<typeof examLevelInputSchema>;
 
 export type RiyazSession = {
   id: string;
@@ -179,6 +271,9 @@ export type Performance = {
   type: PerformanceType;
   costume_notes: string | null;
   makeup_notes: string | null;
+  prep_notes: string | null;
+  rehearsal_notes: string | null;
+  costume_id: string | null;
   reflection_well: string | null;
   reflection_mistakes: string | null;
   reflection_learned: string | null;
@@ -187,11 +282,36 @@ export type Performance = {
   updated_at: string;
 };
 
+export const PERFORMANCE_STAGES = [
+  "preparation",
+  "rehearsal",
+  "performance",
+] as const;
+
+export type PerformanceStage = (typeof PERFORMANCE_STAGES)[number];
+
+export const PERFORMANCE_STAGE_LABELS: Record<PerformanceStage, string> = {
+  preparation: "Preparation",
+  rehearsal: "Rehearsal",
+  performance: "Performance",
+};
+
+export type PerformanceComposition = {
+  id: string;
+  user_id: string;
+  performance_id: string;
+  composition_id: string;
+  position: number;
+  notes: string | null;
+  created_at: string;
+};
+
 export type PerformanceMedia = {
   id: string;
   performance_id: string;
   user_id: string;
   kind: MediaKind;
+  stage: PerformanceStage;
   storage_path: string;
   title: string | null;
   mime_type: string | null;
@@ -213,6 +333,14 @@ export const performanceInputSchema = z.object({
   type: z.enum(PERFORMANCE_TYPES),
   costume_notes: z.string().nullable().optional(),
   makeup_notes: z.string().nullable().optional(),
+  prep_notes: z.string().nullable().optional(),
+  rehearsal_notes: z.string().nullable().optional(),
+  costume_id: z
+    .string()
+    .uuid()
+    .nullable()
+    .optional()
+    .or(z.literal("").transform(() => null)),
   reflection_well: z.string().nullable().optional(),
   reflection_mistakes: z.string().nullable().optional(),
   reflection_learned: z.string().nullable().optional(),
@@ -417,11 +545,32 @@ export const COSTUME_KIND_LABELS: Record<CostumeKind, string> = {
   other: "Other",
 };
 
+export const COSTUME_CONTEXTS = [
+  "daily_class",
+  "riyaz",
+  "rehearsal",
+  "exam",
+  "performance",
+  "other",
+] as const;
+
+export type CostumeContext = (typeof COSTUME_CONTEXTS)[number];
+
+export const COSTUME_CONTEXT_LABELS: Record<CostumeContext, string> = {
+  daily_class: "Daily class",
+  riyaz: "Riyaz",
+  rehearsal: "Rehearsal",
+  exam: "Exam",
+  performance: "Performance",
+  other: "Other",
+};
+
 export type Costume = {
   id: string;
   user_id: string;
   name: string;
   kind: CostumeKind;
+  context: CostumeContext | null;
   color: string | null;
   fabric: string | null;
   occasion: string | null;
@@ -434,6 +583,7 @@ export type Costume = {
 export const costumeInputSchema = z.object({
   name: z.string().trim().min(1, "A name is required").max(200),
   kind: z.enum(COSTUME_KINDS),
+  context: z.enum(COSTUME_CONTEXTS).nullable().optional(),
   color: z.string().trim().max(120).nullable().optional(),
   fabric: z.string().trim().max(120).nullable().optional(),
   occasion: z.string().trim().max(200).nullable().optional(),

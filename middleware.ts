@@ -1,23 +1,21 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isProtectedRoute = createRouteMatcher([
-  "/dashboard(.*)",
-  "/onboarding(.*)",
-  "/compositions(.*)",
-  "/archive(.*)",
-  "/riyaz(.*)",
-  "/ghungroo(.*)",
-  "/performances(.*)",
-  "/wisdom(.*)",
-  "/journal(.*)",
-  "/timeline(.*)",
-  "/quotes(.*)",
-  "/profile(.*)",
-  "/search(.*)",
+/**
+ * Everything is private by default — this is one dancer's personal manuscript.
+ * Only the landing page, the Clerk auth screens and the PWA manifest are open,
+ * so a page added under app/(app) later is protected without a second edit.
+ * (An earlier allow-list missed /costumes and /lineage, which rendered the app
+ * chrome around an empty body for signed-out visitors.)
+ */
+const isPublicRoute = createRouteMatcher([
+  "/",
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+  "/manifest.webmanifest",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) {
+  if (!isPublicRoute(req)) {
     const { userId, redirectToSignIn } = await auth();
     if (!userId) {
       return redirectToSignIn({ returnBackUrl: req.url });

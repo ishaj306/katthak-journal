@@ -12,6 +12,7 @@ import {
   PERFORMANCE_TYPE_LABELS,
 } from "@/lib/db/types";
 import { excerpt, formatPerformanceDate, formatJournalDate } from "@/lib/memory";
+import { buildIlikeOrFilter } from "@/lib/search";
 
 export const metadata = {
   title: "Search | Kathak Journal",
@@ -32,28 +33,32 @@ export default async function SearchPage({
 
   if (q.length > 0) {
     const supabase = await createClient();
-    const term = `%${q}%`;
 
     const [c, p, w, j] = await Promise.all([
       supabase
         .from("compositions")
         .select("*")
-        .or(`title.ilike.${term},bols.ilike.${term},meaning.ilike.${term}`)
+        .or(buildIlikeOrFilter(["title", "bols", "meaning"], q))
         .limit(20),
       supabase
         .from("performances")
         .select("*")
-        .or(`event_name.ilike.${term},venue.ilike.${term},reflection_learned.ilike.${term}`)
+        .or(
+          buildIlikeOrFilter(
+            ["event_name", "venue", "reflection_learned"],
+            q
+          )
+        )
         .limit(20),
       supabase
         .from("guru_wisdom")
         .select("*")
-        .or(`quote.ilike.${term},attribution.ilike.${term}`)
+        .or(buildIlikeOrFilter(["quote", "attribution"], q))
         .limit(20),
       supabase
         .from("journal_entries")
         .select("*")
-        .or(`title.ilike.${term},body.ilike.${term}`)
+        .or(buildIlikeOrFilter(["title", "body"], q))
         .limit(20),
     ]);
 

@@ -8,10 +8,17 @@ import {
   MEDIA_KINDS,
   type Composition,
   type CompositionMedia,
+  type CompositionExamLevel,
   type MediaKind,
 } from "@/lib/db/types";
+import { LAYA_LABELS, talaById, talaLabel } from "@/lib/talas";
 import { Icon } from "@/components/manuscript/Icons";
 import { MediaSection } from "../_components/MediaSection";
+import { ExamLevels } from "../_components/ExamLevels";
+import {
+  CompositionRiyazTakes,
+  type RiyazTake,
+} from "../_components/CompositionRiyazTakes";
 import { DeleteCompositionButton } from "../_components/DeleteCompositionButton";
 import { RichText } from "@/components/manuscript/RichText";
 import { isBlankHtml } from "@/lib/sanitize";
@@ -51,14 +58,65 @@ export default async function CompositionDetailPage({
 
   if (!composition) notFound();
 
-  const { data: mediaRows } = await supabase
-    .from("composition_media")
-    .select("*")
-    .eq("composition_id", id)
-    .order("sort_order", { ascending: true })
-    .order("created_at", { ascending: true });
+  const [{ data: mediaRows }, { data: examRows }, { data: takeRows }] =
+    await Promise.all([
+      supabase
+        .from("composition_media")
+        .select("*")
+        .eq("composition_id", id)
+        .order("sort_order", { ascending: true })
+        .order("created_at", { ascending: true }),
+      supabase
+        .from("composition_exam_levels")
+        .select("*")
+        .eq("composition_id", id)
+        .order("created_at", { ascending: true }),
+      supabase
+        .from("riyaz_recordings")
+        .select("id, storage_path, title, duration_sec, notes, recorded_at")
+        .eq("composition_id", id)
+        .order("recorded_at", { ascending: false }),
+    ]);
 
   const media = (mediaRows ?? []) as CompositionMedia[];
+  const examLevels = (examRows ?? []) as CompositionExamLevel[];
+  const takeRowsTyped = (takeRows ?? []) as {
+    id: string;
+    storage_path: string;
+    title: string;
+    duration_sec: number | null;
+    notes: string | null;
+    recorded_at: string;
+  }[];
+
+  // Sign the Riyaaz takes' audio (same bucket as composition media).
+  const takeUrlMap = new Map<string, string>();
+  if (takeRowsTyped.length > 0) {
+    const { data: signed } = await supabase.storage
+      .from("composition-media")
+      .createSignedUrls(
+        takeRowsTyped.map((t) => t.storage_path),
+        60 * 60
+      );
+    for (const row of signed ?? []) {
+      if (row.signedUrl) takeUrlMap.set(row.path ?? "", row.signedUrl);
+    }
+  }
+
+  const riyazTakes: RiyazTake[] = takeRowsTyped
+    .map((t) => {
+      const url = takeUrlMap.get(t.storage_path);
+      if (!url) return null;
+      return {
+        id: t.id,
+        url,
+        title: t.title,
+        durationSec: t.duration_sec,
+        notes: t.notes,
+        recordedOn: formatDate(t.recorded_at),
+      } satisfies RiyazTake;
+    })
+    .filter((t): t is RiyazTake => t !== null);
 
   const urlMap = new Map<string, string>();
   if (media.length > 0) {
@@ -86,16 +144,31 @@ export default async function CompositionDetailPage({
   }
 
   const dateLabel = formatDate(composition.date_learned);
+  const taal = talaLabel(composition.tala_id, composition.tala_name);
+  const matras = talaById(composition.tala_id)?.matras ?? composition.matras;
+  // Matches the section ids on /compositions so the taal links back to the
+  // rest of the repertoire set in it.
+  const taalAnchor =
+    composition.tala_id ?? `custom:${(taal ?? "").toLowerCase()}`;
 
   return (
     <main className="mx-auto max-w-5xl px-margin-mobile py-section-gap md:px-margin-page">
-      <Link
-        href="/compositions"
-        className="inline-flex items-center gap-2 font-serif text-label-md uppercase tracking-widest text-secondary transition-colors hover:text-primary"
-      >
-        <Icon.ArrowLeft size={16} />
-        Back to the archive
-      </Link>
+      <div className="flex items-center justify-between gap-4">
+        <Link
+          href="/compositions"
+          className="inline-flex items-center gap-2 font-serif text-label-md uppercase tracking-widest text-secondary transition-colors hover:text-primary"
+        >
+          <Icon.ArrowLeft size={16} />
+          Back to the archive
+        </Link>
+        <Link
+          href={`/compositions/${composition.id}/edit`}
+          className="inline-flex items-center gap-2 border border-secondary px-4 py-1.5 font-serif text-label-md uppercase tracking-widest text-secondary transition-colors hover:bg-primary hover:text-on-primary"
+        >
+          <Icon.Edit size={15} />
+          Edit
+        </Link>
+      </div>
 
       <header className="mt-8 border-b border-outline-variant pb-12 text-center">
         <span className="bg-tertiary-fixed px-3 py-1 font-serif text-label-md uppercase tracking-widest text-on-tertiary-fixed">
@@ -104,6 +177,29 @@ export default async function CompositionDetailPage({
         <h1 className="mt-6 font-display text-display-lg-mobile text-primary md:text-display-lg">
           {composition.title}
         </h1>
+
+        {taal ? (
+          <p className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-serif text-body-lg text-secondary">
+            <Link
+              href={`/compositions#${taalAnchor}`}
+              className="italic underline decoration-secondary/30 underline-offset-4 transition-colors hover:text-primary"
+            >
+              {taal}
+            </Link>
+            {matras ? (
+              <span className="text-on-surface-variant">
+                <span className="opacity-50">·</span> {matras} matras
+              </span>
+            ) : null}
+            {composition.lay ? (
+              <span className="text-on-surface-variant">
+                <span className="opacity-50">·</span>{" "}
+                {LAYA_LABELS[composition.lay]}
+              </span>
+            ) : null}
+          </p>
+        ) : null}
+
         <p className="mt-4 font-serif text-body-md italic text-on-surface-variant">
           {[
             composition.guru_name ? `Guru ${composition.guru_name}` : null,
@@ -185,6 +281,12 @@ export default async function CompositionDetailPage({
           <RichText html={composition.corrections} className="mt-3" />
         </section>
       ) : null}
+
+      <div className="mt-12">
+        <ExamLevels compositionId={composition.id} entries={examLevels} />
+      </div>
+
+      <CompositionRiyazTakes takes={riyazTakes} />
 
       {MEDIA_KINDS.map((kind) => (
         <MediaSection

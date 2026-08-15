@@ -1,10 +1,18 @@
-import { PerformanceForm } from "../_components/PerformanceForm";
+import { createClient } from "@/lib/supabase/server";
+import { PerformanceForm, type CostumeOption } from "../_components/PerformanceForm";
 
 export const metadata = {
   title: "Add Performance | Kathak Journal",
 };
 
-export default function NewPerformancePage() {
+export default async function NewPerformancePage() {
+  const supabase = await createClient();
+  const { data: costumeRows } = await supabase
+    .from("costumes")
+    .select("id, name, context")
+    .order("created_at", { ascending: false });
+  const costumes = (costumeRows ?? []) as CostumeOption[];
+
   return (
     <main className="mx-auto max-w-4xl px-margin-mobile py-section-gap md:px-margin-page">
       <header className="mb-12 text-center">
@@ -29,7 +37,7 @@ export default function NewPerformancePage() {
           aria-hidden
         />
         <div className="relative p-7 md:p-11">
-          <PerformanceForm />
+          <PerformanceForm costumes={costumes} />
         </div>
       </div>
     </main>

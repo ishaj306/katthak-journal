@@ -61,11 +61,15 @@ export async function updateWisdom(
     return { error: "Please fix the fields below" };
   }
 
+  const { userId } = await auth();
+  if (!userId) return { error: "Not signed in" };
+
   const supabase = await createClient();
   const { error } = await supabase
     .from("guru_wisdom")
     .update(parsed.data)
-    .eq("id", id);
+    .eq("id", id)
+    .eq("user_id", userId);
   if (error) return { error: error.message };
 
   revalidatePath("/wisdom");
@@ -73,13 +77,27 @@ export async function updateWisdom(
 }
 
 export async function deleteWisdom(id: string) {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Not signed in");
   const supabase = await createClient();
-  await supabase.from("guru_wisdom").delete().eq("id", id);
+  const { error } = await supabase
+    .from("guru_wisdom")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", userId);
+  if (error) throw new Error(error.message);
   revalidatePath("/wisdom");
 }
 
 export async function togglePin(id: string, pinned: boolean) {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Not signed in");
   const supabase = await createClient();
-  await supabase.from("guru_wisdom").update({ pinned }).eq("id", id);
+  const { error } = await supabase
+    .from("guru_wisdom")
+    .update({ pinned })
+    .eq("id", id)
+    .eq("user_id", userId);
+  if (error) throw new Error(error.message);
   revalidatePath("/wisdom");
 }

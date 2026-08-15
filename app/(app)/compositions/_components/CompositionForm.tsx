@@ -15,36 +15,11 @@ import {
   type Composition,
 } from "@/lib/db/types";
 import { GhungrooRating } from "./GhungrooRating";
+import { TaalFields } from "./TaalFields";
+import { CustomLabel, inputClass, FieldError } from "./formPrimitives";
 import { ManuscriptEditor } from "@/components/manuscript/ManuscriptEditor";
 
 const initial: CompositionFormState = {};
-
-function FieldError({ message }: { message?: string }) {
-  if (!message) return null;
-  return (
-    <p className="mt-1 font-serif text-[12px] italic text-error">{message}</p>
-  );
-}
-
-function CustomLabel({
-  htmlFor,
-  children,
-}: {
-  htmlFor?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <label
-      htmlFor={htmlFor}
-      className="mb-1 block font-serif italic text-[14px] text-primary"
-    >
-      {children}
-    </label>
-  );
-}
-
-const inputClass =
-  "w-full border-0 border-b border-primary bg-transparent py-2 px-0 font-serif text-primary outline-none focus:border-b-2 focus:border-primary focus:ring-0";
 
 export function CompositionForm({
   existing,
@@ -89,6 +64,15 @@ export function CompositionForm({
           </select>
           <FieldError message={state.fieldErrors?.type} />
         </div>
+
+        <TaalFields
+          existing={existing}
+          errors={{
+            tala_id: state.fieldErrors?.tala_id,
+            tala_name: state.fieldErrors?.tala_name,
+            matras: state.fieldErrors?.matras,
+          }}
+        />
 
         <div>
           <CustomLabel htmlFor="date_learned">Date Learned</CustomLabel>
@@ -199,12 +183,22 @@ export function CompositionForm({
       </div>
 
       {state.error ? (
-        <p
+        <div
           role="alert"
           className="border border-error/40 bg-error-container p-4 font-serif text-body-md italic text-on-error-container"
         >
-          {state.error}
-        </p>
+          <p>{state.error}</p>
+          {/* The taal columns arrive in 0010; a missing-column error means the
+              migration has not been run against this Supabase project yet. */}
+          {/(column|schema cache)/i.test(state.error) ? (
+            <p className="mt-2 text-label-md">
+              If this mentions an unknown column such as{" "}
+              <code>tala_id</code>, paste{" "}
+              <code>supabase/migrations/0010_composition_taal.sql</code> into
+              your Supabase SQL Editor and run it.
+            </p>
+          ) : null}
+        </div>
       ) : null}
 
       <div className="flex flex-col items-center justify-center gap-6 pt-6 md:flex-row">

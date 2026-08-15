@@ -21,6 +21,13 @@ export const metadata = {
 
 const tools = [
   {
+    href: "/riyaz/sequence",
+    deva: "क्रम",
+    title: "Riyaaz Sequence",
+    body: "Build a practice mix from your recordings and talas, with breathing gaps, and let it play hands-free.",
+    Icon: Icon.Ghungroo,
+  },
+  {
     href: "/riyaz/tihai",
     deva: "तिहाई",
     title: "Tihai Builder",

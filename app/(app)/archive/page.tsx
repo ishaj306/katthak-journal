@@ -26,41 +26,66 @@ type ArchiveMediaRow = CompositionMedia & {
   composition: { id: string; title: string } | null;
 };
 
+/** How many media items are rendered (and signed) per view. */
+const PAGE_SIZE = 60;
+
 export default async function ArchivePage({
   searchParams,
 }: {
-  searchParams: Promise<{ kind?: string }>;
+  searchParams: Promise<{ kind?: string; show?: string }>;
 }) {
   const params = await searchParams;
   const activeKind = isMediaKind(params.kind) ? params.kind : undefined;
+  const requested = Number(params.show);
+  const shown =
+    Number.isFinite(requested) && requested > 0
+      ? Math.min(Math.ceil(requested / PAGE_SIZE) * PAGE_SIZE, 600)
+      : PAGE_SIZE;
 
   const supabase = await createClient();
-  const { data: mediaRows } = await supabase
+
+  // Totals come from a skinny scan — the vault stats need every row, but only
+  // two columns of each. The heavy row payload is fetched for one page only.
+  const statsQuery = supabase.from("composition_media").select("kind, file_size");
+
+  const pageQuery = supabase
     .from("composition_media")
     .select("*, composition:compositions(id, title)")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(shown);
 
-  const all = (mediaRows ?? []) as (CompositionMedia & {
-    composition: { id: string; title: string } | null;
-  })[];
+  const [statsRes, pageRes] = await Promise.all([
+    statsQuery,
+    activeKind ? pageQuery.eq("kind", activeKind) : pageQuery,
+  ]);
 
-  const totalBytes = all.reduce((acc, m) => acc + (m.file_size ?? 0), 0);
+  const stats = (statsRes.data ?? []) as {
+    kind: MediaKind;
+    file_size: number | null;
+  }[];
+
+  const totalBytes = stats.reduce((acc, m) => acc + (m.file_size ?? 0), 0);
   const counts: Record<MediaKind, number> = {
     image: 0,
     audio: 0,
     video: 0,
     pdf: 0,
   };
-  for (const m of all) counts[m.kind] += 1;
+  for (const m of stats) counts[m.kind] += 1;
 
-  const filtered = activeKind ? all.filter((m) => m.kind === activeKind) : all;
+  const totalCount = stats.length;
+  const matchingCount = activeKind ? counts[activeKind] : totalCount;
+
+  const page = (pageRes.data ?? []) as (CompositionMedia & {
+    composition: { id: string; title: string } | null;
+  })[];
 
   const urlMap = new Map<string, string>();
-  if (filtered.length > 0) {
+  if (page.length > 0) {
     const { data: signed } = await supabase.storage
       .from("composition-media")
       .createSignedUrls(
-        filtered.map((m) => m.storage_path),
+        page.map((m) => m.storage_path),
         60 * 60
       );
     for (const row of signed ?? []) {
@@ -68,9 +93,15 @@ export default async function ArchivePage({
     }
   }
 
-  const enriched: ArchiveMediaRow[] = filtered
+  const enriched: ArchiveMediaRow[] = page
     .map((m) => ({ ...m, url: urlMap.get(m.storage_path) ?? "" }))
     .filter((m) => m.url !== "");
+
+  const hasMore = matchingCount > enriched.length;
+  const moreHref = `/archive?${new URLSearchParams({
+    ...(activeKind ? { kind: activeKind } : {}),
+    show: String(shown + PAGE_SIZE),
+  })}`;
 
   return (
     <main className="mx-auto max-w-7xl px-margin-mobile py-12 md:px-margin-page">
@@ -103,7 +134,7 @@ export default async function ArchivePage({
             Total
           </p>
           <p className="mt-1 font-display text-headline-md text-primary">
-            {all.length}
+            {totalCount}
           </p>
         </div>
         {MEDIA_KINDS.map((k) => (
@@ -148,7 +179,22 @@ export default async function ArchivePage({
           </Link>
         </div>
       ) : (
-        <ArchiveGrid items={enriched} />
+        <>
+          <ArchiveGrid items={enriched} />
+          {hasMore ? (
+            <div className="mt-section-gap text-center">
+              <p className="font-serif text-label-md italic text-on-surface-variant">
+                Showing {enriched.length} of {matchingCount}
+              </p>
+              <Link
+                href={moreHref}
+                className="mt-4 inline-flex items-center gap-2 border border-primary px-8 py-3 font-serif text-label-md uppercase tracking-widest text-primary transition-all hover:bg-primary hover:text-on-primary"
+              >
+                Unfurl more
+              </Link>
+            </div>
+          ) : null}
+        </>
       )}
     </main>
   );
@@ -255,7 +301,7 @@ function ArchiveAudioCard({ m }: { m: ArchiveMediaRow }) {
           </span>
           <MediaDeleteButton id={m.id} />
         </div>
-        <AudioPlayer url={m.url} />
+        <AudioPlayer url={m.url} fileSize={m.file_size} />
       </div>
     </article>
   );

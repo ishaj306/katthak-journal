@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { TALAS, vibhagStarts, type Tala } from "@/lib/talas";
+import { TALAS, vibhagStarts } from "@/lib/talas";
+import { TalaClock } from "@/lib/talaClock";
 import { Icon } from "@/components/manuscript/Icons";
 
 type Accent = "sam" | "vibhag" | "normal";
@@ -15,15 +16,9 @@ export function Metronome() {
   const tala = TALAS.find((t) => t.id === talaId) ?? TALAS[0];
   const starts = vibhagStarts(tala);
 
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const nextNoteTimeRef = useRef(0);
-  const currentMatraRef = useRef(0);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const bpmRef = useRef(bpm);
-  const talaRef = useRef<Tala>(tala);
-
-  bpmRef.current = bpm;
-  talaRef.current = tala;
+  // Playback runs on the shared TalaClock, so the metronome and the Riyaaz
+  // sequence sound talas through one engine (no duplicated scheduler).
+  const clockRef = useRef<TalaClock | null>(null);
 
   function accentFor(matra: number): Accent {
     if (matra === 0) return "sam";
@@ -31,80 +26,33 @@ export function Metronome() {
     return "normal";
   }
 
-  function playClick(time: number, accent: Accent) {
-    const ctx = audioCtxRef.current;
-    if (!ctx) return;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    // Tabla-ish pitched click; sam highest, vibhag mid, normal low
-    const freq = accent === "sam" ? 880 : accent === "vibhag" ? 620 : 440;
-    const peak = accent === "sam" ? 0.6 : accent === "vibhag" ? 0.4 : 0.25;
-    osc.frequency.setValueAtTime(freq, time);
-    osc.frequency.exponentialRampToValueAtTime(freq * 0.6, time + 0.05);
-
-    gain.gain.setValueAtTime(0.0001, time);
-    gain.gain.exponentialRampToValueAtTime(peak, time + 0.005);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.12);
-
-    osc.start(time);
-    osc.stop(time + 0.14);
-  }
-
-  function scheduler() {
-    const ctx = audioCtxRef.current;
-    if (!ctx) return;
-    const secondsPerMatra = 60 / bpmRef.current;
-    // Schedule ~100ms ahead
-    while (nextNoteTimeRef.current < ctx.currentTime + 0.1) {
-      const matra = currentMatraRef.current;
-      playClick(nextNoteTimeRef.current, accentFor(matra));
-
-      const scheduledMatra = matra;
-      const delay = (nextNoteTimeRef.current - ctx.currentTime) * 1000;
-      setTimeout(
-        () => setActiveMatra(scheduledMatra),
-        Math.max(0, delay)
-      );
-
-      nextNoteTimeRef.current += secondsPerMatra;
-      currentMatraRef.current =
-        (currentMatraRef.current + 1) % talaRef.current.matras;
-    }
-  }
-
   function start() {
-    const Ctx =
-      window.AudioContext ||
-      (window as unknown as { webkitAudioContext: typeof AudioContext })
-        .webkitAudioContext;
-    const ctx = audioCtxRef.current ?? new Ctx();
-    audioCtxRef.current = ctx;
-    if (ctx.state === "suspended") ctx.resume();
-
-    currentMatraRef.current = 0;
-    nextNoteTimeRef.current = ctx.currentTime + 0.06;
-    timerRef.current = setInterval(scheduler, 25);
+    clockRef.current?.dispose();
+    const clock = new TalaClock(tala, bpm, (m) => setActiveMatra(m));
+    clockRef.current = clock;
+    clock.start();
     setPlaying(true);
   }
 
   function stop() {
-    timerRef.current && clearInterval(timerRef.current);
-    timerRef.current = null;
+    clockRef.current?.dispose();
+    clockRef.current = null;
     setPlaying(false);
     setActiveMatra(-1);
   }
 
+  // Live tempo changes while playing.
+  useEffect(() => {
+    clockRef.current?.setBpm(bpm);
+  }, [bpm]);
+
   useEffect(() => {
     return () => {
-      timerRef.current && clearInterval(timerRef.current);
-      audioCtxRef.current?.close();
+      clockRef.current?.dispose();
     };
   }, []);
 
-  // Restart cleanly if tala changes mid-play
+  // Restart cleanly if the tala changes mid-play.
   useEffect(() => {
     if (playing) {
       stop();

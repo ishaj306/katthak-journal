@@ -47,7 +47,11 @@ export async function addGhungrooEntry(
 }
 
 export async function deleteGhungrooEntry(id: string): Promise<void> {
-  const { supabase } = await getUser();
-  await supabase.from("ghungroo_entries").delete().eq("id", id);
+  const { supabase, userId } = await getUser();
+  await supabase
+    .from("ghungroo_entries")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", userId);
   revalidatePath("/ghungroo/diary");
 }

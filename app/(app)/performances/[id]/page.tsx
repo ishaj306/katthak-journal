@@ -5,19 +5,27 @@ import { auth } from "@clerk/nextjs/server";
 import { createClient } from "@/lib/supabase/server";
 import {
   PERFORMANCE_TYPE_LABELS,
+  PERFORMANCE_STAGE_LABELS,
+  COSTUME_CONTEXT_LABELS,
   MEDIA_KINDS,
   type Performance,
   type PerformanceMedia,
+  type PerformanceStage,
   type MediaKind,
 } from "@/lib/db/types";
+import { talaLabel } from "@/lib/talas";
 import { formatPerformanceDate } from "@/lib/memory";
+import {
+  PerformanceProgramme,
+  type ProgrammeEntry,
+  type ProgrammeOption,
+} from "../_components/PerformanceProgramme";
 import { Icon, MediaIcon } from "@/components/manuscript/Icons";
 import { MEDIA_CONFIG, formatBytes, formatDuration } from "@/lib/media-config";
 import { AudioPlayer } from "../../compositions/_components/AudioPlayer";
 import { VideoPlayer } from "../../compositions/_components/VideoPlayer";
-import { PerformanceMediaUploader } from "../_components/PerformanceMediaUploader";
+import { PerformanceMediaPanel } from "../_components/PerformanceMediaPanel";
 import { PerformanceMediaDeleteButton } from "../_components/PerformanceMediaDeleteButton";
-import { AudioRecorder } from "@/components/manuscript/AudioRecorder";
 import { DeletePerformanceButton } from "../_components/DeletePerformanceButton";
 
 export const metadata = {
@@ -51,13 +59,58 @@ export default async function PerformanceDetailPage({
     .maybeSingle<Performance>();
   if (!performance) notFound();
 
-  const { data: mediaRows } = await supabase
-    .from("performance_media")
-    .select("*")
-    .eq("performance_id", id)
-    .order("sort_order", { ascending: true })
-    .order("created_at", { ascending: true });
+  const [{ data: mediaRows }, { data: programmeRows }, { data: allComps }] =
+    await Promise.all([
+      supabase
+        .from("performance_media")
+        .select("*")
+        .eq("performance_id", id)
+        .order("sort_order", { ascending: true })
+        .order("created_at", { ascending: true }),
+      supabase
+        .from("performance_compositions")
+        .select(
+          "id, composition_id, position, composition:compositions(id, title, tala_id, tala_name)"
+        )
+        .eq("performance_id", id)
+        .order("position", { ascending: true }),
+      supabase
+        .from("compositions")
+        .select("id, title")
+        .order("title", { ascending: true }),
+    ]);
   const media = (mediaRows ?? []) as PerformanceMedia[];
+
+  type ProgrammeRow = {
+    id: string;
+    composition_id: string;
+    composition: {
+      id: string;
+      title: string;
+      tala_id: string | null;
+      tala_name: string | null;
+    } | null;
+  };
+  const programme: ProgrammeEntry[] = (
+    (programmeRows ?? []) as unknown as ProgrammeRow[]
+  ).map((r) => ({
+    id: r.id,
+    compositionId: r.composition_id,
+    title: r.composition?.title ?? "Composition",
+    talaLabel: talaLabel(r.composition?.tala_id, r.composition?.tala_name),
+  }));
+  const programmeOptions = (allComps ?? []) as ProgrammeOption[];
+
+  // Planned costume, if one was chosen.
+  let plannedCostume: { name: string; context: string | null } | null = null;
+  if (performance.costume_id) {
+    const { data: c } = await supabase
+      .from("costumes")
+      .select("name, context")
+      .eq("id", performance.costume_id)
+      .maybeSingle<{ name: string; context: string | null }>();
+    plannedCostume = c ?? null;
+  }
 
   const urlMap = new Map<string, string>();
   if (media.length > 0) {
@@ -172,6 +225,64 @@ export default async function PerformanceDetailPage({
 
       <Divider />
 
+      {/* Preparation & Rehearsal — the journey before the night */}
+      <section className="mx-auto max-w-4xl">
+        <h2 className="mb-8 text-center font-serif text-label-lg uppercase tracking-[0.3em] text-secondary">
+          Preparation &amp; Rehearsal
+        </h2>
+
+        <PerformanceProgramme
+          performanceId={performance.id}
+          entries={programme}
+          options={programmeOptions}
+        />
+
+        {plannedCostume ? (
+          <div className="mt-8">
+            <h3 className="mb-2 font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
+              Planned costume
+            </h3>
+            <p className="font-serif text-body-md text-on-surface">
+              {plannedCostume.name}
+              {plannedCostume.context
+                ? ` · ${
+                    COSTUME_CONTEXT_LABELS[
+                      plannedCostume.context as keyof typeof COSTUME_CONTEXT_LABELS
+                    ] ?? plannedCostume.context
+                  }`
+                : ""}
+            </p>
+          </div>
+        ) : null}
+
+        {performance.prep_notes || performance.rehearsal_notes ? (
+          <div className="mt-8 grid grid-cols-1 gap-12 md:grid-cols-2">
+            {performance.prep_notes ? (
+              <div>
+                <h3 className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
+                  Preparation notes
+                </h3>
+                <p className="mt-4 whitespace-pre-line font-serif text-body-md leading-relaxed text-on-surface">
+                  {performance.prep_notes}
+                </p>
+              </div>
+            ) : null}
+            {performance.rehearsal_notes ? (
+              <div>
+                <h3 className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
+                  Rehearsal notes
+                </h3>
+                <p className="mt-4 whitespace-pre-line font-serif text-body-md leading-relaxed text-on-surface">
+                  {performance.rehearsal_notes}
+                </p>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+      </section>
+
+      <Divider />
+
       {performance.costume_notes || performance.makeup_notes ? (
         <>
           <section className="grid grid-cols-1 gap-12 md:grid-cols-2">
@@ -274,12 +385,15 @@ export default async function PerformanceDetailPage({
                             unoptimized
                           />
                         </a>
-                        <figcaption className="flex items-center justify-between border-t border-secondary/30 bg-surface px-2 py-1 font-serif text-label-md">
-                          <span
-                            className="truncate text-on-surface-variant"
-                            title={m.title ?? ""}
-                          >
-                            {m.title}
+                        <figcaption className="flex items-center justify-between gap-2 border-t border-secondary/30 bg-surface px-2 py-1 font-serif text-label-md">
+                          <span className="flex min-w-0 items-center gap-2">
+                            <StageBadge stage={m.stage} />
+                            <span
+                              className="truncate text-on-surface-variant"
+                              title={m.title ?? ""}
+                            >
+                              {m.title}
+                            </span>
                           </span>
                           <PerformanceMediaDeleteButton id={m.id} />
                         </figcaption>
@@ -295,7 +409,8 @@ export default async function PerformanceDetailPage({
                       >
                         <div className="mb-2 flex items-start justify-between gap-2">
                           <div>
-                            <p className="font-serif text-body-md text-on-surface">
+                            <p className="flex items-center gap-2 font-serif text-body-md text-on-surface">
+                              <StageBadge stage={m.stage} />
                               {m.title ?? "Audio"}
                             </p>
                             <p className="font-serif text-label-md italic text-on-surface-variant">
@@ -315,7 +430,8 @@ export default async function PerformanceDetailPage({
                       <article key={m.id} className="space-y-3">
                         <div className="flex items-start justify-between gap-2">
                           <div>
-                            <p className="font-serif text-body-md text-on-surface">
+                            <p className="flex items-center gap-2 font-serif text-body-md text-on-surface">
+                              <StageBadge stage={m.stage} />
                               {m.title ?? "Video"}
                             </p>
                             <p className="font-serif text-label-md italic text-on-surface-variant">
@@ -343,6 +459,7 @@ export default async function PerformanceDetailPage({
                           <span className="flex-none text-secondary">
                             <Icon.Document size={22} />
                           </span>
+                          <StageBadge stage={m.stage} />
                           <p className="truncate font-serif text-body-md text-on-surface">
                             {m.title ?? "Document"}
                           </p>
@@ -358,22 +475,11 @@ export default async function PerformanceDetailPage({
                 </p>
               )}
 
-              <div className="space-y-4">
-                <PerformanceMediaUploader
-                  performanceId={performance.id}
-                  userId={userId}
-                  kind={kind}
-                />
-                {kind === "audio" ? (
-                  <AudioRecorder
-                    bucket="performance-media"
-                    table="performance_media"
-                    parentColumn="performance_id"
-                    parentId={performance.id}
-                    userId={userId}
-                  />
-                ) : null}
-              </div>
+              <PerformanceMediaPanel
+                performanceId={performance.id}
+                userId={userId}
+                kind={kind}
+              />
             </div>
           );
         })}
@@ -390,6 +496,17 @@ export default async function PerformanceDetailPage({
         <DeletePerformanceButton id={performance.id} />
       </section>
     </main>
+  );
+}
+
+/** Marks a recording's place in the journey; the performance-night default
+ *  stays unlabelled to keep the common case quiet. */
+function StageBadge({ stage }: { stage: PerformanceStage }) {
+  if (stage === "performance") return null;
+  return (
+    <span className="inline-block bg-tertiary-fixed px-2 py-0.5 font-serif text-label-md uppercase tracking-wider text-on-tertiary-fixed">
+      {PERFORMANCE_STAGE_LABELS[stage]}
+    </span>
   );
 }
 

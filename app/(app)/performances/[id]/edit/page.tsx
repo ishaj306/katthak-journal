@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { PerformanceForm } from "../../_components/PerformanceForm";
+import {
+  PerformanceForm,
+  type CostumeOption,
+} from "../../_components/PerformanceForm";
 import type { Performance } from "@/lib/db/types";
 
 export const metadata = {
@@ -14,12 +17,19 @@ export default async function EditPerformancePage({
 }) {
   const { id } = await params;
   const supabase = await createClient();
-  const { data } = await supabase
-    .from("performances")
-    .select("*")
-    .eq("id", id)
-    .maybeSingle<Performance>();
+  const [{ data }, { data: costumeRows }] = await Promise.all([
+    supabase
+      .from("performances")
+      .select("*")
+      .eq("id", id)
+      .maybeSingle<Performance>(),
+    supabase
+      .from("costumes")
+      .select("id, name, context")
+      .order("created_at", { ascending: false }),
+  ]);
   if (!data) notFound();
+  const costumes = (costumeRows ?? []) as CostumeOption[];
 
   return (
     <main className="mx-auto max-w-4xl px-margin-mobile py-section-gap md:px-margin-page">
@@ -42,7 +52,7 @@ export default async function EditPerformancePage({
           aria-hidden
         />
         <div className="relative p-7 md:p-11">
-          <PerformanceForm existing={data} />
+          <PerformanceForm existing={data} costumes={costumes} />
         </div>
       </div>
     </main>

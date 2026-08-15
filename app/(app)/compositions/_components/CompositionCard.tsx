@@ -5,6 +5,7 @@ import {
   GHARANA_LABELS,
   type Composition,
 } from "@/lib/db/types";
+import { LAYA_LABELS } from "@/lib/talas";
 
 function firstLines(text: string | null, n = 2): string {
   if (!text) return "";
@@ -24,6 +25,8 @@ export function CompositionCard({
   const subline = [
     c.guru_name ? `Guru ${c.guru_name}` : null,
     c.gharana ? GHARANA_LABELS[c.gharana] : null,
+    // The taal is already the section heading; the lay is what varies here.
+    c.lay ? LAYA_LABELS[c.lay] : null,
   ]
     .filter(Boolean)
     .join(" · ");

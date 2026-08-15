@@ -106,7 +106,11 @@ export function MediaUploader({
             file_size: file.size,
             duration_sec: duration,
           });
-        if (insErr) throw insErr;
+        if (insErr) {
+          // Roll back the just-uploaded object so a failed insert can't orphan.
+          await supabase.storage.from("composition-media").remove([path]);
+          throw insErr;
+        }
       }
 
       router.refresh();

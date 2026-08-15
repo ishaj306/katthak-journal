@@ -33,6 +33,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Practice",
     items: [
       { label: "Riyaz", href: "/riyaz", Icon: Icon.Tabla },
+      { label: "Riyaaz Sequence", href: "/riyaz/sequence", Icon: Icon.Ghungroo },
       { label: "Ghungroo Hours", href: "/ghungroo", Icon: Icon.Ghungroo },
       { label: "Ghungroo Diary", href: "/ghungroo/diary", Icon: Icon.Ghungroo },
       { label: "Tihai Builder", href: "/riyaz/tihai", Icon: Icon.Lotus },

@@ -66,6 +66,36 @@ export const TALAS: Tala[] = [
   },
 ];
 
+export const LAYA_VALUES = ["vilambit", "madhya", "drut"] as const;
+export type Laya = (typeof LAYA_VALUES)[number];
+
+export const LAYA_LABELS: Record<Laya, string> = {
+  vilambit: "Vilambit",
+  madhya: "Madhya",
+  drut: "Drut",
+};
+
+/** Looks up a built-in tala by id. */
+export function talaById(id: string | null | undefined): Tala | null {
+  if (!id) return null;
+  return TALAS.find((t) => t.id === id) ?? null;
+}
+
+/**
+ * The name to show for a composition's taal — the built-in name when it has a
+ * known tala_id, otherwise whatever free text the dancer typed. Null when the
+ * composition has no taal set at all.
+ */
+export function talaLabel(
+  talaId: string | null | undefined,
+  talaName: string | null | undefined
+): string | null {
+  const builtIn = talaById(talaId);
+  if (builtIn) return builtIn.name;
+  const custom = talaName?.trim();
+  return custom && custom.length > 0 ? custom : null;
+}
+
 /** Indices (0-based) where each vibhag begins — these get an accent. */
 export function vibhagStarts(tala: Tala): Set<number> {
   const starts = new Set<number>();

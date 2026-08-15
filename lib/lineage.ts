@@ -6,11 +6,48 @@ import type {
   KathakQuote,
 } from "@/lib/db/types";
 
+/**
+ * The timeline spans a whole dancing life, so it reads every row of four
+ * tables. These narrowed row types keep that affordable: only the columns the
+ * timeline cards actually render are selected and shipped to the client.
+ */
+export type TimelineComposition = Pick<
+  Composition,
+  "id" | "title" | "bols" | "meaning" | "type" | "date_learned" | "created_at"
+>;
+export type TimelinePerformance = Pick<
+  Performance,
+  | "id"
+  | "event_name"
+  | "venue"
+  | "reflection_learned"
+  | "type"
+  | "performed_on"
+  | "created_at"
+>;
+export type TimelineWisdom = Pick<
+  GuruWisdom,
+  "id" | "quote" | "attribution" | "captured_at" | "created_at"
+>;
+export type TimelineJournal = Pick<
+  JournalEntry,
+  "id" | "title" | "body" | "entry_date"
+>;
+
+/** Column lists matching the types above, for `.select()`. */
+export const TIMELINE_COLUMNS = {
+  compositions: "id, title, bols, meaning, type, date_learned, created_at",
+  performances:
+    "id, event_name, venue, reflection_learned, type, performed_on, created_at",
+  wisdom: "id, quote, attribution, captured_at, created_at",
+  journal: "id, title, body, entry_date",
+} as const;
+
 export type TimelineEvent =
-  | { kind: "composition"; date: string; data: Composition }
-  | { kind: "performance"; date: string; data: Performance }
-  | { kind: "wisdom"; date: string; data: GuruWisdom }
-  | { kind: "journal"; date: string; data: JournalEntry };
+  | { kind: "composition"; date: string; data: TimelineComposition }
+  | { kind: "performance"; date: string; data: TimelinePerformance }
+  | { kind: "wisdom"; date: string; data: TimelineWisdom }
+  | { kind: "journal"; date: string; data: TimelineJournal };
 
 function safeDate(iso: string | null): string | null {
   if (!iso) return null;
@@ -25,10 +62,10 @@ export function buildTimeline({
   wisdom,
   journal,
 }: {
-  compositions: Composition[];
-  performances: Performance[];
-  wisdom: GuruWisdom[];
-  journal: JournalEntry[];
+  compositions: TimelineComposition[];
+  performances: TimelinePerformance[];
+  wisdom: TimelineWisdom[];
+  journal: TimelineJournal[];
 }): TimelineEvent[] {
   const events: TimelineEvent[] = [];
 

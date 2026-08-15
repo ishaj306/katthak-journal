@@ -4,6 +4,7 @@ import { CostumeForm } from "./_components/CostumeForm";
 import { CostumeDelete } from "./_components/CostumeDelete";
 import {
   COSTUME_KIND_LABELS,
+  COSTUME_CONTEXT_LABELS,
   type Costume,
   type CostumeKind,
 } from "@/lib/db/types";
@@ -93,9 +94,16 @@ export default async function CostumesPage() {
                     className="relative border border-outline-variant bg-surface-container-lowest p-6"
                   >
                     <div className="flex items-start justify-between gap-4">
-                      <h3 className="font-display text-headline-md text-primary">
-                        {c.name}
-                      </h3>
+                      <div>
+                        <h3 className="font-display text-headline-md text-primary">
+                          {c.name}
+                        </h3>
+                        {c.context ? (
+                          <span className="mt-1 inline-block bg-tertiary-fixed px-2 py-0.5 font-serif text-label-md uppercase tracking-wider text-on-tertiary-fixed">
+                            {COSTUME_CONTEXT_LABELS[c.context]}
+                          </span>
+                        ) : null}
+                      </div>
                       <CostumeDelete id={c.id} />
                     </div>
                     <dl className="mt-3 space-y-1 font-serif text-body-md text-on-surface-variant">

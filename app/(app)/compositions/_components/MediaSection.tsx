@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { AudioPlayer } from "./AudioPlayer";
 import { VideoPlayer } from "./VideoPlayer";
+import { AudioPlaylist } from "./AudioPlaylist";
 import { MediaUploader } from "./MediaUploader";
 import { MediaDeleteButton } from "./MediaDeleteButton";
 import { AudioRecorder } from "@/components/manuscript/AudioRecorder";
@@ -36,26 +36,6 @@ function MediaItem({ m }: { m: MediaWithUrl }) {
           <MediaDeleteButton id={m.id} />
         </figcaption>
       </figure>
-    );
-  }
-
-  if (m.kind === "audio") {
-    return (
-      <article className="border border-secondary bg-surface-container-low p-4">
-        <div className="mb-2 flex items-start justify-between gap-2">
-          <div>
-            <p className="font-serif text-body-md text-on-surface">
-              {m.title ?? "Audio recording"}
-            </p>
-            <p className="font-serif text-label-md italic text-on-surface-variant">
-              {formatDuration(m.duration_sec)} ·{" "}
-              {formatBytes(m.file_size)}
-            </p>
-          </div>
-          <MediaDeleteButton id={m.id} />
-        </div>
-        <AudioPlayer url={m.url} />
-      </article>
     );
   }
 
@@ -133,7 +113,19 @@ export function MediaSection({
         </span>
       </div>
 
-      {items.length > 0 ? (
+      {items.length > 0 && kind === "audio" ? (
+        <div className="mb-8">
+          <AudioPlaylist
+            tracks={items.map((m) => ({
+              id: m.id,
+              url: m.url,
+              title: m.title,
+              duration_sec: m.duration_sec,
+              file_size: m.file_size,
+            }))}
+          />
+        </div>
+      ) : items.length > 0 ? (
         <div
           className={
             isImage
