@@ -16,8 +16,17 @@ export async function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       accessToken: async () => {
-        const { getToken } = await auth();
-        return (await getToken()) ?? null;
+        try {
+          const { getToken } = await auth();
+          return (await getToken()) ?? null;
+        } catch {
+          // No request scope (e.g. build-time static analysis): `auth()` bails
+          // with a dynamic-usage error. This eager call is only supabase-js
+          // setting its initial Realtime auth token, which we don't use, so a
+          // null token here is harmless and keeps the build log clean. Real
+          // requests always have a scope and return the Clerk token normally.
+          return null;
+        }
       },
       auth: {
         persistSession: false,
