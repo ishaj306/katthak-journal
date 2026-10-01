@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { ManuscriptBreak } from "./ManuscriptBreak";
+import { brand } from "@/lib/brand";
 
 const links = [
-  { label: "Archives", href: "/#archives" },
-  { label: "The Lineage", href: "/about" },
-  { label: "Terms", href: "/terms" },
-  { label: "Privacy", href: "/privacy" },
+  { label: "The Folios", href: "/#folios" },
+  { label: "Your Privacy", href: "/#privacy" },
+  { label: "Terms of Use", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
 ];
 
 export function SiteFooter() {
@@ -15,7 +16,10 @@ export function SiteFooter() {
         <div className="font-display text-[24px] tracking-widest text-primary">
           KATHAK JOURNAL
         </div>
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="font-serif text-[16px] italic text-secondary">
+          Designed, built & kept with care by {brand.maker}
+        </div>
+        <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3">
           {links.map((link) => (
             <Link
               key={link.label}
@@ -25,14 +29,13 @@ export function SiteFooter() {
               {link.label}
             </Link>
           ))}
-        </div>
+        </nav>
       </div>
       <ManuscriptBreak className="w-1/3 opacity-30" />
-      <div className="font-serif text-[16px] italic text-on-surface opacity-80">
-        © MMXXVI KATHAK JOURNAL. PRESERVING THE SACRED RHYTHM.
-      </div>
-      <div className="font-serif text-[15px] italic text-secondary">
-        Made by Isha
+      <div className="text-center font-serif text-[15px] italic text-on-surface opacity-80">
+        © {brand.yearRoman} {brand.maker.toUpperCase()}. ALL RIGHTS RESERVED.
+        <br />
+        PRESERVING THE SACRED RHYTHM.
       </div>
     </footer>
   );

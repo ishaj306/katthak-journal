@@ -2,7 +2,8 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 /**
  * Everything is private by default — this is one dancer's personal manuscript.
- * Only the landing page, the Clerk auth screens and the PWA manifest are open,
+ * Only the landing page, the Terms / Privacy folios, the Clerk auth screens
+ * and the PWA manifest are open,
  * so a page added under app/(app) later is protected without a second edit.
  * (An earlier allow-list missed /costumes and /lineage, which rendered the app
  * chrome around an empty body for signed-out visitors.)
@@ -11,6 +12,8 @@ const isPublicRoute = createRouteMatcher([
   "/",
   "/sign-in(.*)",
   "/sign-up(.*)",
+  "/privacy",
+  "/terms",
   "/manifest.webmanifest",
 ]);
 

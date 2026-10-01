@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SignUp } from "@clerk/nextjs";
 
 export const metadata = {
@@ -26,6 +27,17 @@ export default function SignUpPage() {
             }}
           />
         </div>
+        <p className="mt-6 text-center font-serif text-[15px] italic text-on-surface-variant">
+          By creating an account you agree to the{" "}
+          <Link href="/terms" className="text-primary underline decoration-secondary underline-offset-4">
+            Terms of Use
+          </Link>{" "}
+          and{" "}
+          <Link href="/privacy" className="text-primary underline decoration-secondary underline-offset-4">
+            Privacy Policy
+          </Link>
+          . Your entries are private to you.
+        </p>
       </div>
     </main>
   );

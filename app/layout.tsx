@@ -36,7 +36,9 @@ const tiroDevanagari = Tiro_Devanagari_Hindi({
 export const metadata: Metadata = {
   title: "Kathak Journal — A Sacred Archive for Your Dance Journey",
   description:
-    "Preserve compositions, riyaz, performances, and guru wisdom in one timeless manuscript.",
+    "Preserve compositions, riyaz, performances, and guru wisdom in one timeless manuscript. Made by Isha.",
+  authors: [{ name: "Isha" }],
+  creator: "Isha",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,

@@ -11,6 +11,7 @@ import {
 } from "@/components/manuscript/Ornaments";
 import { Icon } from "@/components/manuscript/Icons";
 import Link from "next/link";
+import { brand } from "@/lib/brand";
 
 const pillars = [
   {
@@ -60,6 +61,29 @@ const features = [
     Icon: Icon.Peacock,
     title: "Lineage & Wardrobe",
     body: "See the gurus and gharanas woven through your work, and log every poshak and ornament you have worn.",
+  },
+];
+
+const promises = [
+  {
+    Icon: Icon.Lotus,
+    title: "Private by design",
+    body: "Every entry is locked to your account at the database itself. No other dancer — and no stranger — can read it.",
+  },
+  {
+    Icon: Icon.Scroll,
+    title: "Media kept sealed",
+    body: "Recordings, photos, and videos live in private storage, opened only through links that expire on their own.",
+  },
+  {
+    Icon: Icon.Ghungroo,
+    title: "No ads, no trackers",
+    body: "Nothing is sold, shared for marketing, or used to train AI. There are no analytics scripts watching you.",
+  },
+  {
+    Icon: Icon.Quill,
+    title: "Yours to remove",
+    body: "Edit or delete anything whenever you wish — or ask for your whole account to be erased, completely.",
   },
 ];
 
@@ -136,7 +160,7 @@ export default function LandingPage() {
 
       <main className="mx-auto max-w-7xl px-margin-mobile md:px-margin-page">
         {/* Philosophy pillars */}
-        <section className="py-section-gap">
+        <section id="philosophy" className="scroll-mt-28 py-section-gap">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
             {pillars.map((p) => (
               <div key={p.title} className="text-center md:text-left">
@@ -157,7 +181,7 @@ export default function LandingPage() {
         <ManuscriptBreak />
 
         {/* What lives inside */}
-        <section className="py-section-gap">
+        <section id="folios" className="scroll-mt-28 py-section-gap">
           <div className="mb-16 text-center">
             <p className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
               What lives inside
@@ -189,7 +213,7 @@ export default function LandingPage() {
         </section>
 
         {/* Tools no notes app has */}
-        <section className="py-section-gap">
+        <section id="tools" className="scroll-mt-28 py-section-gap">
           <div className="relative border border-secondary bg-surface-container-low p-2">
             <div
               className="pointer-events-none absolute"
@@ -229,7 +253,10 @@ export default function LandingPage() {
         </section>
 
         {/* Lineage */}
-        <section className="flex flex-col items-center gap-16 py-section-gap md:flex-row">
+        <section
+          id="lineages"
+          className="flex scroll-mt-28 flex-col items-center gap-16 py-section-gap md:flex-row"
+        >
           <div className="flex-1 space-y-6">
             <h2 className="font-display text-headline-lg italic text-primary underline decoration-secondary decoration-1 underline-offset-8">
               The Wisdom of Lineages
@@ -260,6 +287,72 @@ export default function LandingPage() {
               </div>
             </div>
           </OrnamentalFrame>
+        </section>
+
+        <ManuscriptBreak />
+
+        {/* Privacy promises */}
+        <section id="privacy" className="scroll-mt-28 py-section-gap">
+          <div className="mb-14 text-center">
+            <p className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
+              Your folio, your keeping
+            </p>
+            <h2 className="mt-3 font-display text-display-lg-mobile text-primary">
+              Your data stays yours
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl font-serif text-body-lg italic text-on-surface-variant">
+              A riyaz diary is a private thing. {brand.product} is built so that
+              what you inscribe is seen by you alone.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {promises.map((p) => (
+              <OrnamentalFrame key={p.title} className="h-full bg-surface-container-low">
+                <div className="flex h-full flex-col items-center p-7 text-center">
+                  <span className="mb-4 text-secondary">
+                    <p.Icon size={36} />
+                  </span>
+                  <h3 className="mb-3 font-display text-headline-md text-primary">
+                    {p.title}
+                  </h3>
+                  <p className="font-serif text-body-md leading-relaxed text-on-surface-variant">
+                    {p.body}
+                  </p>
+                </div>
+              </OrnamentalFrame>
+            ))}
+          </div>
+          <p className="mt-10 text-center font-serif text-body-md italic text-on-surface-variant">
+            Read the full{" "}
+            <Link href="/privacy" className="text-primary underline decoration-secondary underline-offset-4">
+              Privacy Policy
+            </Link>{" "}
+            and{" "}
+            <Link href="/terms" className="text-primary underline decoration-secondary underline-offset-4">
+              Terms of Use
+            </Link>
+            .
+          </p>
+        </section>
+
+        {/* Maker's note */}
+        <section className="pb-section-gap">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="mb-5 flex justify-center text-secondary">
+              <Icon.Quill size={30} />
+            </div>
+            <p className="font-serif text-label-md uppercase tracking-[0.3em] text-secondary">
+              A note from the maker
+            </p>
+            <p className="mt-6 font-display text-headline-md italic leading-snug text-primary">
+              &ldquo;I built {brand.product} for my own riyaz — a place to keep
+              every bol, every correction, every stage. Now it&apos;s yours too,
+              and I look after it with the same care.&rdquo;
+            </p>
+            <p className="mt-5 font-serif text-body-lg italic text-secondary">
+              — {brand.maker}
+            </p>
+          </div>
         </section>
 
         {/* Closing CTA */}
