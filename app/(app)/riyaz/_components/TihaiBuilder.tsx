@@ -17,7 +17,6 @@ export function TihaiBuilder() {
   const [phrase, setPhrase] = useState(7);
   const [kind, setKind] = useState<"dumdar" | "bedumdar">("dumdar");
 
-  const tala = TALAS.find((t) => t.id === talaId) ?? TALAS[0];
   const spanCounts = spanMatras * layaRatio;
 
   const result = useMemo(

@@ -38,13 +38,19 @@ export async function deleteRiyazRecording(id: string) {
 export async function updateRiyazRecordingNotes(id: string, notes: string) {
   const { userId } = await auth();
   if (!userId) throw new Error("Not signed in");
+  if (typeof notes !== "string" || notes.length > 2000) {
+    throw new Error("Notes can be up to 2000 characters");
+  }
 
   const supabase = await createClient();
-  const { data: row } = await supabase
+  const { data: row, error: lookupErr } = await supabase
     .from("riyaz_recordings")
     .select("composition_id")
     .eq("id", id)
+    .eq("user_id", userId)
     .maybeSingle<{ composition_id: string | null }>();
+  if (lookupErr) throw new Error(lookupErr.message);
+  if (!row) throw new Error("Recording not found");
 
   const { error } = await supabase
     .from("riyaz_recordings")

@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { talaById } from "@/lib/talas";
 
 /**
@@ -148,6 +149,45 @@ export type PersistedMixItem =
       cycles: number;
       gapAfter: number | null;
     };
+
+/** Server-side shape check for a saved mix — the client can't be trusted. */
+const gapSchema = z.number().finite().min(0).max(600).nullable();
+const shortText = z.string().max(200);
+
+export const persistedMixItemSchema = z.discriminatedUnion("kind", [
+  z.object({
+    kind: z.literal("recording"),
+    recordingId: z.string().uuid(),
+    title: shortText,
+    compositionId: z.string().uuid().nullable(),
+    compositionTitle: shortText.nullable(),
+    talaLabel: shortText.nullable(),
+    durationSec: z.number().finite().min(0).max(6 * 60 * 60).nullable(),
+    gapAfter: gapSchema,
+  }),
+  z.object({
+    kind: z.literal("tala"),
+    talaId: z.string().max(60),
+    talaName: shortText,
+    matras: z.number().int().min(1).max(128),
+    bpm: z.number().finite().min(10).max(600),
+    cycles: z.number().int().min(1).max(1000),
+    gapAfter: gapSchema,
+  }),
+]);
+
+export const MAX_MIX_ITEMS = 200;
+
+export const saveMixInputSchema = z.object({
+  id: z.string().uuid().optional(),
+  name: z.string().trim().min(1, "Give the mix a name").max(120),
+  defaultGap: z.number().finite().min(0).max(600),
+  loop: z.enum(["off", "all", "one"]),
+  items: z
+    .array(persistedMixItemSchema)
+    .min(1, "The mix is empty")
+    .max(MAX_MIX_ITEMS, `A mix can hold up to ${MAX_MIX_ITEMS} items`),
+});
 
 export type SavedMix = {
   id: string;

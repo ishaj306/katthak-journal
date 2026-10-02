@@ -227,7 +227,7 @@ export const manualSessionSchema = z
   .object({
     started_at: z.string().min(1, "Required"),
     duration_minutes: z.coerce.number().int().min(1).max(24 * 60),
-    notes: z.string().nullable().optional(),
+    notes: z.string().max(5000).nullable().optional(),
   })
   .transform((v) => ({
     ...v,
@@ -331,20 +331,20 @@ export const performanceInputSchema = z.object({
     .optional()
     .or(z.literal("").transform(() => null)),
   type: z.enum(PERFORMANCE_TYPES),
-  costume_notes: z.string().nullable().optional(),
-  makeup_notes: z.string().nullable().optional(),
-  prep_notes: z.string().nullable().optional(),
-  rehearsal_notes: z.string().nullable().optional(),
+  costume_notes: z.string().max(20_000).nullable().optional(),
+  makeup_notes: z.string().max(20_000).nullable().optional(),
+  prep_notes: z.string().max(20_000).nullable().optional(),
+  rehearsal_notes: z.string().max(20_000).nullable().optional(),
   costume_id: z
     .string()
     .uuid()
     .nullable()
     .optional()
     .or(z.literal("").transform(() => null)),
-  reflection_well: z.string().nullable().optional(),
-  reflection_mistakes: z.string().nullable().optional(),
-  reflection_learned: z.string().nullable().optional(),
-  reflection_improve: z.string().nullable().optional(),
+  reflection_well: z.string().max(20_000).nullable().optional(),
+  reflection_mistakes: z.string().max(20_000).nullable().optional(),
+  reflection_learned: z.string().max(20_000).nullable().optional(),
+  reflection_improve: z.string().max(20_000).nullable().optional(),
 });
 
 export type PerformanceInput = z.infer<typeof performanceInputSchema>;

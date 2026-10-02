@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { createClient } from "@/lib/supabase/server";
+import { ownsRow } from "@/lib/supabase/owns";
 import {
   performanceInputSchema,
   type PerformanceInput,
@@ -54,6 +55,9 @@ export async function createPerformance(
   if (!userId) return { error: "Not signed in" };
 
   const supabase = await createClient();
+  if (!(await ownsRow(supabase, "costumes", parsed.data.costume_id, userId))) {
+    return { error: "That costume wasn't found in your wardrobe" };
+  }
   const { data, error } = await supabase
     .from("performances")
     .insert({ ...parsed.data, user_id: userId })
@@ -85,6 +89,9 @@ export async function updatePerformance(
   if (!userId) return { error: "Not signed in" };
 
   const supabase = await createClient();
+  if (!(await ownsRow(supabase, "costumes", parsed.data.costume_id, userId))) {
+    return { error: "That costume wasn't found in your wardrobe" };
+  }
   const { error } = await supabase
     .from("performances")
     .update(parsed.data)
@@ -164,6 +171,11 @@ export async function addPerformanceComposition(
   if (!compositionId) return;
 
   const supabase = await createClient();
+  const [ownsPerf, ownsComp] = await Promise.all([
+    ownsRow(supabase, "performances", performanceId, userId),
+    ownsRow(supabase, "compositions", compositionId, userId),
+  ]);
+  if (!ownsPerf || !ownsComp) throw new Error("Not found");
   const { error } = await supabase.from("performance_compositions").insert({
     performance_id: performanceId,
     composition_id: compositionId,

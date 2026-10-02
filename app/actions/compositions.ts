@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { createClient } from "@/lib/supabase/server";
+import { ownsRow } from "@/lib/supabase/owns";
 import {
   compositionInputSchema,
   examLevelInputSchema,
@@ -154,6 +155,9 @@ export async function addExamLevel(
   if (!userId) return { error: "Not signed in" };
 
   const supabase = await createClient();
+  if (!(await ownsRow(supabase, "compositions", compositionId, userId))) {
+    return { error: "Composition not found" };
+  }
   const { error } = await supabase.from("composition_exam_levels").insert({
     ...parsed.data,
     composition_id: compositionId,

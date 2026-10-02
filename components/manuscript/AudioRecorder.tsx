@@ -43,7 +43,7 @@ export function AudioRecorder({
 
   useEffect(() => {
     return () => {
-      timerRef.current && clearInterval(timerRef.current);
+      if (timerRef.current) clearInterval(timerRef.current);
       streamRef.current?.getTracks().forEach((t) => t.stop());
       if (previewUrl) URL.revokeObjectURL(previewUrl);
     };
@@ -83,7 +83,7 @@ export function AudioRecorder({
   }
 
   function stopRecording() {
-    timerRef.current && clearInterval(timerRef.current);
+    if (timerRef.current) clearInterval(timerRef.current);
     mediaRecorderRef.current?.stop();
   }
 

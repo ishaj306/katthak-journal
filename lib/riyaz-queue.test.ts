@@ -1,6 +1,8 @@
 import { describe, it, expect } from "vitest";
 import {
   talaItemSeconds,
+  saveMixInputSchema,
+  MAX_MIX_ITEMS,
   resolveGap,
   recordingToItem,
   talaToItem,
@@ -62,5 +64,45 @@ describe("persist / hydrate round-trip", () => {
     const persisted = toPersistedItems([recordingToItem(recording)]);
     const rebuilt = hydrateMix(persisted, []); // recording was deleted
     expect(rebuilt).toHaveLength(0);
+  });
+});
+
+describe("saveMixInputSchema", () => {
+  const tala = {
+    kind: "tala" as const,
+    talaId: "teentaal",
+    talaName: "Teentaal",
+    matras: 16,
+    bpm: 80,
+    cycles: 4,
+    gapAfter: null,
+  };
+  const valid = { name: " Morning ", defaultGap: 5, loop: "all" as const, items: [tala] };
+
+  it("accepts a well-formed mix and trims the name", () => {
+    const r = saveMixInputSchema.safeParse(valid);
+    expect(r.success).toBe(true);
+    expect(r.success && r.data.name).toBe("Morning");
+  });
+
+  it("rejects empty mixes, unknown loop modes and unknown item kinds", () => {
+    expect(saveMixInputSchema.safeParse({ ...valid, items: [] }).success).toBe(false);
+    expect(saveMixInputSchema.safeParse({ ...valid, loop: "forever" }).success).toBe(false);
+    expect(
+      saveMixInputSchema.safeParse({ ...valid, items: [{ ...tala, kind: "video" }] }).success
+    ).toBe(false);
+  });
+
+  it("rejects non-finite and out-of-range numbers", () => {
+    expect(saveMixInputSchema.safeParse({ ...valid, defaultGap: NaN }).success).toBe(false);
+    expect(saveMixInputSchema.safeParse({ ...valid, defaultGap: Infinity }).success).toBe(false);
+    expect(
+      saveMixInputSchema.safeParse({ ...valid, items: [{ ...tala, bpm: 1e9 }] }).success
+    ).toBe(false);
+  });
+
+  it("caps the number of items", () => {
+    const items = Array.from({ length: MAX_MIX_ITEMS + 1 }, () => tala);
+    expect(saveMixInputSchema.safeParse({ ...valid, items }).success).toBe(false);
   });
 });

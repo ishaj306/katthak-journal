@@ -9,6 +9,8 @@ export type RiyazFormState = { error?: string };
 
 const initialState: RiyazFormState = {};
 
+const MAX_NOTES = 5000;
+
 async function getUser() {
   const { userId } = await auth();
   if (!userId) throw new Error("Not signed in");
@@ -31,6 +33,9 @@ export async function startRiyaz(): Promise<RiyazFormState> {
 
 export async function stopRiyaz(notes: string): Promise<RiyazFormState> {
   const { supabase, userId } = await getUser();
+  if (typeof notes !== "string" || notes.length > MAX_NOTES) {
+    return { error: `Notes can be up to ${MAX_NOTES} characters` };
+  }
   const { data: open } = await supabase
     .from("riyaz_sessions")
     .select("id")
@@ -48,7 +53,8 @@ export async function stopRiyaz(notes: string): Promise<RiyazFormState> {
       ended_at: new Date().toISOString(),
       notes: notes.trim() || null,
     })
-    .eq("id", open.id);
+    .eq("id", open.id)
+    .eq("user_id", userId);
 
   if (error) return { error: error.message };
   revalidatePath("/riyaz");
@@ -72,7 +78,8 @@ export async function cancelRiyaz(): Promise<RiyazFormState> {
   const { error } = await supabase
     .from("riyaz_sessions")
     .delete()
-    .eq("id", open.id);
+    .eq("id", open.id)
+    .eq("user_id", userId);
   if (error) return { error: error.message };
   revalidatePath("/riyaz");
   return initialState;
@@ -140,8 +147,13 @@ export async function sealDay(
 }
 
 export async function deleteSession(id: string): Promise<void> {
-  const { supabase } = await getUser();
-  await supabase.from("riyaz_sessions").delete().eq("id", id);
+  const { supabase, userId } = await getUser();
+  const { error } = await supabase
+    .from("riyaz_sessions")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", userId);
+  if (error) throw new Error(error.message);
   revalidatePath("/riyaz");
   revalidatePath("/ghungroo");
 }
